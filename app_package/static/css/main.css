@@ -7,9 +7,8 @@
 }
 
 .sidenav {
-  position: fixed;
-  left: -250px;
-  width: 250px;
+  width: 0;
+  overflow: hidden;
   height: 100%;
   background: #042331;
   transition: all 0.5s ease;
@@ -77,13 +76,11 @@ label #cancel {
 }
 
 #check:checked ~ .sidenav {
-  left: 0;
+  width: 250px;
 }
 
 #check:checked ~ label #btn {
-  left: 250px;
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 #check:checked ~ label #cancel {

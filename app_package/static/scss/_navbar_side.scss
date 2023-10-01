@@ -6,10 +6,12 @@
 }
 
 .sidenav {
-    position: fixed;
-    // left: 0;
-    left: -250px;
-    width: 250px;
+    // position: fixed;
+    // left: -250px;
+    // width: 250px;
+    width: 0;
+    overflow: hidden;
+
     height: 100%;
     background: #042331;
     transition: all .5s ease;
@@ -74,13 +76,15 @@ label #cancel{
     transition: all .5s ease;
 }
 #check:checked ~ .sidenav{
-    left: 0;
+    // left: 0;
+    width: 250px;
 }
 
 #check:checked ~ label #btn{
-    left: 250px;
-    opacity: 0;
-    pointer-events: none;
+    // left: 250px;
+    // opacity: 0;
+    // pointer-events: none;
+    display: none;
 }// not sure what this does
 
 #check:checked ~ label #cancel{
