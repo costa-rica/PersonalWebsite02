@@ -1,0 +1,28 @@
+{% extends "_layout.html" %}
+{% block main %}
+<div class="space_for_navbar_and_footer">
+
+
+
+<div class="view_post_super">
+
+    <div class="view_post">
+
+
+        {% if current_user.is_authenticated %}
+        <div class="div_right">
+          <a href="{{ url_for('bp_blog.blog_user_home') }}" > Blog User Home </a>
+        </div>
+        {% endif %}
+        <div class="post">
+          {% include template_post_index %}
+        </div>
+        
+    </div>
+    
+</div><!-- view_post_super -->
+
+</div><!-- space_for_navbar_and_footer -->
+
+
+{% endblock %}

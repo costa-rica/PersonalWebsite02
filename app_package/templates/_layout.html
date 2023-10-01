@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+
+  <link rel="icon" href="{{ url_for('bp_main.website_files', filename='logo02_whiteBck.svg') }}" type="image/x-icon">
+  <title>I am Nick</title>
+  <script src="https://kit.fontawesome.com/dd4fc26679.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="sidenav_and_main_c">
+  <input type="checkbox" id="check">
+  <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+      <!-- both these icons do the same thing: toggle the checkbox -->
+  </label>
+  <div class="sidenav">
+    <a href="#" class="logo">
+      <img src="{{ url_for('bp_main.website_files', filename='logo01.svg') }}" class="logo-icon">
+    </a>
+    <ul>
+      <li><a href="#"><i class="fas fa-house"></i>Home</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-user"></i>User</a></li>
+
+    </ul>
+
+  </div>
+  <div class="main_c">
+    {% block main %}{% endblock %}
+  </div>
+</div>
+</body>
+</html>

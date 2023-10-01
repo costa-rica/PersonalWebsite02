@@ -1,0 +1,64 @@
+{% extends "_layout.html" %}
+{% block title %} Post to Blog {% endblock %}
+{% block main %}
+<form method="POST" id="form_edit" enctype=multipart/form-data></form>
+
+<div class="edit_post_super">
+
+  <div class="blog_form_div">
+    <div class="button_div_right">
+      <a href="{{ url_for('bp_blog.blog_user_home') }}" > Blog User Home </a>
+    </div>
+    
+    <h2>Edit blog post</h2>
+
+    <div class="blog_form_sub_top">
+
+      <div class="blog_form_label_div">
+        <label for="blog_description">Title</label>
+      </div>
+      <div class="blog_form_input_div">
+        <input type="text" class="form-control" name="blog_title" value="{{ title }}" form="form_edit">
+      </div>
+
+      <div class="blog_form_label_div">
+        <label for="blog_description">Description</label>
+      </div>
+      <div class="blog_form_input_div">
+        <textarea class="form-control" name="blog_description" id="blog_description"
+          placeholder="optional (takes word doc 2nd/3rd paragraph)" form="form_edit">{{ description }}</textarea>
+      </div>
+
+
+      <div class="blog_form_label_div">
+        Date
+      </div>
+      <div class="blog_form_input_div">
+        <input type="date" name="blog_date_published" class="form-control" value="{{ post_date }}" form="form_edit">
+      </div>
+      
+
+      <div class="blog_form_label_div">
+        time_stamp_utc
+      </div>
+      <div class="blog_form_input_div">
+        <input type="date" name="blog_date_published" class="form-control gray_input" value="{{ post_time_stamp_utc }}" readonly>
+      </div>
+
+
+
+      <div class="blog_form_buttons">
+
+        <div class="button_div_right">
+          <input type="submit" value="Upload" class="btn btn-primary" form="form_edit">
+        </div>
+
+      </div><!-- blog_form_buttons -->
+      
+    </div><!-- blog_form_sub_top-->
+  </div><!-- blog_form_div -->
+
+</div><!-- edit_post_super -->
+
+
+  {% endblock %}

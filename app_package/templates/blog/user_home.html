@@ -1,0 +1,121 @@
+{% extends "_layout.html" %}
+{% block title %} User Blog Home {% endblock %}
+{% block main %}
+<form method="POST" id="form_user_home" enctype=multipart/form-data></form>
+
+<div class="space_for_navbar_and_footer">
+
+
+  <div class="blog_home_super">
+
+    <div class="blog_home">
+
+      <h2>Dashboards and Databases Blog Posts</h2>
+
+      <div class="post_btn_div">
+        <a class="btn btn-info extra_padding" href="{{ url_for('bp_blog.create_post') }}">Create Post</a>
+
+      </div><!-- post_btn_div -->
+      <div class="admin_btn_div">
+
+        <a href="{{ url_for('bp_admin.admin_page' ) }}" class="btn btn-info">Admin Database</a>
+      </div><!-- admin_btn_div -->
+
+
+      <div class="table_background_sub">
+        <div class="table_background">
+          <table id="table_id" class="display table responsive ">
+            <thead>
+              <tr>
+                {% for i in column_names %}
+                <th>{{ i }}</th>
+                {% endfor %}
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in posts_details_list %}
+              <tr>
+                <td><!-- post Id-->
+                  {{ row[0] }}
+                </td>
+
+                <td><!-- blog title -->
+                  <div class="td_characteristics">
+
+                    {{ row[1] }}
+                  </div>
+                </td>
+
+                <td><!-- delete -->
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-bs-whatever="{{ row[0] }}">Delete</button>
+                </td>
+
+                {% for i in range(2,len(row)-1) %}
+                <td>
+                  <div class="td_characteristics">
+                    {{ row[i] }}
+                  </div>
+                </td>
+                {% endfor %}
+
+                <td>
+                  <a href="{{ url_for('bp_blog.blog_edit', post_id= row[0] ) }}" class="btn btn-info">{{ row[4] }}</a>
+
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div><!-- table_background -->
+      </div><!-- table_background_sub -->
+
+      <!-- Modal Delete -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        {% include "modals/delete_post.html" %}
+      </div><!-- modal -->
+    </div><!-- blog_home -->
+
+
+
+  </div><!-- blog_home_super -->
+</div><!-- space_for_navbar_and_footer -->
+
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#table_id').DataTable();
+});
+</script>
+
+
+
+<!--Delete modal read record id-->
+<script>
+  var deleteModal = document.getElementById('deleteModal')
+  deleteModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var recipient = button.getAttribute('data-bs-whatever')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var modalTitle = deleteModal.querySelector('.modal-title')
+    var modalBodyInput = deleteModal.querySelector('.modal-body input')
+
+    modalTitle.textContent = 'Delete record ' + recipient + '?'
+    modalBodyInput.value = recipient
+
+  });
+</script>
+
+
+{% endblock %}

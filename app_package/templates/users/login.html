@@ -1,0 +1,81 @@
+{% extends "_layout.html" %}
+{% block main %}
+<form method="POST" id="form_1"></form>
+
+<!-- <div class="main"> -->
+  <div class="space_for_navbar_and_footer flex_center">
+  
+  <div class="login_page">
+
+      <div class = "title">
+        <h1>{{ page_name }}</h1>
+      </div>
+  
+      <div class="login_form">
+
+          <div class="login_form_sub">
+
+            <div class="email_form">
+              <label for="email">Email:</label>
+              <input type="text" id="email" name="email" form="form_1">
+            </div>
+    
+            <div class="password_form">
+              <label for="password">Password:</label>
+              <input type="password" id="password_text" name="password" form="form_1">
+            </div>
+    
+    
+    
+            
+            <div class="element_right">
+    
+              <div class="show_password">
+                <input class="form-check-input" type="checkbox" value="" id="password_checkbox" form="form_1">
+                <label class="form-check-label" for="password_checkbox">
+                  Show password
+                </label>
+              </div>
+    
+    
+              <div class="element_right_sub">
+                <input type="submit" value="Login" name="btn_login" class="btn btn-secondary btn_custom01" form="form_1">
+                <!-- <input type="submit" value="Login As Guest" name="btn_login_as_guest" class="btn btn-secondary btn_custom02"> -->
+      
+                <div class="forgot_password">
+                  <a href="{{ url_for('bp_users.reset_password') }}">Forgot Password?</a>
+                </div>
+              </div>
+    
+            </div>
+
+          </div><!-- login_form_sub -->
+
+
+
+  
+      </div><!-- login_form -->
+      
+
+
+
+
+  </div>
+</div><!-- main -->
+
+<!-- Show password -->
+<script>
+  window.addEventListener("load", function(){
+      var checkbox  = document.getElementById('password_checkbox');
+      var x = document.getElementById('password_text');
+      checkbox.addEventListener('change', function() {
+          if(this.checked) {
+              x.type = 'text'; 
+          } else {
+              x.type = 'password'; 
+          }
+      });
+  });
+</script>
+
+{% endblock %}

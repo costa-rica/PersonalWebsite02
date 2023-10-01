@@ -1,0 +1,22 @@
+{% extends "_layout.html" %}
+{% block title %} {{ error_number }} {% endblock %}
+{% block main %}
+<!-- <div class="main"> -->
+    <div class="space_for_navbar_and_footer flex_center">
+    <div class="error_page_super">
+        <div class="error_page">
+            <div class="title"><h1>Ooops... {{ error_number }}</h1></div>
+           
+           
+
+           <div class="description">
+            If you would like to send the error below and url to nickrodriguez@kineticmetrics.com much appreciated &#128522;:<br>
+             {{ error_message }}
+           </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

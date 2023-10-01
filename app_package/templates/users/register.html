@@ -1,0 +1,68 @@
+{% extends "_layout.html" %}
+{% block main %}
+
+
+<!-- <div class="main"> -->
+<div class="space_for_navbar_and_footer flex_center">
+
+  <div class="register_page">
+
+    <div class="title">
+      <h1>{{ page_name }}</h1>
+    </div>
+
+    <div class="register_form">
+      <form method="POST" id="form_1">
+        <div class="register_form_sub">
+
+          <div class="email_form_group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" class="register_text" form="form_1">
+          </div>
+
+          <div class="password_form_group">
+            <label for="password">Password:</label>
+            <input type="password" id="password_text" name="password" class="register_text" form="form_1" required>
+          </div>
+
+          <div class="submit_form_group">
+            <input class="form-check-input" type="checkbox" value="" id="password_checkbox" form="form_1">
+            <label class="form-check-label" for="password_checkbox">
+              Show password
+            </label>
+            <br>
+            <div class="element_right">
+              <input type="submit" value="Submit" class="btn btn-secondary btn_custom01" form="form_1">
+            </div>
+          </div>
+
+        </div><!-- register_form_sub -->
+
+      </form>
+
+
+    </div><!-- register_form -->
+
+
+
+
+
+  </div>
+</div><!-- main -->
+
+<!-- Show password -->
+<script>
+  window.addEventListener("load", function () {
+    var checkbox = document.getElementById('password_checkbox');
+    var x = document.getElementById('password_text');
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        x.type = 'text';
+      } else {
+        x.type = 'password';
+      }
+    });
+  });
+</script>
+
+{% endblock %}

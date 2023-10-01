@@ -1,0 +1,8 @@
+~$*
+**.DS_Store
+*/__pycache__/*
+__pycache__/
+*.log
+/logs/
+/app_package/static/node_modules/
+

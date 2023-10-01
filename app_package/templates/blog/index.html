@@ -1,0 +1,73 @@
+{% extends "_layout.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block main %}
+
+<div class="space_for_navbar_and_footer">
+
+
+<div class="post_index flex_center">
+
+    <div class="grid5_blog ">
+        <div class="std_framing">
+          {% if current_user.is_authenticated %}
+          <div class="div_link_to_rest">
+            <a href="{{ url_for('bp_blog.blog_user_home') }}" > Blog User Home </a>
+          </div>
+          {% endif %}
+            <div class="div_link_to_rest">
+                <a href="{{ url_for('bp_main.home') }}" id="go_home_link"> Go Home</a>
+              </div>
+
+
+          <div class="grid5_blog_title_super">
+            {% if current_user.admin %}
+            <a href="{{ url_for('bp_blog.blog_user_home' ) }}" class="no_show">
+              <div class="grid5_blog_title"><h2>Blog Posts</h2></div>
+            </a>
+
+            {% else %}
+            <div class="grid5_blog_title"><h2>Blog Posts</h2></div>
+            {% endif %}
+
+          </div><!-- grid5_blog_title -->
+
+
+          
+          {% for post in blog_posts_list %}
+        
+          <div class="blogpost_super">
+
+            <a href="{{ url_for('bp_blog.view_post', post_dir_name=post[3]) }}">
+
+              <div class="blogpost">
+                <div class="blogpost_date">
+                  {{ post[0] }}
+                </div>
+
+                <div class="blogpost_title">
+                  {{ post.1 }}
+                </div>
+
+
+                <div class="blogpost_description">
+                  {{ post.2 }}
+                </div>
+
+              </div><!-- blogpost -->
+            </a>
+          </div><!-- blogpost_super -->
+
+
+          {% endfor %}
+
+
+        </div><!-- std_framing -->
+
+      </div><!-- grid5_blog -->
+
+
+</div><!-- post_index -->
+</div><!-- space_for_navbar_and_footer -->
+{% endblock %}
