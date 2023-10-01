@@ -99,6 +99,8 @@ label #cancel {
   background: gray;
   width: 100%; /* ensure it spans the full width */
   overflow: hidden; /* hide any overflowing content */
+  height: 100vh;
+  align-items: stretch;
 }
 
 .main_c {
