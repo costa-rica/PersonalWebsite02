@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 .navbar_top {
   background-color: #333;
@@ -92,7 +93,9 @@
   }
   .navbar_side_wide {
     display: block;
-    width: 250px;
+    flex-grow: 0; /* Don’t grow beyond initial size */
+    flex-shrink: 0; /* Don’t shrink below initial size */
+    width: 250px; /* Or whatever width you desire */
     height: 100%;
     height: 100vh;
     background: var(--color-dark);
@@ -134,12 +137,37 @@ body {
   height: 100%;
 }
 
+.main_super {
+  padding: 5rem;
+  display: flex;
+  background-color: aquamarine;
+  width: 100%;
+}
+
+.home_page {
+  display: flex;
+  justify-content: space-between;
+  background-color: green;
+  flex: 1;
+}
+
+#col_1_hi, #col_2_hire {
+  padding: 20px; /* optional: for some space inside the columns */
+  flex: 1;
+}
+
+.s_text_color_yellow {
+  color: var(--color-yellow);
+}
+
 @media screen and (min-width: 768px) {
-  .main {
-    left: 250px;
-  }
   .div_fixed_nav_and_main {
     display: flex;
+    height: 100vh; /* Optional: Takes the full height of the viewport */
+  }
+  .main_super {
+    flex-grow: 1; /* Grow and take up any extra space */
+    flex-shrink: 1; /* Can shrink if needed */
   }
 }
 
