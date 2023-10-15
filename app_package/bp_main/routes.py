@@ -29,7 +29,18 @@ def home():
 
     return render_template('main/home.html')
 
+@bp_main.route("/about", methods=["GET","POST"])
+def about():
+    logger_bp_main.info(f"-- in about page route --")
 
+    return render_template('main/home.html')
+
+
+@bp_main.route("/<page>", methods=["GET","POST"])
+def pages(page):
+    logger_bp_main.info(f"-- in {page} route --")
+
+    return render_template('main/pages.html', page=page)
 
 # Website Files static data
 @bp_main.route('/website_files/<filename>')

@@ -1,26 +1,36 @@
-@use "navbar_side";
+@use "navbar";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --nav-height: 123px;
+    --color-dark: #000814;
+    --color-blue-dark: #001D3D;
+    // --color-blue: #003566;
+    --color-blue: #3C3C5B;
+    --color-yellow: #FFC300;
+    --color-white: #FFFFFF;
+  }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    // background-color: green;
 }
-.sidenav_and_main_c{
-    display: flex;
-    background: gray;
-    width: 100%; /* ensure it spans the full width */
-    overflow: hidden; /* hide any overflowing content */
-    // height:100%;
+body{background-color: var(--color-blue)}
+.main{
+    background-color: aqua;
     height:100vh;
-    align-items: stretch;
 }
-
-.main_c{
-    flex-grow:1;
-    // margin:0;
-    // padding:0;
-    // box-sizing: border-box;
+.pages_page{
+    background-color: orange;
+    height:100%;
+}
+@media screen and (min-width: 768px) {
+    .main{
+        left:250px;
+    }
+    .div_fixed_nav_and_main{
+        display:flex;
+    }
 }
