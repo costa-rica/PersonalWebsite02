@@ -5,25 +5,58 @@
     <div class="home_page">
 
         <div class="col_1">
+            <div class="col_1_sub">
+                <div class="div_hi_big">
+                    <h1>Hi, I'm <span class="s_text_color_yellow">Nick</span></h1>
+                </div>
+                <div class="div_welcome">
+                    <span>Welcome to my website</span>
+                </div>
+                <div class="paragraph_home_super">
+                    <div class="paragraph_home">I’m a  <span class="s_text_color_yellow">Software Developer</span> specializing in web and mobile apps.</div>
+                    <div class="paragraph_home">
+                        In my free time, I am either working on my passion integrating technology with wellness at what-sticks.com or working on my cars.
+                    </div>
+                    <div class="paragraph_home">
+                        I love talking about the world, hobbies and especially how technology can improve the lives of people.
+                    </div>
+                </div>
 
-            <div class="div_hi_big">
-                <h1>Hi, I'm <span class="s_text_color_yellow">Nick</span></h1>
-            </div>
-            <div class="div_welcome">
-                <span>Welcome to my website</span>
-            </div>
-            <div class="paragraph01">I’m a  <span class="s_text_color_yellow">Software Developer</span> specializing in web and mobile apps.</div>
-    
-        </div><!-- col_1_hi -->
+            </div><!-- col_1_sub -->
+
+
+        </div><!-- col_1 -->
     
         <div class="col_2">
-            <span class="s_hi_big">
-                <h1>Want to hire me?</h1>
-            </span>
-        </div><!-- col_2_hire -->
+            <div class="col_2_sub">
+                <span class="s_hi_big">
+                    <h1>Want to hire me?</h1>
+                </span>
+                <div class="div_email">
+                    <button id="emailButton" class="btn btn_custom"><i class="fa-solid fa-envelope icon-color"></i> Email</button>
+                </div>
+                <div class="hr_or_hr">
+                    <span class="line"></span>
+                    <span class="or">or</span>
+                    <span class="line"></span>
+                </div>
+                
+                <div class="other_contact">
+                    <a href="https://www.linkedin.com/in/nick-rodriguez-0a31a133" class="btn btn_custom"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.upwork.com/freelancers/~01dc51f3dc9d27380e" class="btn btn_custom">Upwork</a>
+                </div>
+
+            </div>
+
+        </div><!-- col_2 -->
 
     </div><!-- home_page-->
-
+    <script>
+        document.getElementById('emailButton').addEventListener('click', function() {
+            var subject = "Hi Nick, I'm interested in working with you"
+            window.location.href = "mailto:nrodrig1@gmail.com?subject=" + encodeURIComponent(subject);
+        });
+      </script>
 </div><!-- main_super -->
 
 

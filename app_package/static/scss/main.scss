@@ -3,14 +3,22 @@
 
 :root {
     --nav-height: 123px;
+    --nav-width: 300px;
     --color-dark: #000814;
     --color-blue-dark: #001D3D;
     // --color-blue: #003566;
     --color-blue: #3C3C5B;
     --color-yellow: #FFC300;
     --color-white: #FFFFFF;
-    --color_gray_test_01:#b1afaf;
 
+    --color-light-blue-button: #565481;
+    --color-gray01-light: #d1d1d1;
+    --color-gray02: #bfbfbf;
+    --color-gray03: #a0a0a0;
+    --color-gray04: #808080;
+    --color-gray-text:var(--color-gray01-light);
+    --color_gray_test_01:#898989;
+    
   }
 
 * {
@@ -29,6 +37,29 @@ body{background-color: var(--color-blue)}
     height:100%;
 }
 
+.btn_custom{
+    padding:1rem;
+    border-radius: 1rem;
+    background-color: var(--color-light-blue-button);
+    border:none;
+    color:var(--color-gray-text);
+    // box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+.btn_custom:active {
+    background-color: var(--color-gray04);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+.btn_custom:hover{
+    cursor: pointer;
+}
+.icon-color{
+    color:var(--color-yellow)
+}
+
 .main_super{
     flex-grow: 1;  /* Grow and take up any extra space */
     flex-shrink: 1;  /* Can shrink if needed */
@@ -39,21 +70,64 @@ body{background-color: var(--color-blue)}
 }
 .home_page {
     display: flex;
-    justify-content: space-between;
-    // background-color: green;
-    // width:100%;
-    flex:1;
+    // justify-content: space-between;
+    // flex:1;
     gap:1rem;
+    flex-wrap: wrap;
 
     .col_1, .col_2 {
-        // width: 48%;
-        padding: .5rem;  /* optional: for some space inside the columns */
-        flex:1;
-        background-color: var(--color_gray_test_01);
+        display:flex;
+        justify-content: center;
+        // flex:1;
+        // align-items: center;
+        color:var(--color-gray-text);
+        width:100%;
+    }
+    .col_1_sub{
+        width: 80%;
+        height:fit-content;
     }
     
-
     .s_text_color_yellow{color:var(--color-yellow)}
+    .div_hi_big{width:100%}
+    .div_welcome{
+        width:100%;
+        color: var(--color_gray_test_01)
+    }
+    .paragraph_home_super{padding-top:5rem;}
+    .paragraph_home{
+        padding: .5rem 0;
+    }
+
+    .div_email{
+        width:100%;
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+    .hr_or_hr{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:1rem;
+        padding:1rem 0;
+    }
+    .hr_or_hr .line {
+        background-color: var(--color-gray02); /* Line color */
+        height: 1px; /* Line thickness */
+        flex-grow: 1;
+        // margin: 0 10px;
+      }
+      
+    .hr_or_hr .or {
+        padding: 0 10px;
+        white-space: nowrap;
+      }
+    .other_contact{
+        display:flex;
+        justify-content: center;
+        gap:1rem;
+    }
 }
 
 
@@ -66,9 +140,17 @@ body{background-color: var(--color-blue)}
         display: flex;
         height: 100vh;  /* Optional: Takes the full height of the viewport */
     }
-    
-    // .main_super {
-    //     // flex-grow: 1;  /* Grow and take up any extra space */
-    //     // flex-shrink: 1;  /* Can shrink if needed */
-    // }
+    .home_page {
+        // display: flex;
+        justify-content: space-between;
+        flex:1;
+        flex-wrap: nowrap;
+        .col_1, .col_2 {
+            // display:flex;
+            // justify-content: center;
+            flex:1;
+            align-items: center;
+        }
+    }
+
 }

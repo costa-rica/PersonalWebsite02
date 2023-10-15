@@ -74,6 +74,8 @@ def create_app(config_for_flask = config):
     # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
     if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE):
         os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE)
+    if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE_TEMPLATES):
+        os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE_TEMPLATES)
     # config.DIR_DB_AUX_BLOG directory:
     if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG):
         os.makedirs(config_for_flask.DIR_DB_AUX_BLOG)

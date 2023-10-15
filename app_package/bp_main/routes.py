@@ -1,8 +1,10 @@
 from flask import Blueprint
-from flask import render_template, send_from_directory, current_app
+from flask import render_template, send_from_directory, current_app, url_for,  \
+    get_flashed_messages
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+import jinja2
 
 
 bp_main = Blueprint('bp_main', __name__)
@@ -33,7 +35,26 @@ def home():
 def about():
     logger_bp_main.info(f"-- in about page route --")
 
-    return render_template('main/home.html')
+    return render_template('main/about.html')
+
+@bp_main.route("/resume", methods=["GET","POST"])
+def resume():
+    logger_bp_main.info(f"-- in about page route --")
+
+    templates_path_lists = [
+        os.path.join(current_app.config.root_path,"templates"),
+        os.path.join(current_app.config.get('DIR_DB_AUX_FILES_WEBSITE_TEMPLATES') )
+    ]
+
+    templateLoader = jinja2.FileSystemLoader(searchpath=templates_path_lists)
+
+    templateEnv = jinja2.Environment(loader=templateLoader)
+    template_parent = templateEnv.get_template("main/resume.html")
+    template_layout = templateEnv.get_template("_layout.html")
+    template_post_index = templateEnv.get_template("resumeNRodriguez.html")
+
+    return template_parent.render(template_layout=template_layout, template_post_index=template_post_index, \
+        url_for=url_for, get_flashed_messages=get_flashed_messages)
 
 
 @bp_main.route("/<page>", methods=["GET","POST"])

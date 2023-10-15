@@ -25,11 +25,11 @@
     <div class="div_logo">
       <img class="img_logo" src="{{ url_for('bp_main.website_files', filename='logo03_white.png')}}"/>
     </div>
-    <div >
+    <div class="navbar_list">
       <ul>
         <li><a href="{{ url_for('bp_main.home') }}"><i class="fas fa-qrcode"></i>Home</a></li>
         <li><a href="{{ url_for('bp_main.about', page='shortcuts') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
-        <li><a href="{{ url_for('bp_main.home', page='Overview') }}"><i class="fa-solid fa-briefcase"></i>Work</a></li>
+        <li><a href="{{ url_for('bp_main.home', page='Overview') }}"><i class="fa-solid fa-briefcase"></i>CV</a></li>
         <li><a href="{{ url_for('bp_main.pages', page='Events') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
         <li><a href="{{ url_for('bp_main.pages', page='about') }}"><i class="fas fa-question-circle"></i>About this page</a></li>    
       </ul>
@@ -43,15 +43,15 @@
 
   <div class="div_fixed_nav_and_main">
 
-    <div  class="navbar_side_wide">
+    <div  class="navbar_side navbar_side_wide">
       <div class="div_logo">
         <img class="img_logo" src="{{ url_for('bp_main.website_files', filename='logo03_white.png')}}"/>
       </div>
-      <div >
+      <div class="navbar_list">
         <ul>
-          <li><a href="{{ url_for('bp_main.home') }}"><i class="fas fa-qrcode"></i>Home</a></li>
-          <li><a href="{{ url_for('bp_main.about', page='shortcuts') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
-          <li><a href="{{ url_for('bp_main.home', page='Overview') }}"><i class="fa-solid fa-briefcase"></i>Work</a></li>
+          <li><a href="{{ url_for('bp_main.home') }}"><i class="fas fa-home"></i>Home</a></li>
+          <li><a href="{{ url_for('bp_main.about') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
+          <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>CV</a></li>
           <li><a href="{{ url_for('bp_main.pages', page='Events') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
           <li><a href="{{ url_for('bp_main.pages', page='about') }}"><i class="fas fa-question-circle"></i>About this page</a></li>    
         </ul>
