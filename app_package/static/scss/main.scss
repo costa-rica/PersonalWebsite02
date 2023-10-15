@@ -9,6 +9,8 @@
     --color-blue: #3C3C5B;
     --color-yellow: #FFC300;
     --color-white: #FFFFFF;
+    --color_gray_test_01:#b1afaf;
+
   }
 
 * {
@@ -19,7 +21,7 @@
 }
 body{background-color: var(--color-blue)}
 .main{
-    background-color: aqua;
+    // background-color: aqua;
     height:100vh;
 }
 .pages_page{
@@ -28,29 +30,34 @@ body{background-color: var(--color-blue)}
 }
 
 .main_super{
-    // flex-grow:1;
-    // flex-shrink:1;
-    padding: 5rem;
+    flex-grow: 1;  /* Grow and take up any extra space */
+    flex-shrink: 1;  /* Can shrink if needed */
+    padding: .5rem;
     display:flex;
-    background-color: aquamarine;
+    // background-color: aquamarine;
     width:100%
 }
 .home_page {
     display: flex;
     justify-content: space-between;
-    background-color: green;
+    // background-color: green;
     // width:100%;
     flex:1;
+    gap:1rem;
+
+    .col_1, .col_2 {
+        // width: 48%;
+        padding: .5rem;  /* optional: for some space inside the columns */
+        flex:1;
+        background-color: var(--color_gray_test_01);
+    }
+    
+
+    .s_text_color_yellow{color:var(--color-yellow)}
 }
 
-#col_1_hi, #col_2_hire {
-    // width: 50%;
-    padding: 20px;  /* optional: for some space inside the columns */
-    flex:1;
-}
 
 
-.s_text_color_yellow{color:var(--color-yellow)}
 
 
 
@@ -60,8 +67,8 @@ body{background-color: var(--color-blue)}
         height: 100vh;  /* Optional: Takes the full height of the viewport */
     }
     
-    .main_super {
-        flex-grow: 1;  /* Grow and take up any extra space */
-        flex-shrink: 1;  /* Can shrink if needed */
-    }
+    // .main_super {
+    //     // flex-grow: 1;  /* Grow and take up any extra space */
+    //     // flex-shrink: 1;  /* Can shrink if needed */
+    // }
 }
