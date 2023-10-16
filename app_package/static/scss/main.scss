@@ -68,16 +68,12 @@ body{background-color: var(--color-blue)}
 }
 .home_page {
     display: flex;
-    // justify-content: space-between;
-    // flex:1;
     gap:1rem;
     flex-wrap: wrap;
 
     .col_1, .col_2 {
         display:flex;
         justify-content: center;
-        // flex:1;
-        // align-items: center;
         color:var(--color-gray-text);
         width:100%;
     }
@@ -128,6 +124,45 @@ body{background-color: var(--color-blue)}
     }
 }
 
+.about_page{
+    display: flex;
+    gap:1rem;
+    flex-wrap: wrap;
+
+    .col_1, .col_2 {
+        display:flex;
+        justify-content: center;
+        color:var(--color-gray-text);
+        width:100%;
+    }
+    .col_1_sub{
+        display:flex;
+        flex-wrap:wrap;
+        width: 80%;
+        height:fit-content;
+        justify-content: center;
+        background-color: var(--color_gray_test_01);
+
+    }
+    .div_image_of_me{
+        background-color: var(--color_gray_test_01);
+        width: 100%;
+        justify-content: center;
+        display: flex;
+
+    }
+    .img_montmarte{
+        width:60%;
+    }
+    .other_contact{
+        padding:3rem 0;
+        width:60%;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: center;
+        gap:1rem;
+    }
+}
 
 
 
@@ -138,17 +173,15 @@ body{background-color: var(--color-blue)}
         display: flex;
         height: 100vh;  /* Optional: Takes the full height of the viewport */
     }
-    .home_page {
-        // display: flex;
+    .home_page, .about_page {
         justify-content: space-between;
         flex:1;
         flex-wrap: nowrap;
         .col_1, .col_2 {
-            // display:flex;
-            // justify-content: center;
             flex:1;
             align-items: center;
         }
     }
+
 
 }
