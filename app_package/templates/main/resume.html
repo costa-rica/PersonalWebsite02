@@ -3,11 +3,201 @@
 <div class="main_super">
 
     <div class="resume_page">
-        This is the resume page
-        <div class="post">
-            {% include template_post_index %}
-          </div>
-        
+        <div class="div_top_personal_info">
+            <div class="div_left">
+                <div class="div_name">
+                    <h1>Nick Rodriguez</h1><a href="{{ url_for('bp_main.website_files', filename='resumeNRodriguez.pdf') }}" class="download-button">Download PDF</a>
+
+                    <!-- <a href="" class="btn_pdf" ><i class="fa-solid fa-file-pdf"></i></a> -->
+                </div>
+                <div class="div_job_title">
+                    <h3>Software Engineer</h3>
+                </div>
+                <div class="div_objective">
+                    Entry-level programmer with a passion for software development and problem-solving. Seeking a challenging position in a fast-paced environment where I can use my skills to make a positive impact and learn.
+                </div>
+                <div class="div_skills">
+                    <span class="s_text_color_yellow">Skills:</span> Python, Swift, HTML/CSS, SQL, AWS, Linux Server, Restful API, Hosting Web Applications, Manage DNS, GitHub
+                </div>
+            </div>
+            <div class="div_contact_details">
+                <div class="div_contact_detail_item">
+                    <i class="fa-solid fa-envelope"></i> <span class="div_contact_detail_item_text">nrodrig1@gmail.com</span>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-solid fa-phone"></i> <span class="div_contact_detail_item_text">+33.07.66.68.03.09</span>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-solid fa-location-dot"></i> <span class="div_contact_detail_item_text">Paris, France (U.S. Citizen)</span>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-solid fa-globe"></i> <a href="https://iamnick.info" class="div_contact_detail_item_text">iamnick.info</a>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-brands fa-github"></i> <a href="https://github.com/costa-rica" 
+                    class="div_contact_detail_item_text">github.com/costa-rica</a>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-brands fa-stack-overflow"></i> 
+                    <a href="https://stackoverflow.com/users/11925053/costa-rica" class="div_contact_detail_item_text">costa-rica</a>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-brands fa-linkedin"></i> 
+                    <a href="https://www.linkedin.com/in/nick-rodriguez-0a31a133" class="div_contact_detail_item_text">Nick Rodriguez</a>
+                </div>
+                <div class="div_contact_detail_item">
+                    <i class="fa-brands fa-medium"></i>
+                    <a href="https://medium.com/@nrodrig1" class="div_contact_detail_item_text">@nrodrig1</a>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <div class="div_projects">
+            <div class="div_projects_title"><h2>Projects</h2></div>
+
+            <div class="div_project">
+                <div class="div_title_and_url">
+                    <div class="title">
+                        <a href="https://github.com/amwebexpert/poc-mobile-python"><h3>Open Mindset</h3></a>
+                    </div>
+                </div>
+                <div class="div_project_description">
+                    Converted Python application to Xcode project and submitted to Apple App Store. Python multi-platform app using the KivyMD framework, integrating Artificial Intelligence features. 
+                </div>
+                <div class="div_project_technolgies">
+                    Technologies used: Python, Xcode, Github, kivy-ios toolchain. 
+                </div>
+                <div class="div_project_other_details">
+                    TestFlight iOS application:  <a href="https://testflight.apple.com/join/1gCPBjbZ">https://testflight.apple.com/join/1gCPBjbZ</a>
+                </div>
+            </div><!-- div_project -->
+
+            <div class="div_project">
+                <div class="div_title_and_url">
+                    <div class="title">
+                        <a href="https://nhtsa-dash.kineticmetrics.com/"><h3>NHTSA Dashboard</h3></a>
+                    </div>
+                </div>
+                <div class="div_project_description">
+                    Interface built for Kinetic Metrics to merge National Highway Traffic and Safety Administration (NHTSA) Recalls and Investigation data with their internal research. 
+                </div>
+                <div class="div_project_technolgies">
+                    Technologies used: Flask Python, HTML/CSS and SQLite database.
+                </div>
+            </div><!-- div_project -->
+
+            <div class="div_project">
+                <div class="div_title_and_url">
+                    <div class="title">
+                        <a href="https://tu-rincon.com"><h3>Tu Rincon</h3></a>
+                    </div>
+                </div>
+                <div class="div_project_description">
+                    Social media application with web and iOS application (TestFlight). Let’s users create “rincóns” or chatrooms that can be public or private and post pictures and videos. 
+                </div>
+                <div class="div_project_technolgies">
+                    Technologies used: Flask Python, Swift, restful API, and SQLite database
+                </div>
+                <div class="div_project_other_details">
+                    TestFlight iOS application:  <a href="https://testflight.apple.com/join/06nz9Gc2">https://testflight.apple.com/join/06nz9Gc2</a>
+                </div>
+            </div><!-- div_project -->
+
+            <div class="div_project">
+                <div class="div_title_and_url">
+                    <div class="title">
+                        <a href="https://what-sticks.com/"><h3>What-Sticks</h3></a>
+                    </div>
+                </div>
+                <div class="div_project_description">
+                    Personal data storage platform with statistical feedback to measure user tendencies. 
+                </div>
+                <div class="div_project_technolgies">
+                    Technologies used: Flask Python, HTML/CSS, Kivy Python (iOS app), restful API, and SQLite database
+                </div>
+
+            </div><!-- div_project -->
+
+            <div class="div_project">
+                <div class="div_title_and_url">
+                    <div class="title">
+                        <a href="https://trafficmapper.kineticmetrics.com/"><h3>Traffic Mapper Demo</h3></a>
+                    </div>
+                </div>
+                <div class="div_project_description">
+                    Map web application that integrates Plotly and US National Park Service maps to integrate GPS to draw on maps. Proof of concept for proposal.
+                </div>
+                <div class="div_project_technolgies">
+                    Technologies used: Flask Python, HTML/CSS.
+                </div>
+
+            </div><!-- div_project -->
+
+        </div><!-- div_projects -->
+        <hr>
+        <div class="div_experiences">
+            <div class="div_experiences_title"><h2>Work Experience</h2></div>
+
+            <div class="div_experience">
+                <div class="div_company_title_dates">
+                    <div class="company_title">
+                        Freelance <i>Software Engineer</i>
+                    </div>
+                    <div class="dates">
+                        2020 - Present
+                    </div>
+                </div><!-- div_company_title_dates -->
+                <div class="description">
+                    Built various products in attempt to get users and other freelance work. 
+                </div>
+            </div><!-- div_experience -->
+
+            <div class="div_experience">
+                <div class="div_company_title_dates">
+                    <div class="company_title">
+                        Naval Sea Systems Command <i>Economist</i>
+                    </div>
+                    <div class="dates">
+                        2012 - 2020
+                    </div>
+
+                </div><!-- div_company_title_dates -->
+                <div class="description">
+                    In my latest role I was an integral part of a small team modernizing the Navy’s negotiating tactics - using large data model of millions of parts to contest and negotiate contractor proposal estimates. Built and modified large data models. Industry analysis forecasting price growth. Developed indices used Navy wide to estimate cost growth and ultimately used in US Federal budget. 
+                </div>
+            </div><!-- div_experience -->
+
+            <div class="div_experience">
+                <div class="div_company_title_dates">
+                    <div class="company_title">
+                        ICF International <i>Economist</i>
+                    </div>
+                    <div class="dates">
+                        2009 - 2012
+                    </div>
+
+                </div><!-- div_company_title_dates -->
+                <div class="description">
+                    Forecasted electricity markets using ICF International's proprietary linear program model of US electricity markets. I led in various modeling preparation efforts, contributed to the analysis of results, and wrote reports. Client projects included power plant valuations, energy price forecasts, market share forecasts, and various other indicators. Contributed to testing of model upgrade to .net framework.
+                </div>
+            </div><!-- div_experience -->
+
+
+        </div><!-- div_experiences-->
+
+        <hr>
+        <div class="div_education">
+            <div class="div_education_title"><h2>Education</h2></div>
+            <div class="div_education_sub">
+                <div class="div_degree_and_school">
+                    BA (3.0) and MA (3.3) Economics George Mason University (Fairfax, VA)  
+                </div>
+                <div class="dates">1999-2006</div>
+            </div>
+
+        </div>
+
 
 
     </div>

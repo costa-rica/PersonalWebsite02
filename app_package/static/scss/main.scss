@@ -1,4 +1,5 @@
 @use "navbar";
+@use "buttons";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
@@ -16,7 +17,6 @@
     --color-gray04: #808080;
     --color-gray-text:var(--color-gray01-light);
     --color_gray_test_01:#898989;
-    
   }
 
 * {
@@ -26,37 +26,19 @@
     font-family: 'Poppins', sans-serif;
 }
 body{background-color: var(--color-blue)}
-.main{
-    // background-color: aqua;
-    height:100vh;
+body, html {
+    height: 100%;
+    margin: 0;
 }
+// .main{
+//     // background-color: aqua;
+//     height:100vh;
+// }
 .pages_page{
     background-color: orange;
     height:100%;
 }
 
-.btn_custom{
-    padding:1rem;
-    border-radius: 1rem;
-    background-color: var(--color-light-blue-button);
-    border:none;
-    color:var(--color-gray-text);
-    // box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    text-decoration: none;
-}
-.btn_custom:active {
-    background-color: var(--color-gray04);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transform: translateY(2px);
-}
-.btn_custom:hover{
-    cursor: pointer;
-}
-.icon-color{
-    color:var(--color-yellow)
-}
 
 .main_super{
     flex-grow: 1;  /* Grow and take up any extra space */
@@ -135,17 +117,16 @@ body{background-color: var(--color-blue)}
         color:var(--color-gray-text);
         width:100%;
     }
-    .col_1_sub{
+    .col_1_sub, .col_2_sub{
         display:flex;
         flex-wrap:wrap;
         width: 80%;
         height:fit-content;
         justify-content: center;
-        background-color: var(--color_gray_test_01);
-
+        // background-color: var(--color_gray_test_01);
     }
     .div_image_of_me{
-        background-color: var(--color_gray_test_01);
+        // background-color: var(--color_gray_test_01);
         width: 100%;
         justify-content: center;
         display: flex;
@@ -153,6 +134,7 @@ body{background-color: var(--color-blue)}
     }
     .img_montmarte{
         width:60%;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
     }
     .other_contact{
         padding:3rem 0;
@@ -162,16 +144,70 @@ body{background-color: var(--color-blue)}
         justify-content: center;
         gap:1rem;
     }
+    .s_text_color_yellow{color:var(--color-yellow)}
+    .div_hi_big{width:100%}
+    // .div_welcome{
+    //     width:100%;
+    //     color: var(--color_gray_test_01)
+    // }
+    .paragraph_home_super{padding-top:5rem;}
+    .paragraph_home{
+        padding: .5rem 0;
+    }
 }
 
+.resume_page{
+    color:var(--color-gray-text);
+    // .div_top_personal_info{
+    //     display: flex;
+    // }
+    .div_name{
+        display: flex;
+        color:var(--color-gray04);
+        h1{padding-right:3rem;}
+        // a{padding-left:3rem;}
+    
+    }
+    .div_skills{
+        background-color: var(--color-gray04);
+        border-radius: .3rem;
+        padding:.5rem
+    }
+    .s_text_color_yellow{color:rgb(54, 54, 54)}
 
+    .div_contact_detail_item{
+        display:flex;
+        a {color:var(--color-gray-text);}
+    }
+    .div_contact_detail_item_text{
+        padding-left:.5rem;
+        text-decoration: none;
+    }
+
+    .div_projects a {
+        color:var(--color-gray04);
+    }
+    .div_project{padding:1rem 0;}
+    .title{
+        a{
+            text-decoration: none;
+            color:var(--color-yellow)
+        }
+    }
+    .div_project_other_details{
+        a{ text-decoration: none;}
+    }
+    .div_experience{padding:1rem 0}
+    .company_title{font-size: larger;}
+
+}
 
 
 
 @media screen and (min-width: 768px) {
     .div_fixed_nav_and_main {
         display: flex;
-        height: 100vh;  /* Optional: Takes the full height of the viewport */
+        // height: 100vh;  /* Optional: Takes the full height of the viewport */
     }
     .home_page, .about_page {
         justify-content: space-between;
@@ -181,6 +217,17 @@ body{background-color: var(--color-blue)}
             flex:1;
             align-items: center;
         }
+    }
+    .resume_page{
+        .div_top_personal_info{
+            display: flex;
+            gap:1rem;
+        }
+        .div_company_title_dates, .div_education_sub{
+            display:flex;
+            justify-content: space-between;
+        }
+        .div_education{padding-bottom:5rem;}
     }
 
 

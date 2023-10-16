@@ -14,7 +14,6 @@
         size:1.5rem;
     }
 }
-
 #navbar_side {
     z-index: 2; /* Ensures sidebar is above the overlay */
 }
@@ -35,9 +34,6 @@
     height: 100vh;
     background: var(--color-dark);
     transition: all .5s ease;
-    // a{
-    //     color: #bababa;
-    // }
 }
 .navbar_side_wide{display:none}
 /* Shown styles for the side navbar */
@@ -52,7 +48,6 @@
     display: block;
     transition: 0.3s;
 }
-
 .div_logo{
     width: 100%;
     padding:4rem 0 1rem 3rem;
@@ -63,10 +58,6 @@
 .navbar_list ul li i {
     padding-right: 1rem;
 }
-// .navbar_list ul li i {
-//     padding-right: 1rem;
-// }
-
 
 #overlay {
     display: none;
@@ -83,6 +74,7 @@
     display: block;
 }
 @media screen and (min-width: 768px) {
+
     .navbar_top{display:none}
     .navbar_side_hidden{display:none;}
     .navbar_side_wide{
@@ -91,7 +83,8 @@
         flex-shrink: 0;  /* Don’t shrink below initial size */
         width: var(--nav-width);  /* Or whatever width you desire */
         // height: 100%;
-        height: 100vh;
+        // height: 100vh;
+        min-height: 100vh;
         background: var(--color-dark);
     }
     .navbar_side_wide a {

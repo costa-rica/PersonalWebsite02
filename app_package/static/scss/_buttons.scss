@@ -1,0 +1,112 @@
+/* Button with hover text */
+.btn_custom02 {
+    padding:1rem;
+    border-radius: 1rem;
+    background-color: var(--color-light-blue-button);
+    border:none;
+    color:var(--color-gray-text);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    text-decoration: none;
+    position: relative;
+}
+
+.btn_custom02:hover {
+    cursor: pointer;
+}
+
+.popup-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    white-space: nowrap; /* Prevents wrapping */
+    opacity: 0;
+    pointer-events: none; /* Prevents it from interfering with clicks */
+    transition: opacity 0.3s, transform 0.3s;
+    transform-origin: bottom center;
+    margin-bottom: 5px; /* Gap between popup and button */
+}
+
+.btn_custom02:hover .popup-text {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px); /* Adds a small upward animation */
+}
+
+
+
+
+/* Button PDF - Chat gpt */
+.download-button {
+    display: inline-block;
+    background-color: gray;
+    color: white;
+    font-size: 16px;
+    padding: 12px 40px; /* Adjusts the size of the button */
+    border-radius: 8px; /* Rounded corners */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow to give a 3D effect */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for click effect */
+  }
+  
+  /* When button is hovered */
+  .download-button:hover {
+    background-color: darkgray; /* Slightly darker shade for hover */
+  }
+  
+  /* When button is active (clicked) */
+  .download-button:active {
+    transform: translateY(2px); /* Pushes the button slightly downwards */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduces the shadow size for a pressed effect */
+  }
+  
+
+
+
+
+/* Button PDF */
+.btn_pdf{
+    padding:1rem;
+    border-radius: 1rem;
+    background-color: var(--color-light-blue-button);
+    // border:none;
+    border: #333 solid;
+    color:var(--color-gray-text);
+}
+.btn_pdf:active {
+    background-color: var(--color-gray04);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+.btn_pdf:hover{
+    cursor: pointer;
+}
+
+
+/* Button OBE */
+.btn_custom01{
+    padding:1rem;
+    border-radius: 1rem;
+    background-color: var(--color-light-blue-button);
+    border:none;
+    color:var(--color-gray-text);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+.btn_custom01:active {
+    background-color: var(--color-gray04);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+.btn_custom01:hover{
+    cursor: pointer;
+}
+.icon-color{
+    color:var(--color-yellow)
+}

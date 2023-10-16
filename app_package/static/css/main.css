@@ -101,7 +101,7 @@
     flex-grow: 0; /* Don’t grow beyond initial size */
     flex-shrink: 0; /* Don’t shrink below initial size */
     width: var(--nav-width); /* Or whatever width you desire */
-    height: 100vh;
+    min-height: 100vh;
     background: var(--color-dark);
   }
   .navbar_side_wide a {
@@ -111,6 +111,115 @@
     display: block;
   }
 }
+/* Button with hover text */
+.btn_custom02 {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-light-blue-button);
+  border: none;
+  color: var(--color-gray-text);
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn_custom02:hover {
+  cursor: pointer;
+}
+
+.popup-text {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevents wrapping */
+  opacity: 0;
+  pointer-events: none; /* Prevents it from interfering with clicks */
+  transition: opacity 0.3s, transform 0.3s;
+  transform-origin: bottom center;
+  margin-bottom: 5px; /* Gap between popup and button */
+}
+
+.btn_custom02:hover .popup-text {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px); /* Adds a small upward animation */
+}
+
+/* Button PDF - Chat gpt */
+.download-button {
+  display: inline-block;
+  background-color: gray;
+  color: white;
+  font-size: 16px;
+  padding: 12px 40px; /* Adjusts the size of the button */
+  border-radius: 8px; /* Rounded corners */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow to give a 3D effect */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for click effect */
+}
+
+/* When button is hovered */
+.download-button:hover {
+  background-color: darkgray; /* Slightly darker shade for hover */
+}
+
+/* When button is active (clicked) */
+.download-button:active {
+  transform: translateY(2px); /* Pushes the button slightly downwards */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduces the shadow size for a pressed effect */
+}
+
+/* Button PDF */
+.btn_pdf {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-light-blue-button);
+  border: #333 solid;
+  color: var(--color-gray-text);
+}
+
+.btn_pdf:active {
+  background-color: var(--color-gray04);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(2px);
+}
+
+.btn_pdf:hover {
+  cursor: pointer;
+}
+
+/* Button OBE */
+.btn_custom01 {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-light-blue-button);
+  border: none;
+  color: var(--color-gray-text);
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  text-decoration: none;
+}
+
+.btn_custom01:active {
+  background-color: var(--color-gray04);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(2px);
+}
+
+.btn_custom01:hover {
+  cursor: pointer;
+}
+
+.icon-color {
+  color: var(--color-yellow);
+}
+
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
@@ -139,38 +248,14 @@ body {
   background-color: var(--color-blue);
 }
 
-.main {
-  height: 100vh;
+body, html {
+  height: 100%;
+  margin: 0;
 }
 
 .pages_page {
   background-color: orange;
   height: 100%;
-}
-
-.btn_custom {
-  padding: 1rem;
-  border-radius: 1rem;
-  background-color: var(--color-light-blue-button);
-  border: none;
-  color: var(--color-gray-text);
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-  text-decoration: none;
-}
-
-.btn_custom:active {
-  background-color: var(--color-gray04);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  transform: translateY(2px);
-}
-
-.btn_custom:hover {
-  cursor: pointer;
-}
-
-.icon-color {
-  color: var(--color-yellow);
 }
 
 .main_super {
@@ -251,22 +336,21 @@ body {
   color: var(--color-gray-text);
   width: 100%;
 }
-.about_page .col_1_sub {
+.about_page .col_1_sub, .about_page .col_2_sub {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
   height: fit-content;
   justify-content: center;
-  background-color: var(--color_gray_test_01);
 }
 .about_page .div_image_of_me {
-  background-color: var(--color_gray_test_01);
   width: 100%;
   justify-content: center;
   display: flex;
 }
 .about_page .img_montmarte {
   width: 60%;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 .about_page .other_contact {
   padding: 3rem 0;
@@ -276,11 +360,70 @@ body {
   justify-content: center;
   gap: 1rem;
 }
+.about_page .s_text_color_yellow {
+  color: var(--color-yellow);
+}
+.about_page .div_hi_big {
+  width: 100%;
+}
+.about_page .paragraph_home_super {
+  padding-top: 5rem;
+}
+.about_page .paragraph_home {
+  padding: 0.5rem 0;
+}
+
+.resume_page {
+  color: var(--color-gray-text);
+}
+.resume_page .div_name {
+  display: flex;
+  color: var(--color-gray04);
+}
+.resume_page .div_name h1 {
+  padding-right: 3rem;
+}
+.resume_page .div_skills {
+  background-color: var(--color-gray04);
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+.resume_page .s_text_color_yellow {
+  color: rgb(54, 54, 54);
+}
+.resume_page .div_contact_detail_item {
+  display: flex;
+}
+.resume_page .div_contact_detail_item a {
+  color: var(--color-gray-text);
+}
+.resume_page .div_contact_detail_item_text {
+  padding-left: 0.5rem;
+  text-decoration: none;
+}
+.resume_page .div_projects a {
+  color: var(--color-gray04);
+}
+.resume_page .div_project {
+  padding: 1rem 0;
+}
+.resume_page .title a {
+  text-decoration: none;
+  color: var(--color-yellow);
+}
+.resume_page .div_project_other_details a {
+  text-decoration: none;
+}
+.resume_page .div_experience {
+  padding: 1rem 0;
+}
+.resume_page .company_title {
+  font-size: larger;
+}
 
 @media screen and (min-width: 768px) {
   .div_fixed_nav_and_main {
     display: flex;
-    height: 100vh; /* Optional: Takes the full height of the viewport */
   }
   .home_page, .about_page {
     justify-content: space-between;
@@ -290,6 +433,17 @@ body {
   .home_page .col_1, .home_page .col_2, .about_page .col_1, .about_page .col_2 {
     flex: 1;
     align-items: center;
+  }
+  .resume_page .div_top_personal_info {
+    display: flex;
+    gap: 1rem;
+  }
+  .resume_page .div_company_title_dates, .resume_page .div_education_sub {
+    display: flex;
+    justify-content: space-between;
+  }
+  .resume_page .div_education {
+    padding-bottom: 5rem;
   }
 }
 
