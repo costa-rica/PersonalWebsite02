@@ -449,6 +449,24 @@ body, html {
   font-size: larger;
 }
 
+.about_this_page {
+  display: flex;
+  justify-content: center;
+  color: var(--color-gray-text);
+}
+.about_this_page .col_1 {
+  width: 80%;
+  padding-top: 10rem;
+}
+.about_this_page .div_hi_big {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.about_this_page .paragraph_home a {
+  color: var(--color-gray-text);
+}
+
 @media screen and (min-width: 768px) {
   .div_fixed_nav_and_main {
     display: flex;

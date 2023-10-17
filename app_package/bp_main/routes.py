@@ -56,6 +56,11 @@ def resume():
     return template_parent.render(template_layout=template_layout, template_post_index=template_post_index, \
         url_for=url_for, get_flashed_messages=get_flashed_messages)
 
+@bp_main.route("/about_this_page", methods=["GET","POST"])
+def about_this_page():
+    logger_bp_main.info(f"-- in about page route --")
+
+    return render_template('main/about_this_site.html')
 
 @bp_main.route("/<page>", methods=["GET","POST"])
 def pages(page):

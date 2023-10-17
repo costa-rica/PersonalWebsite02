@@ -222,6 +222,26 @@ body, html {
 
 }
 
+.about_this_page{
+    display:flex;
+    justify-content: center;
+    color:var(--color-gray-text);
+    .col_1{
+        width: 80%;
+        padding-top:10rem;
+    }
+    .div_hi_big{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .paragraph_home{
+        a{
+            // text-decoration: none;
+            color:var(--color-gray-text)
+        }
+    }
+}
 
 
 @media screen and (min-width: 768px) {
