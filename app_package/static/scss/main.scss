@@ -1,5 +1,7 @@
 @use "navbar";
 @use "buttons";
+@use "users";
+@use "other_elements";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
@@ -30,14 +32,16 @@ body, html {
     height: 100%;
     margin: 0;
 }
-// .main{
-//     // background-color: aqua;
-//     height:100vh;
-// }
-.pages_page{
-    background-color: orange;
-    height:100%;
-}
+// .space_for_navbar_and_footer {
+//     padding-top: var(--nav-height);
+//     padding-bottom: var(--nav-height);
+  
+//   }
+  .flex_center{
+    display: flex;
+    justify-content: center;
+  }
+  
 
 
 .main_super{
@@ -49,6 +53,12 @@ body, html {
     width:100%;
     justify-content: center;
 }
+.flash_and_main{
+    display:flex;
+    flex-wrap: wrap;
+    width:100%;
+}
+
 .home_page {
     display: flex;
     gap:1rem;
@@ -249,6 +259,7 @@ body, html {
         display: flex;
         // height: 100vh;  /* Optional: Takes the full height of the viewport */
     }
+
     .home_page, .about_page {
         justify-content: space-between;
         flex:1;

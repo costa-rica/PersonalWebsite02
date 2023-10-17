@@ -2,10 +2,8 @@
 {% block main %}
 
 
-<!-- <div class="main"> -->
-<div class="space_for_navbar_and_footer flex_center">
-
   <div class="register_page">
+  <div class="col_1">
 
     <div class="title">
       <h1>{{ page_name }}</h1>
@@ -17,12 +15,12 @@
 
           <div class="email_form_group">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" class="register_text" form="form_1">
+            <input type="text" id="email" name="email" class="input-bootstrap register_text" form="form_1">
           </div>
 
           <div class="password_form_group">
             <label for="password">Password:</label>
-            <input type="password" id="password_text" name="password" class="register_text" form="form_1" required>
+            <input type="password" id="password_text" name="password" class="input-bootstrap register_text" form="form_1" required>
           </div>
 
           <div class="submit_form_group">
@@ -40,15 +38,15 @@
 
       </form>
 
-
     </div><!-- register_form -->
+    </div><!-- col_1 -->
+  </div><!-- register_form -->
 
 
 
 
 
-  </div>
-</div><!-- main -->
+
 
 <!-- Show password -->
 <script>

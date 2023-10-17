@@ -18,8 +18,7 @@
     <div class="div_hamburger">
       <button id="hamburger"  onclick="toggleMenu()"><i class="fas fa-bars" id="btn"></i></button>
     </div>
-    
-  </div>
+  </div><!-- navbar_top -->
 
   <div id="navbar_side" class="navbar_side navbar_side_hidden">
     <div class="div_logo">
@@ -59,7 +58,33 @@
       </div>
     </div>
 
-    {% block main %}{% endblock %}
+    <div class="flash_and_main">
+      <div class="flash_custom_parent">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+    
+        <div class="alert alert-{{ category }} alert_custom keep_line_break" id="div_flash">
+          <i class="close icon"></i>
+    
+          {{ message }}
+          <div class="close_right">
+            <input type="button" value=&#10006 onclick="removeFlash()" class=" btn_custom02">
+          </div>
+    
+        </div>
+        {% endfor %}<!-- for category, message in messages -->
+        {% endif %}<!-- if messages -->
+        {% endwith %}<!-- with messages = get_flashed_messages(with_categories=true) -->
+    
+      </div>
+  
+  
+      {% block main %}{% endblock %}
+    </div>
+
+
 
   </div><!-- div_fixed_nav_and_main-->
 
@@ -75,6 +100,12 @@
     }
 </script>
 
-
+  <!-- Remove flash on click -->
+  <script>
+    function removeFlash() {
+      const element = document.getElementById('div_flash');
+      element.remove();
+    }
+  </script>
 </body>
 </html>
