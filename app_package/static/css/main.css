@@ -220,6 +220,22 @@
   color: var(--color-yellow);
 }
 
+.hide_small {
+  display: none;
+}
+
+.big_hide {
+  color: var(--color-gray-text);
+}
+
+@media screen and (min-width: 768px) {
+  .hide_small {
+    display: initial;
+  }
+  .big_hide {
+    display: none;
+  }
+}
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
@@ -264,6 +280,7 @@ body, html {
   padding: 0.5rem;
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .home_page {
@@ -393,13 +410,24 @@ body, html {
 }
 .resume_page .div_contact_detail_item {
   display: flex;
+  align-items: center;
 }
 .resume_page .div_contact_detail_item a {
+  text-decoration: none;
   color: var(--color-gray-text);
 }
+.resume_page .div_contact_detail_item a:hover {
+  color: var(--color-dark);
+  background-color: #d1d1d1;
+  border-radius: 3rem;
+  padding: 0.25rem 0.5rem;
+}
+.resume_page .div_contact_detail_item a:hover i {
+  transform: scale(1.5); /* Increase the size by 20% on hover */
+}
 .resume_page .div_contact_detail_item_text {
-  padding-left: 0.5rem;
-  text-decoration: none;
+  padding-left: 0.75rem;
+  white-space: nowrap;
 }
 .resume_page .div_projects a {
   color: var(--color-gray04);
@@ -433,6 +461,9 @@ body, html {
   .home_page .col_1, .home_page .col_2, .about_page .col_1, .about_page .col_2 {
     flex: 1;
     align-items: center;
+  }
+  .resume_page {
+    max-width: 70rem;
   }
   .resume_page .div_top_personal_info {
     display: flex;

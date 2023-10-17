@@ -1,3 +1,6 @@
+
+
+
 /* Button with hover text */
 .btn_custom02 {
     padding:1rem;
@@ -109,4 +112,17 @@
 }
 .icon-color{
     color:var(--color-yellow)
+}
+
+.hide_small{display:none}
+.big_hide{
+    color:var(--color-gray-text);
+    // text-decoration: none;
+    // background-color: var(--color-gray04);
+    // border-radius: 3rem;
+}
+
+@media screen and (min-width: 768px) {
+    .hide_small{display:initial}
+    .big_hide{display:none}
 }

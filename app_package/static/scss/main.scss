@@ -46,7 +46,8 @@ body, html {
     padding: .5rem;
     display:flex;
     // background-color: aquamarine;
-    width:100%
+    width:100%;
+    justify-content: center;
 }
 .home_page {
     display: flex;
@@ -177,11 +178,30 @@ body, html {
 
     .div_contact_detail_item{
         display:flex;
-        a {color:var(--color-gray-text);}
+        align-items: center;
+        a {
+            text-decoration: none;
+            color:var(--color-gray-text);
+        }
+        a:hover{
+            color:var(--color-dark);
+            background-color: #d1d1d1;
+            border-radius: 3rem;
+            padding:.25rem .5rem;
+            i{
+                // width:200%;
+                transform: scale(1.5); /* Increase the size by 20% on hover */
+            }
+        }
     }
+    // .div_contact_detail_item_icon{
+        
+
+    // }
     .div_contact_detail_item_text{
-        padding-left:.5rem;
-        text-decoration: none;
+        padding-left:.75rem;
+        
+        white-space: nowrap;
     }
 
     .div_projects a {
@@ -219,6 +239,8 @@ body, html {
         }
     }
     .resume_page{
+        // padding:3rem;
+        max-width: 70rem;
         .div_top_personal_info{
             display: flex;
             gap:1rem;
