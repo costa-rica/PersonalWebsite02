@@ -42,7 +42,8 @@
 }
 /* Styling for the links in your side navbar */
 .navbar_side_hidden a {
-    padding: 8px 8px 8px 32px;
+    // padding: 8px 8px 8px 32px;
+    padding: .5rem;
     text-decoration: none;
     font-size: 25px;
     display: block;
@@ -60,6 +61,14 @@
 }
 .navbar_list ul li i {
     padding-right: 1rem;
+}
+.li_manage_blogpost{
+    a{
+        color:var(--color-yellow);
+    }
+}
+.li_manage_blogpost_font{
+    font-size:large;
 }
 
 #overlay {
@@ -91,7 +100,8 @@
         background: var(--color-dark);
     }
     .navbar_side_wide a {
-        padding: 8px 8px 8px 32px;
+        // padding: 8px 8px 8px 32px;
+        padding: .5rem;
         text-decoration: none;
         font-size: 25px;
         display: block;

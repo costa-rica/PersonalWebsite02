@@ -27,7 +27,6 @@ formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(mess
 logger_bp_blog = logging.getLogger(__name__)
 logger_bp_blog.setLevel(logging.DEBUG)
 
-
 #where do we store logging information
 file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),"logs",'bp_blog.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
 file_handler.setFormatter(formatter)
@@ -40,40 +39,25 @@ stream_handler.setFormatter(formatter_terminal)
 logger_bp_blog.addHandler(file_handler)
 logger_bp_blog.addHandler(stream_handler)
 
-
-# blog = Blueprint('blog', __name__)
-# blog = Blueprint('blog', __name__, static_url_path=os.path.join(os.environ.get('PROJECT_ROOT'),"app_package","static"), 
-#     static_folder=os.path.join(os.environ.get('DB_ROOT'),"posts"))
 bp_blog = Blueprint('bp_blog', __name__)
 sess_users = dict_sess['sess_users']
 
-
-# Custom static data - DIR_DB_AUXILARY (/_databases/dashAndData07/auxilary/<aux_dir_name>/<filename>)
-# @bp_blog.route('/get_aux_file_from_dir/<aux_dir_name>/<filename>')
 @bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
 def get_post_files(post_dir_name, img_dir_name,filename):
     logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
 
     return send_from_directory(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_dir_name, img_dir_name), filename)
 
-
 @bp_blog.route("/blog", methods=["GET"])
 def index():
 
-    # try:
     blog_posts_list = create_blog_posts_list()
         
-    # except:
-    #     blog_posts_list = [("2023", "No post", "Description","1")]
     items = ['date', 'title', 'description']
 
     print("blog_posts_list: ", blog_posts_list)
-    # return render_template('blog/index.html', blog_dicts_for_index=blog_dict_for_index_sorted)
     return render_template('blog/index.html', blog_posts_list=blog_posts_list)
 
-
-# @bp_blog.route("/view_post/<post_id_name_string>")
-# def view_post(post_id_name_string):
 @bp_blog.route("/view_post/<post_dir_name>")
 def view_post(post_dir_name):
     post_id = re.findall(r'\d+', post_dir_name)
@@ -105,11 +89,7 @@ def view_post(post_dir_name):
         url_for=url_for, get_flashed_messages=get_flashed_messages, current_user=current_user)
 
 
-# @bp_blog.route("/blog_user_home", methods=["GET","POST"])
-# @login_required
-# def blog_user_home():
-# formerly user_home
-
+# formerly blog_user_home
 @bp_blog.route("/manage_blogposts", methods=["GET","POST"])
 @login_required
 def manage_blogposts():
@@ -119,12 +99,7 @@ def manage_blogposts():
     if not current_user.is_authenticated:
         return redirect(url_for('bp_main.home'))
 
-
-    #check, create directories between db/ and static/
-    # word_docs_dir_util()
-
     all_my_posts=sess_users.query(BlogPosts).filter_by(user_id=current_user.id).all()
-    # print(all_posts)
     posts_details_list=[]
     for i in all_my_posts:
         posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
@@ -141,10 +116,7 @@ def manage_blogposts():
             print(post_id)
 
             return redirect(url_for('bp_blog.blog_delete', post_id=post_id))
-    #     elif formDict.get('edit_post_button')!='':
-    #         print('post to delte:::', formDict.get('edit_post_button')[9:],'length:::', len(formDict.get('edit_post_button')[9:]))
-    #         post_id=int(formDict.get('edit_post_button')[10:])
-    #         return redirect(url_for('blog.blog_edit', post_id=post_id))
+
     return render_template('blog/manage_blogposts.html', posts_details_list=posts_details_list, len=len,
         column_names=column_names)
 
@@ -294,127 +266,10 @@ def create_post():
             logger_bp_blog.info(f"- filename is {new_post_dir_name} -")
 
 
-        #######################################################
-        # MARK: START
-        ######################################################
-        
-
-        # if request_files["zip_file_origin_word"].filename != "":
-        #     logger_bp_blog.info(f"- new_method -")
-
-        #     # get data from form
-        #     index_source = formDict.get('index_html_source')
-        #     if formDict.get('date_published'):
-        #         date_published_datetime = datetime.strptime(formDict.get('date_published'), "%Y-%m-%d")
-        #         print(f"date_published: {date_published_datetime}")
-        #     else:
-        #         date_published_datetime = datetime.utcnow()
-        #     post_zip = request_files["new_method"]
-        #     post_zip_filename = post_zip.filename
-
-        #     # create new_blogpost to get post_id number
-        #     new_blogpost = BlogPosts(user_id=current_user.id, date_published =date_published_datetime)
-        #     sess_users.add(new_blogpost)
-        #     sess_users.commit()
-
-        #     # create post_id string and 
-        #     new_blog_id = new_blogpost.id
-        #     new_post_dir_name = f"{new_blog_id:04d}_post"
-        #     new_blogpost.post_id_name_string = new_post_dir_name
-        #     sess_users.commit()
-
-        #     # save zip to temp_zip
-        #     temp_zip_db_fp = os.path.join(current_app.config.get('DB_ROOT'),'temp_zip')
-        #     if not os.path.exists(temp_zip_db_fp):
-        #         os.mkdir(temp_zip_db_fp)
-        #     else:
-        #         shutil.rmtree(temp_zip_db_fp)
-        #         os.mkdir(temp_zip_db_fp)
-            
-        #     post_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_zip_filename)))
-        #     zip_folder_name_nospaces = post_zip_filename.replace(" ", "_")
-
-
-        #     new_blog_dir_fp = os.path.join(current_app.config.get('DB_ROOT'), "posts", new_post_dir_name)
-        #     logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
-
-        #     # check new_blog_dir_fp doesn't already exists -- This is a weird check but let's just leave it in....
-        #     if os.path.exists(new_blog_dir_fp):
-
-        #         # delete db entery
-
-        #         # delete db/posts/000_post dir
-
-        #         flash(f"This blog post is trying to build a directory to store post, but one already exists in: {new_blog_dir_fp}","warning")
-        #         return redirect(request.url)
-
-        #     # decompress uploaded file in temp_zip
-        #     with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
-        #         print("- unzipping file --")
-        #         unzipped_files_foldername = zip_ref.namelist()[0]
-        #         unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
-        #         print(f"- {unzipped_temp_dir} --")
-        #         zip_ref.extractall(unzipped_temp_dir)
-
-        #     logger_bp_blog.info(f"- decompressing and extracting to here: {os.path.join(temp_zip_db_fp)}")
-
-        #     unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
-
-        #     # delete the __MACOSX dir
-        #     for path_str in unzipped_dir_list:
-        #         if path_str[-8:] == "__MACOSX":
-        #             shutil.rmtree(path_str)
-        #             print(f"- removed {path_str[-8:]} -")
-
-        #     # temp_zip path
-        #     source = unzipped_temp_dir
-        #     logger_bp_blog.info(f"- SOURCE: {source}")
-
-
-        #     # db/posts/0000_post
-        #     destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
-
-        #     dest = shutil.move(source, destination, copy_function = shutil.copytree) 
-        #     logger_bp_blog.info(f"Destination path: {dest}") 
-
-
-        #     # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
-        #     new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,"index.html"))
-        #     if new_index_text == "Error opening index.html":
-        #         flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,'index.html')}.", "warning")
-        #         # return redirect(request.url)
-        #         return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
-
-        #     # remove existing new_blog_dir_fp, index.html
-        #     os.remove(os.path.join(new_blog_dir_fp,"index.html"))
-
-        #     # write a new index.html with new_idnex_text
-        #     index_html_writer = open(os.path.join(new_blog_dir_fp,"index.html"), "w")
-        #     index_html_writer.write(new_index_text)
-        #     index_html_writer.close()
-
-
-        #     # delete compressed file
-        #     shutil.rmtree(temp_zip_db_fp)
-
-        #     # update new_blogpost.post_html_filename = post_id_post/index.html
-        #     new_blogpost.post_html_filename = os.path.join(new_post_dir_name,"index.html")
-        #     new_blogpost.title = get_title(os.path.join(new_blog_dir_fp,"index.html"), index_source)
-        #     sess_users.commit()
-
-        #     logger_bp_blog.info(f"- filename is {new_post_dir_name} -")
-
-
-
-        #######################################################
-        # MARK: END
-        ######################################################
-
         flash(f'Post added successfully!', 'success')
-        # return redirect(url_for('bp_blog.blog_edit', post_id = new_blog_id))
-        return redirect(request.url)
+        return redirect(url_for('bp_blog.blog_edit', post_id = new_blog_id))
+        # return redirect(request.url)
         # return redirect(url_for('blog.create_post'))
-
 
 
     return render_template('blog/create_post.html', default_date=default_date)
@@ -431,9 +286,7 @@ def blog_edit(post_id):
     description = post.description
     post_time_stamp_utc = post.time_stamp_utc.strftime("%Y-%m-%d")
 
-    # if post.date_published in ["", None]:
-    #     post_date = post.time_stamp_utc.strftime("%Y-%m-%d")
-    # else:
+
     if post.date_published in ["", None]:
         post_date = ""
     else:

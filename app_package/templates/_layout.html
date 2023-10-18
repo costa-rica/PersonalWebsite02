@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
   <script src="https://kit.fontawesome.com/dd4fc26679.js" crossorigin="anonymous"></script>
   
   <!-- Added bootstrap -->
@@ -34,7 +34,10 @@
         <li><a href="{{ url_for('bp_main.about') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
         <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>CV</a></li>
         <li><a href="{{ url_for('bp_blog.index') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
-        <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>    
+        <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>  
+        {% if current_user.is_authenticated %}  
+          <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
+        {% endif %}  
       </ul>
 
     </div>
@@ -56,7 +59,10 @@
           <li><a href="{{ url_for('bp_main.about') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
           <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>CV</a></li>
           <li><a href="{{ url_for('bp_blog.index') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
-          <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>    
+          <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>  
+          {% if current_user.is_authenticated %}  
+            <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
+          {% endif %}  
         </ul>
   
       </div>

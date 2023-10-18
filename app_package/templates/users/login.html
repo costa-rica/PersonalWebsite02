@@ -17,12 +17,15 @@
 
               <div class="email_form">
                 <label for="email">Email:</label>
-                <input type="text" id="email" class="input-bootstrap" name="email" form="form_1">
+                <input type="text" id="email" 
+                
+                class="form-input" 
+                name="email" form="form_1">
               </div>
       
               <div class="password_form">
                 <label for="password">Password:</label>
-                <input type="password" id="password_text" class="input-bootstrap" name="password" form="form_1">
+                <input type="password" id="password_text" class="form-input" name="password" form="form_1">
               </div>
       
       
@@ -43,7 +46,10 @@
                   <!-- <input type="submit" value="Login As Guest" name="btn_login_as_guest" class="btn btn-secondary btn_custom02"> -->
         
                   <div class="forgot_password">
-                    <a href="{{ url_for('bp_users.reset_password') }}">Forgot Password?</a>
+                    <a href="{{ url_for('bp_users.reset_password') }}">Forgot password?</a>
+                  </div>
+                  <div class="not_registered">
+                    <a href="{{ url_for('bp_users.register') }}">Not register?</a>
                   </div>
                 </div><!-- element_right_sub-->
       
