@@ -64,7 +64,7 @@ sess_users = dict_sess['sess_users']
 def login():
     print('- in login')
     if current_user.is_authenticated:
-        return redirect(url_for('bp_blog.blog_user_home'))
+        return redirect(url_for('bp_blog.manage_blogposts'))
     
     logger_bp_users.info(f'- in login route')
 
@@ -85,7 +85,7 @@ def login():
                 if bcrypt.checkpw(password.encode(), user.password):
                     login_user(user)
 
-                    return redirect(url_for('bp_blog.blog_user_home'))
+                    return redirect(url_for('bp_blog.manage_blogposts'))
                 else:
                     flash('Password or email incorrectly entered', 'warning')
             else:

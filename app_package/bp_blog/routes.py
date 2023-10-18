@@ -105,13 +105,16 @@ def view_post(post_dir_name):
         url_for=url_for, get_flashed_messages=get_flashed_messages, current_user=current_user)
 
 
+# @bp_blog.route("/blog_user_home", methods=["GET","POST"])
+# @login_required
+# def blog_user_home():
+# formerly user_home
 
-
-@bp_blog.route("/blog_user_home", methods=["GET","POST"])
+@bp_blog.route("/manage_blogposts", methods=["GET","POST"])
 @login_required
-def blog_user_home():
-    print('--- In blog_user home ----')
-    logger_bp_blog.info(f"- In blog_user_home -")
+def manage_blogposts():
+    print('--- In  manage_blogposts ----')
+    logger_bp_blog.info(f"- In manage_blogposts -")
 
     if not current_user.is_authenticated:
         return redirect(url_for('bp_main.home'))
@@ -142,7 +145,7 @@ def blog_user_home():
     #         print('post to delte:::', formDict.get('edit_post_button')[9:],'length:::', len(formDict.get('edit_post_button')[9:]))
     #         post_id=int(formDict.get('edit_post_button')[10:])
     #         return redirect(url_for('blog.blog_edit', post_id=post_id))
-    return render_template('blog/user_home.html', posts_details_list=posts_details_list, len=len,
+    return render_template('blog/manage_blogposts.html', posts_details_list=posts_details_list, len=len,
         column_names=column_names)
 
 
@@ -491,7 +494,7 @@ def blog_delete(post_id):
         return redirect(request.referrer)
 
     flash(f'Post removed successfully!', 'success')
-    return redirect(url_for('bp_blog.blog_user_home'))
+    return redirect(url_for('bp_blog.manage_blogposts'))
 
 
 

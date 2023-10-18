@@ -13,7 +13,7 @@
         <div class="std_framing">
           {% if current_user.is_authenticated %}
           <div class="div_link_to_rest">
-            <a href="{{ url_for('bp_blog.blog_user_home') }}" > Blog User Home </a>
+            <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Blog User Home </a>
           </div>
           {% endif %}
             <div class="div_link_to_rest">
@@ -23,7 +23,7 @@
 
           <div class="grid5_blog_title_super">
             {% if current_user.admin %}
-            <a href="{{ url_for('bp_blog.blog_user_home' ) }}" class="no_show">
+            <a href="{{ url_for('bp_blog.manage_blogposts' ) }}" class="no_show">
               <div class="grid5_blog_title"><h2>Blog Posts</h2></div>
             </a>
 

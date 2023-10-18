@@ -5,4 +5,4 @@ __pycache__/
 *.log
 /logs/
 /app_package/static/node_modules/
-
+/additional_styling/

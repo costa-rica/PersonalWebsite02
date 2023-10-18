@@ -2,6 +2,7 @@
 @use "buttons";
 @use "users";
 @use "other_elements";
+@use "blog";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
@@ -27,16 +28,12 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{background-color: var(--color-blue)}
-body, html {
-    height: 100%;
-    margin: 0;
-}
-// .space_for_navbar_and_footer {
-//     padding-top: var(--nav-height);
-//     padding-bottom: var(--nav-height);
-  
-//   }
+html body{background-color: var(--color-blue)}
+// body, html {
+//     height: 100%;
+//     margin: 0;
+// }
+
   .flex_center{
     display: flex;
     justify-content: center;
