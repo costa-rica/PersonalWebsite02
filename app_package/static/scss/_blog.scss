@@ -214,17 +214,19 @@
 
 /*Blog Post Edit*/
 //This is from Blog Post
-.edit_post_super {
-    padding: var(--nav-height) 0 60px 30px;
+.edit_post_page {
+    // padding: var(--nav-height) 0 60px 30px;
     // background-color: red;
+    width:100%;
     font-size: 2rem;
     display: flex;
     justify-content: center;
     a{color: var(--website_theme_font_color_a_dark);}
     a:hover{color: var(--website_theme_fun_color);}
-
-    .blog_form_div {
+    
+    .col_1 {
         width: calc(100% - 5rem);
+        // width:80%;
         border: 1px solid;
         // margin: 0; padding: 0;
         border-radius: 1rem;

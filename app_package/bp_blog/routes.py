@@ -137,134 +137,104 @@ def create_post():
         print("formDict: ", formDict)
         request_files = request.files
         print("request_files: ", request_files)
-        
-        #######################################################
-        # NOTE: Old method comes from whatSticks09web
-        # It is deleted from code b
-        ######################################################
-
-        if formDict.get('dropdown_upload_zip_type') == 'origin_from_word':
-            logger_bp_blog.info(f"- origin_from_word -")
-        
-            post_zip = request_files["zip_file_origin_word"]
-            post_zip_filename = post_zip.filename
-
-            # create new_blogpost to get post_id number
-            new_blogpost = BlogPosts(user_id=current_user.id)
-            sess_users.add(new_blogpost)
-            sess_users.commit()
-            # create post_id string
-            new_blog_id = new_blogpost.id
-            new_post_dir_name = f"{new_blog_id:04d}_post"
-            # new_blogpost.post_id_name_string = new_post_dir_name
-            new_blogpost.post_dir_name = new_post_dir_name
-            sess_users.commit()
-
-            # make temproary directory called 'temp_zip' to hold the uploaded zip file
-            temp_zip_db_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG'),'temp_zip')
-            if not os.path.exists(temp_zip_db_fp):
-                os.mkdir(temp_zip_db_fp)
-            else:
-                shutil.rmtree(temp_zip_db_fp)
-                os.mkdir(temp_zip_db_fp)
-
-            # save zip to temp_zip directory
-            post_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_zip_filename)))
-            zip_folder_name_nospaces = post_zip_filename.replace(" ", "_")
-
-            # make path of new post dir 00##_post
-            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
-            logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
-            
-            # unzipped_files_dir_name = "temp_name"
-
-            # decompress uploaded file in temp_zip
-            with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
-                print("- unzipping file --")
-                unzipped_files_dir_name = zip_ref.namelist()[0]
-
-
                 
-                unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
-                print(f"- {unzipped_temp_dir} --")
-                zip_ref.extractall(unzipped_temp_dir)
+        post_zip = request_files["zip_file_origin_word"]
+        post_zip_filename = post_zip.filename
 
-            logger_bp_blog.info(f"- decompressing and extracting to here: {os.path.join(temp_zip_db_fp)}")
-            
-            unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
-            
-            # delete the __MACOSX dir
-            for path_str in unzipped_dir_list:
-                if path_str[-8:] == "__MACOSX":
-                    shutil.rmtree(path_str)
-                    print(f"- removed {path_str[-8:]} -")
+        # create new_blogpost to get post_id number
+        new_blogpost = BlogPosts(user_id=current_user.id)
+        sess_users.add(new_blogpost)
+        sess_users.commit()
+        # create post_id string
+        new_blog_id = new_blogpost.id
+        new_post_dir_name = f"{new_blog_id:04d}_post"
+        # new_blogpost.post_id_name_string = new_post_dir_name
+        new_blogpost.post_dir_name = new_post_dir_name
+        sess_users.commit()
 
-            # temp_zip path
-            source = unzipped_temp_dir
-            logger_bp_blog.info(f"- SOURCE: {source}")
-
-            # db/posts/0000_post
-            # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
-            destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
-
-            dest = shutil.move(source, destination, copy_function = shutil.copytree) 
-            logger_bp_blog.info(f"Destination path: {dest}") 
-
-            # find root html file for post
-            for file_name in os.listdir(dest):
-                
-                if file_name.endswith('.html'):
-                    post_html_filename = file_name
-                    post_html_file_name_and_path =  os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), 
-                                            new_post_dir_name,post_html_filename)
-                    post_html_filename = sanitize_directory_name(post_html_file_name_and_path)
-                if os.path.isdir(os.path.join(dest,file_name)) and os.path.join(dest,file_name)[-4:] == '.fld':
-                    post_images_dir_name_and_path = os.path.join(dest,file_name)
-                    post_images_dir_name = sanitize_directory_name(post_images_dir_name_and_path)
-
-            
-            # TODO: Rename folder containig images
-            # check for spaces adn extra charaters
-            ## if exists replace and rename directory
-            # print("*** Sanatize .fld Name ***")
-            # zip_folder_name_nospaces_no_dot_zip = zip_folder_name_nospaces[:4]
-            # print("zip_folder_name_nospaces_no_dot_zip: ", zip_folder_name_nospaces_no_dot_zip)
-            # directory_path =  os.path.join(new_blog_dir_fp, zip_folder_name_nospaces_no_dot_zip, unzipped_files_dir_name)
-            # directory_path =  os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), 
-            #                                 new_post_dir_name,unzipped_files_dir_name[:-1])
-            # unzipped_files_dir_name = sanitize_directory_name(directory_path)
-            
-            print("Adding unzipped_files_dir_name: ", unzipped_files_dir_name)
-            print("*** END sanatize .fld ***")
-            
-
-
-            # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
-            # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), unzipped_files_dir_name)
-            new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
-            if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
-                flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,post_html_filename)}.", "warning")
-                # return redirect(request.url)
-                return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
-
-            # remove existing post_html_filename
-            os.remove(os.path.join(new_blog_dir_fp,post_html_filename))
-
-            # write a new index.html with new code that references images in image folder
-            index_html_writer = open(os.path.join(new_blog_dir_fp,post_html_filename), "w")
-            index_html_writer.write(new_index_text)
-            index_html_writer.close()
-
-            # delete compressed file
+        # make temproary directory called 'temp_zip' to hold the uploaded zip file
+        temp_zip_db_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG'),'temp_zip')
+        if not os.path.exists(temp_zip_db_fp):
+            os.mkdir(temp_zip_db_fp)
+        else:
             shutil.rmtree(temp_zip_db_fp)
+            os.mkdir(temp_zip_db_fp)
 
-            new_blogpost.images_dir_name = post_images_dir_name
-            new_blogpost.word_doc_to_html_filename = post_html_filename
-            new_blogpost.title = get_title(os.path.join(new_blog_dir_fp,post_html_filename), "origin_from_word")
-            sess_users.commit()
+        # save zip to temp_zip directory
+        post_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_zip_filename)))
+        zip_folder_name_nospaces = post_zip_filename.replace(" ", "_")
 
-            logger_bp_blog.info(f"- filename is {new_post_dir_name} -")
+        # make path of new post dir 00##_post
+        new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+        logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
 
+        # decompress uploaded file in temp_zip
+        with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
+            print("- unzipping file --")
+            unzipped_files_dir_name = zip_ref.namelist()[0]
+            
+            unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
+            print(f"- {unzipped_temp_dir} --")
+            zip_ref.extractall(unzipped_temp_dir)
+
+        logger_bp_blog.info(f"- decompressing and extracting to here: {os.path.join(temp_zip_db_fp)}")
+        
+        unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
+        
+        # delete the __MACOSX dir
+        for path_str in unzipped_dir_list:
+            if path_str[-8:] == "__MACOSX":
+                shutil.rmtree(path_str)
+                print(f"- removed {path_str[-8:]} -")
+
+        # temp_zip path
+        source = unzipped_temp_dir
+        logger_bp_blog.info(f"- SOURCE: {source}")
+
+        # db/posts/0000_post
+        # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
+        destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
+
+        dest = shutil.move(source, destination, copy_function = shutil.copytree) 
+        logger_bp_blog.info(f"Destination path: {dest}") 
+
+        # find root html file for post
+        for file_name in os.listdir(dest):
+            
+            if file_name.endswith('.html'):
+                post_html_filename = file_name
+                post_html_file_name_and_path =  os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), 
+                                        new_post_dir_name,post_html_filename)
+                post_html_filename = sanitize_directory_name(post_html_file_name_and_path)
+            if os.path.isdir(os.path.join(dest,file_name)) and os.path.join(dest,file_name)[-4:] == '.fld':
+                post_images_dir_name_and_path = os.path.join(dest,file_name)
+                post_images_dir_name = sanitize_directory_name(post_images_dir_name_and_path)
+
+        # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
+        # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), unzipped_files_dir_name)
+        new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
+        if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
+            flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,post_html_filename)}.", "warning")
+            # return redirect(request.url)
+            return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
+
+        # remove existing post_html_filename
+        os.remove(os.path.join(new_blog_dir_fp,post_html_filename))
+
+        # write a new index.html with new code that references images in image folder
+        index_html_writer = open(os.path.join(new_blog_dir_fp,post_html_filename), "w")
+        index_html_writer.write(new_index_text)
+        index_html_writer.close()
+
+        # delete compressed file
+        shutil.rmtree(temp_zip_db_fp)
+
+        new_blogpost.images_dir_name = post_images_dir_name
+        new_blogpost.word_doc_to_html_filename = post_html_filename
+        new_blogpost.title = get_title(os.path.join(new_blog_dir_fp,post_html_filename), "origin_from_word")
+        sess_users.commit()
+
+        logger_bp_blog.info(f"- filename is {new_post_dir_name} -")
 
         flash(f'Post added successfully!', 'success')
         return redirect(url_for('bp_blog.blog_edit', post_id = new_blog_id))
@@ -285,6 +255,12 @@ def blog_edit(post_id):
     title = post.title
     description = post.description
     post_time_stamp_utc = post.time_stamp_utc.strftime("%Y-%m-%d")
+    
+    if post.category not in [None, ""]:
+        selected_category = post.category
+    else:
+        selected_category = "coding"
+    
 
 
     if post.date_published in ["", None]:
@@ -298,9 +274,11 @@ def blog_edit(post_id):
         title = formDict.get("blog_title")
         description = formDict.get("blog_description")
         date = formDict.get("blog_date_published")
+        selected_category = formDict.get("category_dropdown")
 
         post.title = formDict.get("blog_title")
         post.description = formDict.get("blog_description")
+        post.category = formDict.get("category_dropdown")
         if formDict.get('blog_date_published') == "":
             post.date_published = None
         else:
@@ -311,7 +289,8 @@ def blog_edit(post_id):
         return redirect(request.url)
 
     return render_template('blog/edit_post.html', title= title, description = description, 
-        post_date = post_date, post_time_stamp_utc = post_time_stamp_utc)
+        post_date = post_date, post_time_stamp_utc = post_time_stamp_utc, 
+        selected_category=selected_category)
 
 
 

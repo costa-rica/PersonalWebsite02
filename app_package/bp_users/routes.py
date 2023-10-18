@@ -106,9 +106,18 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('bp_main.user_home'))
     page_name = 'Register'
+    print("--- ACCEPTED_EMAILS ---")
+    print(current_app.config.get('ACCEPTED_EMAILS'))
+    print(type(current_app.config.get('ACCEPTED_EMAILS')))
+
+
     if request.method == 'POST':
         formDict = request.form.to_dict()
         new_email = formDict.get('email')
+
+        if new_email not in current_app.config.get('ACCEPTED_EMAILS'):
+            flash("This email is not permitted to have an account", "warning")
+            return redirect(url_for('bp_main.home'))
 
         check_email = sess_users.query(Users).filter_by(email = new_email).all()
 

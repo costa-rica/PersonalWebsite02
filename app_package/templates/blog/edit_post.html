@@ -3,9 +3,10 @@
 {% block main %}
 <form method="POST" id="form_edit" enctype=multipart/form-data></form>
 
-<div class="edit_post_super">
+<div class="edit_post_page">
 
-  <div class="blog_form_div">
+  <!-- <div class="blog_form_div"> -->
+  <div class="col_1">
     <div class="button_div_right">
       <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Blog User Home </a>
     </div>
@@ -27,6 +28,24 @@
       <div class="blog_form_input_div">
         <textarea class="form-control" name="blog_description" id="blog_description"
           placeholder="optional (takes word doc 2nd/3rd paragraph)" form="form_edit">{{ description }}</textarea>
+      </div>
+
+      <!-- <div class="blog_form_label_div">
+        <label for="blog_description">Category</label>
+      </div>
+      <div class="blog_form_input_div">
+        <textarea class="form-control" name="blog_description" id="blog_description"
+          placeholder="optional (takes word doc 2nd/3rd paragraph)" form="form_edit">{{ description }}</textarea>
+      </div> -->
+      <label for="action">
+        Category
+      </label>
+      <div class="blog_form_input_div">
+        <select id="action" name="category_dropdown"  form="form_edit" class="form-control">
+          <option value="analysis" {% if selected_category == 'analysis' %}selected{% endif %}>Analysis</option>
+          <option value="coding" {% if selected_category == 'coding' %}selected{% endif %}>Coding</option>
+          <option value="personal_development" {% if selected_category == 'personal_development' %}selected{% endif %}>Personal development</option>
+        </select>
       </div>
 
 
@@ -56,9 +75,9 @@
       </div><!-- blog_form_buttons -->
       
     </div><!-- blog_form_sub_top-->
-  </div><!-- blog_form_div -->
+  </div><!-- col_1 -->
 
-</div><!-- edit_post_super -->
+</div><!-- edit_post_page -->
 
 
   {% endblock %}

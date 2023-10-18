@@ -500,41 +500,41 @@
 }
 
 /*Blog Post Edit*/
-.edit_post_super {
-  padding: var(--nav-height) 0 60px 30px;
+.edit_post_page {
+  width: 100%;
   font-size: 2rem;
   display: flex;
   justify-content: center;
 }
-.edit_post_super a {
+.edit_post_page a {
   color: var(--website_theme_font_color_a_dark);
 }
-.edit_post_super a:hover {
+.edit_post_page a:hover {
   color: var(--website_theme_fun_color);
 }
-.edit_post_super .blog_form_div {
+.edit_post_page .col_1 {
   width: calc(100% - 5rem);
   border: 1px solid;
   border-radius: 1rem;
   background-color: var(--bs-gray-500);
   padding: 2rem;
 }
-.edit_post_super .blog_form_div .blog_form_sub_top {
+.edit_post_page .col_1 .blog_form_sub_top {
   padding: 20px 0 50px 5%;
 }
-.edit_post_super .blog_form_div .blog_form_sub_top .input_custom {
+.edit_post_page .col_1 .blog_form_sub_top .input_custom {
   width: 95%;
 }
-.edit_post_super .blog_form_div .blog_form_sub_top .blog_form_input_div {
+.edit_post_page .col_1 .blog_form_sub_top .blog_form_input_div {
   min-width: 150px;
   max-width: 80%;
 }
-.edit_post_super .blog_form_div .button_div_right {
+.edit_post_page .col_1 .button_div_right {
   display: flex;
   justify-content: end;
   padding: 3rem 3rem 0 0;
 }
-.edit_post_super .blog_form_div .gray_input {
+.edit_post_page .col_1 .gray_input {
   background-color: var(--bs-gray-500);
 }
 
