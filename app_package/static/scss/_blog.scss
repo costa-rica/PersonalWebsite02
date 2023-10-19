@@ -255,77 +255,17 @@
 
 
 /*Blog Index -- currently not being used*/
-.post_index {
+.blogpost_index_page {
     // padding: var(--nav-height) 0 0 0;
-    // display: flex;
-    // justify-content: center;
+    display: flex;
+    justify-content: center;
 
 
-    .grid5_blog {
+    .blogpost_index_page_sub {
         width: calc(100% - 1rem);
         padding-top: 1rem;
     }
-
-    .div_link_to_rest {
-        display: flex;
-        justify-content: end;
-        font-size: var(--normal_font_size);
-        padding-bottom: 2rem;
-
-        a {
-            padding-left: .3rem;
-            color: var(--bs-secondary);
-            font-size: var(--normal_font_size);
-        }
-
-        a:hover {
-            font-size: 1.5rem;
-            color: white;
-            border: none;
-        }
-
-    }
-
-    // .grid5_blog_title_super {
-    //     display: flex;
-    //     // flex-wrap: wrap;
-    // }
-    .grid5_blog_title_super {
-        display: flex;
-        
-  
-        .no_show {
-          text-decoration: none;
-          width: calc(100% - 12rem);
-        }
-    }
-    .grid5_blog_title {
-        font-size: var(--normal_font_size);
-        // width:100%;
-        padding-left: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        .no_show {
-            text-decoration: none;
-        }
-    }
-
-    // .grid5_blog_title_sub {
-    //     font-size: .9rem;
-    //     width: 100%;
-    //     padding-left: 1rem;
-    // }
-
-    // .what_is_this {
-    //     background-color: var(--bs-gray-400);
-    //     border-radius: 3rem;
-    //     border-bottom-left-radius: 0.5rem;
-    //     font-size: .75rem;
-
-    //     padding: .15rem .25rem;
-    //     margin: -.6rem 0 0 .25rem;
-        
-    // }
+    .blogpost_page_title{width:100%}
 
     a {
         text-decoration: none;
@@ -339,17 +279,18 @@
         border: none;
     }
 
-    .blogpost_super {
-        padding: .5rem 0
-    }
+    // .blogpost_super {
+    //     // padding: .5rem 0
+    // }
 
     .blogpost {
         width: 100%;
         border: .5rem solid transparent;
         border-radius: 1rem;
-        padding: .5rem;
+        // padding: .5rem;
         // background-color: var(--bs-gray-400);
-        background-color: var(--bs-primary);
+        // background-color: var(--bs-primary);
+        background-color: var(--color-gray04);
 
         a {
             text-decoration: none;
@@ -360,18 +301,65 @@
     .blogpost:hover {
         border: .5rem solid var(--bs-gray-200);
     }
-
-    .blogpost_date {
-        color: var(--bs-gray-600);
-        text-align: right;
+    .top_row{
+        display: flex;
+        justify-content: space-between;
     }
+    .bottom_row{
+        display:flex;
+        justify-content: space-between;
+        // background-color: #4CAF50;
 
+    }
+    .bottom_row_right{
+        width: 8rem;
+    }
     .blogpost_title {
         font-size: x-large;
+        // background-color: aquamarine;
+    }
+    .blogpost_date {
+        color: var(--color-gray05);
+        text-align: right;
+        // background-color: antiquewhite;
     }
     .blogpost_description {
         color: var(--website_theme_font_color_a_light)
     }
+    .blogpost_image{
+        // background-color: #E54E4E;
+        display: flex;
+        justify-content: center;
+        img{max-width:8rem;}
+    }
+    .blogpost_divder_super{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // gap:1rem;
+        padding:1rem 0;
+        // background-color: #4CAF50;
+    }
+    .blogpost_divder{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // gap:1rem;
+        padding:1rem 0;
+        // width:50%;
+        // background-color: #E54E4E;
+        // width: 50%;
+        width:100%;
+
+    }
+    .blogpost_divder .line {
+        background-color: var(--color-gray04); /* Line color */
+        // background-color: black; /* Line color */
+        height: 1px; /* Line thickness */
+        // flex-grow: 1;
+        // margin: 0 10px;
+        width:50%;
+      }
 
 
 

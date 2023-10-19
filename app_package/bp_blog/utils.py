@@ -6,6 +6,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 import re
+import requests
 
 #Setting up Logger
 formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
@@ -42,9 +43,23 @@ def create_blog_posts_list(number_of_posts_to_return=False):
             post_date = post.date_published.strftime("%Y-%m-%d")
         post_title = post.title
         post_description = post.description if post.description != None else "No description"
-        post_string_id = post.post_dir_name
         
-        blog_posts_list.append((post_date,post_title,post_description,post_string_id))
+        
+        # post_string_id = post.post_dir_name if post.post_dir_name != None else post.url
+        if post.post_dir_name != None:
+            post_string_id = post.post_dir_name
+            if post.blogpost_index_image_filename not in ["", None, "no_image"]:
+                # blogpost_image = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post.images_dir_name, post.blogpost_index_image_filename)
+                blog_posts_list.append((post_date,post_title,post_description,post_string_id,post.blogpost_index_image_filename,post.post_dir_name))
+            else:
+                blog_posts_list.append((post_date,post_title,post_description,post_string_id))
+        else:
+            post_string_id = post.url
+            favicon_obj = get_favicon(post.url)
+            meta_content_obj = get_meta_description(post.url)
+        
+            blog_posts_list.append((post_date,post_title,post_description,post_string_id,favicon_obj,meta_content_obj))
+        # blog_posts_list.append((post_date,post_title,post_description,post_string_id))
     
 
     blog_posts_list.sort(key=lambda tuple_element: tuple_element[0], reverse=True)
@@ -80,9 +95,9 @@ def replace_img_src_jinja(blog_post_index_file_path_and_name, img_dir_name):
         try:
             if img.get('src') == "":
                 image_list.remove(img)
-                print("removed img")
+                # print("removed img")
             else:
-                print("***** REPLACING src *****")
+                # print("***** REPLACING src *****")
                 # img['src'] = "{{ url_for('blog.custom_static', post_id_name_string=post_id_name_string,img_dir_name='" + \
                 #     img['src'][:img['src'].find("/")] \
                 #     +"', filename='"+ img['src'][img['src'].find("/")+1:]+"')}}"
@@ -91,7 +106,7 @@ def replace_img_src_jinja(blog_post_index_file_path_and_name, img_dir_name):
                     +"', filename='"+ img['src'][img['src'].find("/")+1:]+"')}}"
         except AttributeError:
             image_list.remove(img)
-            print('removed img with exception')
+            # print('removed img with exception')
 
 
 
@@ -163,4 +178,34 @@ def sanitize_directory_name(directory_path):
         print("No changes needed.")
     
     return directory_name
+
+
+
+# import requests
+# from bs4 import BeautifulSoup
+
+def get_favicon(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    link = soup.find("link", rel="icon")
+    if link:
+        favicon_url = link['href']
+        if favicon_url.startswith('/'):
+            favicon_url = url + favicon_url
+        return favicon_url
+    # If no favicon in HTML, try the default location
+    return f"{url.rstrip('/')}/favicon.ico"
+
+# favicon_url = get_favicon("https://www.example.com")
+
+def get_meta_description(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    meta_desc = soup.find("meta", attrs={"name": "description"})
+    if meta_desc:
+        return meta_desc['content']
+    return None
+
+# description = get_meta_description("https://www.example.com")
+
 

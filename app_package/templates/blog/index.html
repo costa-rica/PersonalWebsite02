@@ -1,73 +1,104 @@
 {% extends "_layout.html" %}
-
 {% block title %}Blog{% endblock %}
-
 {% block main %}
 
-<div class="space_for_navbar_and_footer">
 
 
-<div class="post_index flex_center">
+  <div class="blogpost_index_page">
 
-    <div class="grid5_blog ">
-        <div class="std_framing">
-          {% if current_user.is_authenticated %}
-          <div class="div_link_to_rest">
-            <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Blog User Home </a>
-          </div>
-          {% endif %}
-            <div class="div_link_to_rest">
-                <a href="{{ url_for('bp_main.home') }}" id="go_home_link"> Go Home</a>
-              </div>
+    <div class="blogpost_index_page_sub ">
+      <div class="blogpost_page_title"><h2>Blog Posts</h2></div>
+      <div class="col_1">
+           
+        {% for post in blog_posts_list %}
 
+        {% if post[3][:5] != "https" %}
+            
+            <div class="blogpost_super">
+              <a href="{{ url_for('bp_blog.view_post', post_dir_name=post[3]) }}">
+                <div class="blogpost">
+                  <div class="top_row">
+                    <div class="blogpost_title">
+                      {{ post.1 }}
+                    </div>
+                    <div class="blogpost_date">
+                      {{ post[0] }}
+                    </div>
+                  </div>
 
-          <div class="grid5_blog_title_super">
-            {% if current_user.admin %}
-            <a href="{{ url_for('bp_blog.manage_blogposts' ) }}" class="no_show">
-              <div class="grid5_blog_title"><h2>Blog Posts</h2></div>
-            </a>
+                  <div class="bottom_row">
+                    <div class="blogpost_description">
+                      {{ post.2 }}
+                    </div>
+                    <div class="bottom_row_right">
+                      <div class="blogpost_image">
+                        
+                        <!-- <img src="/Users/nick/Documents/_databases/personalWebsite02/auxilary/blog/posts/0001_post/index/image001.png"> -->
+                        <img class="" src="{{ url_for('bp_blog.get_post_files', post_dir_name=post.5,img_dir_name='index',filename=post.4) }}"/>
+                        
+                      </div>
+                      <!-- <div class="blogpost_tags">
+                        #coding #python
+                      </div> -->
+                    </div><!-- bottom_row_right-->
+                  </div><!-- bottom_row-->
 
+                </div><!-- blogpost -->
+              </a>
+            </div><!-- blogpost_super -->
             {% else %}
-            <div class="grid5_blog_title"><h2>Blog Posts</h2></div>
-            {% endif %}
-
-          </div><!-- grid5_blog_title -->
 
 
+              <div class="blogpost_super">
+                <a href="{{ post[3] }}">
+                  <div class="blogpost">
+                    <div class="top_row">
+                      <div class="blogpost_title">
+                        {{ post.1 }}
+                      </div>
+                      <div class="blogpost_date">
+                        {{ post[0] }}
+                      </div>
+
+                    </div>
+                    <div class="bottom_row">
+                      <div class="blogpost_description">
+                        {{ post.5 }}
+                      </div>
+                      <div class="bottom_row_right">
+                        <div class="blogpost_image">
+                          <img src="{{ post.4 }}">
+                        </div>
+                        <div class="blogpost_tags">
+                          #coding #python
+                        </div>
+                      </div><!-- bottom_row_right-->
+
+                    </div><!-- bottom_row -->
+
+                  </div><!-- blogpost -->
+                </a>
+              </div><!-- blogpost_super -->
+
+
+
+      {% endif %}
+      <!-- <div class="blogpost_divder_super"> -->
+        <div class="blogpost_divder">
+          <span class="line"></span>
           
-          {% for post in blog_posts_list %}
-        
-          <div class="blogpost_super">
 
-            <a href="{{ url_for('bp_blog.view_post', post_dir_name=post[3]) }}">
-
-              <div class="blogpost">
-                <div class="blogpost_date">
-                  {{ post[0] }}
-                </div>
-
-                <div class="blogpost_title">
-                  {{ post.1 }}
-                </div>
+      </div>
+      <!-- </div> -->
 
 
-                <div class="blogpost_description">
-                  {{ post.2 }}
-                </div>
+      {% endfor %}
 
-              </div><!-- blogpost -->
-            </a>
-          </div><!-- blogpost_super -->
+    </div><!-- col_1 -->
+
+  </div><!-- blogpost_index_page_sub -->
 
 
-          {% endfor %}
+</div><!-- blogpost_index_page -->
 
-
-        </div><!-- std_framing -->
-
-      </div><!-- grid5_blog -->
-
-
-</div><!-- post_index -->
-</div><!-- space_for_navbar_and_footer -->
 {% endblock %}

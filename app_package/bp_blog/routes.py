@@ -45,13 +45,17 @@ sess_users = dict_sess['sess_users']
 @bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
 def get_post_files(post_dir_name, img_dir_name,filename):
     logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
-
     return send_from_directory(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_dir_name, img_dir_name), filename)
 
 @bp_blog.route("/blog", methods=["GET"])
 def index():
 
     blog_posts_list = create_blog_posts_list()
+    # print("-- blog_post_list --")
+    
+    # print(blog_posts_list)
+    # print("-- blog_post_list --")
+    # print("-- blog_post_list --")
         
     items = ['date', 'title', 'description']
 
@@ -141,8 +145,6 @@ def create_post():
         if formDict.get('what_kind_of_post') == 'post_article':
             logger_bp_blog.info(f"- post_article -")
 
-
-
             post_zip = request_files["post_article_zip_file"]
             post_zip_filename = post_zip.filename
 
@@ -214,6 +216,15 @@ def create_post():
                 if os.path.isdir(os.path.join(dest,file_name)) and os.path.join(dest,file_name)[-4:] == '.fld':
                     post_images_dir_name_and_path = os.path.join(dest,file_name)
                     post_images_dir_name = sanitize_directory_name(post_images_dir_name_and_path)
+                    # print("images dir name:::::")
+                    # print(os.path.join(post_images_dir_name_and_path,post_images_dir_name))
+                    # print("DIR_DB_AUX_BLOG_POSTS")
+                    # print(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'))
+                    # print("Ending that is importatn for image dir::::")
+                    # ending_path = os.path.join(new_post_dir_name,"index")
+                    # print(ending_path)
+                    # new_blogpost.images_dir_name = os.path.join(post_images_dir_name_and_path,post_images_dir_name)
+                    new_blogpost.images_dir_name = os.path.join(new_post_dir_name,"index")
 
             # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
             # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), unzipped_files_dir_name)
@@ -234,7 +245,7 @@ def create_post():
             # delete compressed file
             shutil.rmtree(temp_zip_db_fp)
 
-            new_blogpost.images_dir_name = post_images_dir_name
+            # new_blogpost.images_dir_name = post_images_dir_name
             new_blogpost.word_doc_to_html_filename = post_html_filename
             new_blogpost.title = get_title(os.path.join(new_blog_dir_fp,post_html_filename), "origin_from_word")
             sess_users.commit()
@@ -287,12 +298,17 @@ def blog_edit(post_id):
         selected_category = "coding"
     
 
-
     if post.date_published in ["", None]:
         post_date = ""
     else:
         post_date = post.date_published.strftime("%Y-%m-%d")
 
+    list_image_files = None
+    # Select images from post directory 
+    if post.images_dir_name not in ["", None]:
+        list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post.images_dir_name))
+        # print(file_names)
+    selected_image = post.blogpost_index_image_filename
     if request.method == 'POST':
         formDict = request.form.to_dict()
 
@@ -304,6 +320,7 @@ def blog_edit(post_id):
         post.title = formDict.get("blog_title")
         post.description = formDict.get("blog_description")
         post.category = formDict.get("category_dropdown")
+        post.blogpost_index_image_filename = formDict.get("image_filename_dropdown")
         if formDict.get('blog_date_published') == "":
             post.date_published = None
         else:
@@ -315,7 +332,8 @@ def blog_edit(post_id):
 
     return render_template('blog/edit_post.html', title= title, description = description, 
         post_date = post_date, post_time_stamp_utc = post_time_stamp_utc, 
-        selected_category=selected_category)
+        selected_category=selected_category, list_image_files=list_image_files,
+        selected_image=selected_image)
 
 
 

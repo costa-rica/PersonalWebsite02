@@ -8,7 +8,7 @@
   <!-- <div class="blog_form_div"> -->
   <div class="col_1">
     <div class="button_div_right">
-      <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Blog User Home </a>
+      <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Manage Blogposts </a>
     </div>
     
     <h2>Edit blog post</h2>
@@ -48,6 +48,19 @@
         </select>
       </div>
 
+      {% if list_image_files != None %}
+      <label for="image_filenames_dropdown">
+        Image for the blogpost
+      </label>
+      <div class="blog_form_input_div">
+        <select id="image_filenames_dropdown" name="image_filename_dropdown"  form="form_edit" class="form-control">
+          <option value="no_image" >no image</option>
+          {% for filename in list_image_files %}
+          <option value="{{ filename }}" {% if selected_image == filename %}selected{% endif %}>{{ filename }}</option>
+          {% endfor %}          
+        </select>
+      </div>
+      {% endif %}
 
       <div class="blog_form_label_div">
         Date
