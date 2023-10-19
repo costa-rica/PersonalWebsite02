@@ -3,26 +3,37 @@
 {% block main %}
 <form method="POST" id="form_create_post" enctype=multipart/form-data></form>
 
-<div class="space_for_navbar_and_footer">
+<div class="create_post_page">
 
-<div class="create_post_super">
-  <div class="create_post">
+
+  <div class="col_1">
+    <div class="col_1_sub">
+
+    
 
     <h2>Upload/Create Blog Post</h2>
 
     <div class="a_div_right">
-      <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Blog User Home </a>
+      <a href="{{ url_for('bp_blog.manage_blogposts') }}" > Manage Blogs </a>
     </div>
-    <div class="create_post_framing">
+    <div class="create_post_card">
       <div class="create_post_content">
 
+        <div class="what_kind_of_post_div">
+          <label for="action">What kind of Post?
+          </label>
+          <select id="action" name="what_kind_of_post" 
+            onchange='onSelectChangeHandler()' form="form_create_post">
+  
+            <option value="post_article">Blog Article</option>
+            <option value="post_link">Link</option>
+          </select>
+        </div>
+
+        
 
 
-
-
-        <!-- new_method = origin_from_word -->
-        <!-- <div id="new_method" class="new_method"> -->
-        <div id="origin_from_word_id" class="origin_from_word_div">
+        <div id="post_article_id" class="post_article_div">
           <div class="description_text_super">
             <div class="description_text">
               Zipped file with index.html<br>
@@ -41,23 +52,48 @@
 
           </div><!-- description_text_super -->
 
-          <div id="new_method_inputs">
+          <div id="post_article_inputs">
 
-            <div class="new_method_input_file">
+            <!-- <div class="new_method_input_file"> -->
+            <div class="post_article_input_file">
               Upload zipped/compressed folder (former Word document):
               <!-- <input class="form-control" type="file" form="form_create_post" name="new_method" accept=".zip"
                 placeholder=".html"> -->
-              <input class="form-control" type="file" form="form_create_post" name="zip_file_origin_word" accept=".zip"
+              <input class="form-control" type="file" form="form_create_post" name="post_article_zip_file" accept=".zip"
                 placeholder=".html">
 
-            </div><!-- blog_form_input_div -->
+            </div><!-- post_article_input_file -->
 
+          </div><!-- post_article_inputs -->
 
-          </div><!-- new_method_inputs -->
+        </div><!-- post_article_div -->
 
-        </div><!-- new_method -->
+        <div id="post_link_id" class="post_link_div">
+        <!-- <div class="link_stuff_div"> -->
 
+          <div class="blog_link_label_div">
+            <label for="blog_description">Title</label>
+          </div>
+          <div class="blog_link_input_div">
+            <input type="text" class="form-control" name="blog_title" value="{{ title }}" form="form_create_post">
+          </div>
+          <div class="blog_link_label_div">
+            <label for="blog_description">URL</label>
+          </div>
+          <div class="blog_link_input_div">
+            <input type="text" class="form-control" name="blog_url" value="{{ blog_url }}" form="form_create_post">
+          </div>
+          <div class="blog_link_label_div">
+            <label for="blog_description">Description</label>
+          </div>
+          <div class="blog_link_input_div">
+            <textarea class="form-control" name="blog_description" id="blog_description"
+              placeholder="optional (takes word doc 2nd/3rd paragraph)" form="form_create_post">{{ description }}</textarea>
+          </div>
 
+        </div><!-- post_a_link -->
+
+        <!-- </div> -->
 
         <div class="blog_form_bottom_buttons_and_progress">
 
@@ -76,33 +112,53 @@
         </div><!-- blog_form_bottom_buttons_and_progress -->
 
 
-
-
       </div><!-- create_post_content (child of flex)-->
-    </div><!-- create_post_framing (flex)-->
+    </div><!-- create_post_card (flex)-->
 
 
+    </div><!-- col_1_sub -->
+  </div><!-- col_1-->
+</div><!-- create_post_page -->
 
-    <script>
 
-      function update() {
-        var element = document.getElementById("myprogressBar");
-        var width = 10;
-        var identity = setInterval(scene, 10);
-        function scene() {
-          if (width >= 100) {
-            clearInterval(identity);
-          } else {
-            width++;
-            element.style.width = width + '%';
-          }
-        }
+<script>
+  function onSelectChangeHandler() {
+    console.log("-- action activaited?");
+    var val = document.getElementById("action").value;
+    console.log("user selected: " + val);
+
+    switch (val) {
+      // case "old_method_with_images":
+      case "post_article":
+        document.getElementById("post_article_id").style.display = "block";
+        document.getElementById("post_link_id").style.display = "none";
+        // document.getElementById("delete").style.display = "none";
+        console.log("Add word converted to html");
+        break;
+
+      // case "zipped_html":
+      case "post_link":
+        document.getElementById("post_article_id").style.display = "none";
+        document.getElementById("post_link_id").style.display = "block";
+        // document.getElementById("delete").style.display = "none";
+        console.log("Add html file");
+        break;
+    }
+  }
+</script>
+<script>
+  function update() {
+    var element = document.getElementById("myprogressBar");
+    var width = 10;
+    var identity = setInterval(scene, 10);
+    function scene() {
+      if (width >= 100) {
+        clearInterval(identity);
+      } else {
+        width++;
+        element.style.width = width + '%';
       }
-    </script>
-
-
-  </div><!-- create_post (child of flex)-->
-</div><!-- create_post_super (flex)-->
-
-</div><!-- space_for_navbar_and_footer -->
+    }
+  }
+</script>
 {% endblock %}

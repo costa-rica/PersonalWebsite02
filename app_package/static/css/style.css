@@ -358,76 +358,73 @@
 }
 
 /* Create Post*/
-.create_post_super {
-  padding: var(--nav-height) 0 60px 30px;
+.create_post_page {
   display: flex;
   justify-content: center;
-  color: var(--website_theme_font_color_dark);
+  width: 100%;
 }
-.create_post_super a {
+.create_post_page a {
   color: var(--website_theme_font_color_a_dark);
 }
-.create_post_super a:hover {
+.create_post_page a:hover {
   color: var(--website_theme_fun_color);
 }
-.create_post_super .create_post {
-  width: calc(100% - 3rem);
-}
-.create_post_super .create_post_framing {
-  border: 1px solid;
-  margin: 0;
-  padding: 0;
-  border-radius: 10px;
-  background-color: var(--bs-gray-500);
-  margin: 2% 5% 2% 0;
+.create_post_page .col_1 {
   display: flex;
   justify-content: center;
+  color: var(--color-gray-text);
+  width: 100%;
+  max-width: calc(100% - 5rem);
 }
-.create_post_super .a_div_right {
+.create_post_page .col_1_sub {
+  width: 100%;
+}
+.create_post_page .create_post_card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid;
+  border-radius: 10px;
+  background-color: var(--bs-gray-500);
+  color: var(--color-dark-gray-text);
+}
+.create_post_page .a_div_right {
   display: flex;
   justify-content: end;
   padding: 0 5rem 0 0;
 }
-.create_post_super .create_post_content {
-  width: calc(100% - 3rem);
-  padding: 2rem 0 0 0;
+.create_post_page .create_post_content {
+  padding: 2rem;
+  width: 100%;
 }
-.create_post_super .description_text_super {
+.create_post_page .description_text_super {
   display: flex;
   justify-content: center;
   padding: 0 0 1rem 0;
 }
-.create_post_super .new_method_input_file {
+.create_post_page .post_article_input_file {
   padding: 1rem 0 0 0;
 }
-.create_post_super .new_method_input_source_dropdown {
-  padding: 1rem 0 0 0;
-}
-.create_post_super .origin_from_html_div {
+.create_post_page .post_link_div {
   display: none;
-  background-color: #E97451;
-  padding: 1rem;
-  border-radius: 1rem;
 }
-.create_post_super .origin_from_html_input_div {
-  opacity: 0.4;
+.create_post_page .blog_form_bottom_buttons_and_progress {
+  width: 100%;
+  padding: 2rem;
 }
-.create_post_super .blog_form_bottom_buttons_and_progress {
-  padding: 3rem 0 3rem 2rem;
-}
-.create_post_super .blog_form_bottom_buttons_and_progress .button_div_right {
+.create_post_page .blog_form_bottom_buttons_and_progress .button_div_right {
   display: flex;
   justify-content: end;
   padding: 0 5rem 0 0;
 }
-.create_post_super .blog_form_bottom_buttons_and_progress .btn_custom {
+.create_post_page .blog_form_bottom_buttons_and_progress .btn_custom {
   width: 10rem;
 }
-.create_post_super .blog_form_bottom_buttons_and_progress #Progress_Status {
+.create_post_page .blog_form_bottom_buttons_and_progress #Progress_Status {
   width: 50%;
   background-color: #ddd;
 }
-.create_post_super .blog_form_bottom_buttons_and_progress #myprogressBar {
+.create_post_page .blog_form_bottom_buttons_and_progress #myprogressBar {
   /* Starting point of progress bar */
   width: 0;
   height: 20px;
@@ -849,7 +846,9 @@
   --color-gray02: #bfbfbf;
   --color-gray03: #a0a0a0;
   --color-gray04: #808080;
+  --color-gray05: #212121;
   --color-gray-text:var(--color-gray01-light);
+  --color-dark-gray-text:var(--color-gray05);
   --color_gray_test_01:#898989;
   --color-gray-text-title:var(--color-gray01-light);
 }
