@@ -16,8 +16,7 @@ MarkupSafe==2.1.3
 numpy==1.26.0
 openpyxl==3.1.2
 pandas==2.1.1
-# Editable install with no version control (pw-modules==0.1)
--e /Users/nick/Documents/PersonalWebsite02_modules/pw_modules
+PersonalWebsite02_modules @ https://github.com/costa-rica/PersonalWebsite02_modules/archive/master.zip
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2023.3.post1

@@ -50,7 +50,8 @@ def create_blog_posts_list(number_of_posts_to_return=False):
             post_string_id = post.post_dir_name
             if post.blogpost_index_image_filename not in ["", None, "no_image"]:
                 # blogpost_image = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post.images_dir_name, post.blogpost_index_image_filename)
-                blog_posts_list.append((post_date,post_title,post_description,post_string_id,post.blogpost_index_image_filename,post.post_dir_name))
+                blog_posts_list.append((post_date,post_title,post_description,
+                    post_string_id,post.blogpost_index_image_filename,post.post_dir_name, post.images_dir_name))
             else:
                 blog_posts_list.append((post_date,post_title,post_description,post_string_id))
         else:

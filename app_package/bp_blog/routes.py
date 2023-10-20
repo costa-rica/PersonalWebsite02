@@ -216,6 +216,7 @@ def create_post():
                 if os.path.isdir(os.path.join(dest,file_name)) and os.path.join(dest,file_name)[-4:] == '.fld':
                     post_images_dir_name_and_path = os.path.join(dest,file_name)
                     post_images_dir_name = sanitize_directory_name(post_images_dir_name_and_path)
+                    print("-----> post_images_dir_name:", post_images_dir_name)
                     # print("images dir name:::::")
                     # print(os.path.join(post_images_dir_name_and_path,post_images_dir_name))
                     # print("DIR_DB_AUX_BLOG_POSTS")
@@ -224,7 +225,9 @@ def create_post():
                     # ending_path = os.path.join(new_post_dir_name,"index")
                     # print(ending_path)
                     # new_blogpost.images_dir_name = os.path.join(post_images_dir_name_and_path,post_images_dir_name)
-                    new_blogpost.images_dir_name = os.path.join(new_post_dir_name,"index")
+                    # new_blogpost.images_dir_name = os.path.join(new_post_dir_name,"index")
+                    # new_blogpost.images_dir_name = os.path.join(new_post_dir_name,post_images_dir_name)
+                    new_blogpost.images_dir_name =post_images_dir_name
 
             # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
             # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), unzipped_files_dir_name)
@@ -306,7 +309,8 @@ def blog_edit(post_id):
     list_image_files = None
     # Select images from post directory 
     if post.images_dir_name not in ["", None]:
-        list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post.images_dir_name))
+        list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),
+            post.post_dir_name, post.images_dir_name))
         # print(file_names)
     selected_image = post.blogpost_index_image_filename
     if request.method == 'POST':
@@ -350,16 +354,17 @@ def blog_delete(post_id):
     logger_bp_blog.info('-- In delete route --')
     logger_bp_blog.info(f'post_id:: {post_id}')
 
-    # delete word document in templates/blog/posts
-    # blog_dir_for_delete = os.path.join(current_app.config.get('DB_ROOT'), "posts",post_to_delete.post_id_name_string)
-    blog_dir_for_delete = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_to_delete.post_dir_name)
+    if post_to_delete.post_dir_name:
+        # delete word document in templates/blog/posts
+        # blog_dir_for_delete = os.path.join(current_app.config.get('DB_ROOT'), "posts",post_to_delete.post_id_name_string)
+        blog_dir_for_delete = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_to_delete.post_dir_name)
 
-    # new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+        # new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
 
-    try:
-        shutil.rmtree(blog_dir_for_delete)
-    except:
-        logger_bp_blog.info(f'No {blog_dir_for_delete} in static folder')
+        try:
+            shutil.rmtree(blog_dir_for_delete)
+        except:
+            logger_bp_blog.info(f'No {blog_dir_for_delete} in static folder')
 
     # delete from database
     sess_users.query(BlogPosts).filter(BlogPosts.id==post_id).delete()
