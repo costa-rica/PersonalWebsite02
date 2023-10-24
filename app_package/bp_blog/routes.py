@@ -49,7 +49,7 @@ def get_post_files(post_dir_name, img_dir_name,filename):
 
 @bp_blog.route("/blog", methods=["GET"])
 def index():
-
+    logger_bp_blog.info(f"- in blog index page -")
     blog_posts_list = create_blog_posts_list()
     # print("-- blog_post_list --")
     
