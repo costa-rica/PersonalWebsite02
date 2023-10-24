@@ -264,8 +264,12 @@
     .blogpost_index_page_sub {
         width: calc(100% - 1rem);
         padding-top: 1rem;
+        
     }
-    .blogpost_page_title{width:100%}
+    .blogpost_page_title{
+        width:100%;
+        color:var(--color-gray-text);
+    }
 
     a {
         text-decoration: none;

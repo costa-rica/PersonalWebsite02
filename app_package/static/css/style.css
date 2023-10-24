@@ -546,6 +546,7 @@
 }
 .blogpost_index_page .blogpost_page_title {
   width: 100%;
+  color: var(--color-gray-text);
 }
 .blogpost_index_page a {
   text-decoration: none;
