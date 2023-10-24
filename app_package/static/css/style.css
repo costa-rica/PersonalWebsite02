@@ -17,6 +17,7 @@
   background-color: transparent;
   border: none;
   size: 1.5rem;
+  color: var(--color-gray02);
 }
 
 #navbar_side {
@@ -738,6 +739,7 @@
 
 .resume_page {
   color: var(--color-gray-text);
+  width: 100%;
 }
 .resume_page .div_name {
   display: flex;

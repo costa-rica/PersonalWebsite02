@@ -8,10 +8,12 @@
 }
 .div_hamburger{
     padding: .5rem 0 .5rem 2rem;
+
     button{
         background-color: transparent;
         border:none;
         size:1.5rem;
+        color:var(--color-gray02);
     }
 }
 #navbar_side {
