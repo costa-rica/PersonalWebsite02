@@ -333,27 +333,40 @@
 }
 
 /* View Post */
-.view_post_super {
+.view_post_page {
   display: flex;
   justify-content: center;
   padding: 3rem 0 0 0;
+  width: 100%;
 }
-.view_post_super .view_post {
+.view_post_page .view_post {
   width: calc(100% - 2rem);
+  color: var(--color-gray-text);
 }
-.view_post_super .view_post a {
+.view_post_page .view_post h1 {
+  color: var(--color-yellow);
+}
+.view_post_page .view_post h2 {
+  color: var(--color-yellow);
+}
+.view_post_page .view_post a {
   color: var(--website_theme_font_color_a_dark);
 }
-.view_post_super .view_post a:hover {
+.view_post_page .view_post a:hover {
   color: var(--website_theme_fun_color);
 }
-.view_post_super .view_post .MsoNormal span img {
+.view_post_page .view_post .MsoNormal span img {
   text-align: center;
+  width: 100%;
+  height: auto;
 }
-.view_post_super .post {
+.view_post_page .view_post .MsoCaption {
+  color: var(--color-gray-text);
+}
+.view_post_page .post {
   padding: 2rem 0 0 0;
 }
-.view_post_super .div_right {
+.view_post_page .div_right {
   display: flex;
   justify-content: end;
 }

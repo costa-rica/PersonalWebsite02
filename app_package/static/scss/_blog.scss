@@ -1,12 +1,16 @@
 /* View Post */
-.view_post_super {
+.view_post_page {
     display: flex;
     justify-content: center;
     padding:3rem 0 0 0;
+    width:100%;
 
     .view_post {
         width: calc(100% - 2rem);
         // img{border: 1px solid black;}
+        color:var(--color-gray-text);
+        h1{color:var(--color-yellow)};
+        h2{color:var(--color-yellow)};
         a{color: var(--website_theme_font_color_a_dark);}
         a:hover{color: var(--website_theme_fun_color);}
 
@@ -15,8 +19,13 @@
             span{
                 img{
                     text-align: center;
+                    width:100%;
+                    height:auto;
                 }
             }
+        }
+        .MsoCaption{
+            color:var(--color-gray-text);
         }
     }
     .post{
