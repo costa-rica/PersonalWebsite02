@@ -62,7 +62,7 @@
     display: flex;
     gap:1rem;
     flex-wrap: wrap;
-
+    flex-direction: row-reverse;
     .col_1, .col_2 {
         display:flex;
         justify-content: center;
@@ -87,6 +87,7 @@
     .img_montmarte{
         width:60%;
         box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
     }
     .other_contact{
         padding:3rem 0;
@@ -102,7 +103,7 @@
     //     width:100%;
     //     color: var(--color_gray_test_01)
     // }
-    .paragraph_home_super{padding-top:5rem;}
+    // .paragraph_home_super{padding-top:5rem;}
     .paragraph_home{
         padding: .5rem 0;
     }
@@ -180,7 +181,7 @@
     color:var(--color-gray-text);
     .col_1{
         width: 80%;
-        padding-top:10rem;
+        // padding-top:10rem;
     }
     .div_hi_big{
         width: 100%;

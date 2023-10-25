@@ -706,6 +706,7 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  flex-direction: row-reverse;
 }
 .about_page .col_1, .about_page .col_2 {
   display: flex;
@@ -728,6 +729,7 @@
 .about_page .img_montmarte {
   width: 60%;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
 }
 .about_page .other_contact {
   padding: 3rem 0;
@@ -742,9 +744,6 @@
 }
 .about_page .div_hi_big {
   width: 100%;
-}
-.about_page .paragraph_home_super {
-  padding-top: 5rem;
 }
 .about_page .paragraph_home {
   padding: 0.5rem 0;
@@ -817,7 +816,6 @@
 }
 .about_this_page .col_1 {
   width: 80%;
-  padding-top: 10rem;
 }
 .about_this_page .div_hi_big {
   width: 100%;
