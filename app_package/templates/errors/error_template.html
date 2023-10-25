@@ -1,10 +1,9 @@
 {% extends "_layout.html" %}
 {% block title %} {{ error_number }} {% endblock %}
 {% block main %}
-<!-- <div class="main"> -->
-    <div class="main_super">
-    <div class="error_page_super">
-        <div class="error_page">
+
+    <div class="errors_page">
+        <div class="col_1">
             <div class="title"><h1>Ooops... {{ error_number }}</h1></div>
            
            
@@ -16,7 +15,7 @@
            {% endif %}
         </div>
     </div>
-</div>
+
 
 
 {% endblock %}

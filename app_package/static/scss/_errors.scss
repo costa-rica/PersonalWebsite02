@@ -1,0 +1,13 @@
+.errors_page {
+    display: flex;
+    // gap:1rem;
+    // flex-wrap: wrap;
+    width:100%;
+
+    .col_1 {
+        // display:flex;
+        // justify-content: center;
+        color:var(--color-gray-text);
+        width:calc(100% - 2rem)
+    }
+}

@@ -8,10 +8,8 @@ from datetime import datetime
 from pw_models import login_manager, dict_sess, \
     dict_engine, text, dict_base, \
     Users, BlogPosts
-# from pw_config import ConfigDev, ConfigProd, ConfigLocal
 from flask_mail import Mail
 import secure
-
 
 if not os.path.exists(os.path.join(os.environ.get('PROJECT_ROOT'),'logs')):
     os.makedirs(os.path.join(os.environ.get('PROJECT_ROOT'), 'logs'))
@@ -57,58 +55,38 @@ def create_app(config_for_flask = config):
     mail.init_app(app)
 
     logger_init.info(f"- DB_ROOT: {config_for_flask.DB_ROOT}")
-    # logger_init.info(f"- ENV: {app.config['ENV']}")
-
 
     ############################################################################
     ## Build Auxiliary directories in DB_ROOT
     if not os.path.exists(config_for_flask.DB_ROOT):
         os.makedirs(config_for_flask.DB_ROOT)
 
-    # config.DIR_DB_AUXILARY directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUXILARY):
-        os.makedirs(config_for_flask.DIR_DB_AUXILARY)
-    # # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
-    # if not os.path.exists(config_for_flask.DIR_DB_AUX_IMAGES_PEOPLE):
-    #     os.makedirs(config_for_flask.DIR_DB_AUX_IMAGES_PEOPLE)
+    # config.DIR_DB_AUXILIARY directory:
+    if not os.path.exists(config_for_flask.DIR_DB_AUXILIARY):
+        os.makedirs(config_for_flask.DIR_DB_AUXILIARY)
     # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
     if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE):
         os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE)
-    if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE_TEMPLATES):
-        os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE_TEMPLATES)
     # config.DIR_DB_AUX_BLOG directory:
     if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG):
         os.makedirs(config_for_flask.DIR_DB_AUX_BLOG)
     # config.DIR_DB_AUX_BLOG_POSTS directory:
     if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG_POSTS):
         os.makedirs(config_for_flask.DIR_DB_AUX_BLOG_POSTS)
-
+    # config.DIR_DB_AUX_BLOG_ICONS directory:
+    if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG_ICONS):
+        os.makedirs(config_for_flask.DIR_DB_AUX_BLOG_ICONS)
 
     ############################################################################
-    ## Build Sqlite database files
-    #Build DB_NAME_USERS
+    ## Build Sqlite database files for DB_NAME_BLOGPOST
     
-    if os.path.exists(os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_USERS'))):
-        logger_init.info(f"db already exists: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_USERS'))}")
+    if os.path.exists(os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))):
+        logger_init.info(f"db already exists: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))}")
     else:
         dict_base['Base_users'].metadata.create_all(dict_engine['engine_users'])
-        logger_init.info(f"NEW db created: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_USERS'))}")
+        logger_init.info(f"NEW db created: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))}")
 
-    # #Build DB_NAME_CAGE
-    # if os.path.exists(os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_CAGE'))):
-    #     logger_init.info(f"db already exists: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_CAGE'))}")
-    # else:
-    #     dict_base['Base_cage'].metadata.create_all(dict_engine['engine_cage'])
-    #     logger_init.info(f"NEW db created: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_CAGE'))}")
-
-    # #Build DB_NAME_BLS
-    # if os.path.exists(os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLS'))):
-    #     logger_init.info(f"db already exists: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLS'))}")
-    # else:
-    #     dict_base['Base_bls'].metadata.create_all(dict_engine['engine_bls'])
-    #     logger_init.info(f"NEW db created: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLS'))}")
-
-    logger_init.info(f"- SQL_URI_USERS: sqlite:///{config_for_flask.DB_ROOT}{os.environ.get('DB_NAME_USERS')}")
+    logger_init.info(f"- SQL_URI_USERS: sqlite:///{config_for_flask.DB_ROOT}{os.environ.get('DB_NAME_BLOGPOST')}")
 
     from app_package.bp_main.routes import bp_main
     from app_package.bp_users.routes import bp_users
