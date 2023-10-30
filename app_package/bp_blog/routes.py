@@ -47,6 +47,15 @@ def get_post_files(post_dir_name, img_dir_name,filename):
     logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
     return send_from_directory(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_dir_name, img_dir_name), filename)
 
+## Blog icons route
+@bp_blog.route('/get_blog_icons/<filename>')
+def get_blog_icons(filename):
+    logger_bp_blog.info(f"- in get_blog_icons route for {filename}")
+    return send_from_directory(current_app.config.get('DIR_DB_AUX_BLOG_ICONS'), filename)
+
+
+
+
 @bp_blog.route("/blog", methods=["GET"])
 def index():
     logger_bp_blog.info(f"- in blog index page -")
@@ -59,7 +68,7 @@ def index():
         
     items = ['date', 'title', 'description']
 
-    print("blog_posts_list: ", blog_posts_list)
+    # print("blog_posts_list: ", blog_posts_list)
     return render_template('blog/index.html', blog_posts_list=blog_posts_list)
 
 @bp_blog.route("/view_post/<post_dir_name>")
