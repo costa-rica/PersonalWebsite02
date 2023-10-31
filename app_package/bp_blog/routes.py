@@ -42,18 +42,17 @@ logger_bp_blog.addHandler(stream_handler)
 bp_blog = Blueprint('bp_blog', __name__)
 sess_users = dict_sess['sess_users']
 
+## Access images for Posted articles
 @bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
 def get_post_files(post_dir_name, img_dir_name,filename):
     logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
     return send_from_directory(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_dir_name, img_dir_name), filename)
 
-## Blog icons route
+## Access icons for Linked articles
 @bp_blog.route('/get_blog_icons/<filename>')
 def get_blog_icons(filename):
     logger_bp_blog.info(f"- in get_blog_icons route for {filename}")
     return send_from_directory(current_app.config.get('DIR_DB_AUX_BLOG_ICONS'), filename)
-
-
 
 
 @bp_blog.route("/blog", methods=["GET"])
@@ -303,6 +302,7 @@ def blog_edit(post_id):
     title = post.title
     description = post.description
     post_time_stamp_utc = post.time_stamp_utc.strftime("%Y-%m-%d")
+    list_of_link_post_icons = os.listdir(current_app.config.get('DIR_DB_AUX_BLOG_ICONS'))
     
     if post.category not in [None, ""]:
         selected_category = post.category
@@ -322,6 +322,7 @@ def blog_edit(post_id):
             post.post_dir_name, post.images_dir_name))
         # print(file_names)
     selected_image = post.blogpost_index_image_filename
+    selected_icon = post.icon_file
     if request.method == 'POST':
         formDict = request.form.to_dict()
 
@@ -334,6 +335,7 @@ def blog_edit(post_id):
         post.description = formDict.get("blog_description")
         post.category = formDict.get("category_dropdown")
         post.blogpost_index_image_filename = formDict.get("image_filename_dropdown")
+        post.icon_file = formDict.get('icon_filename_dropdown')
         if formDict.get('blog_date_published') == "":
             post.date_published = None
         else:
@@ -346,7 +348,8 @@ def blog_edit(post_id):
     return render_template('blog/edit_post.html', title= title, description = description, 
         post_date = post_date, post_time_stamp_utc = post_time_stamp_utc, 
         selected_category=selected_category, list_image_files=list_image_files,
-        selected_image=selected_image)
+        selected_image=selected_image, list_of_link_post_icons=list_of_link_post_icons,
+        selected_icon=selected_icon)
 
 
 
