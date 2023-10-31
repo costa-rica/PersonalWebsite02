@@ -114,11 +114,15 @@ def manage_blogposts():
     all_my_posts=sess_users.query(BlogPosts).filter_by(user_id=current_user.id).all()
     posts_details_list=[]
     for i in all_my_posts:
-        posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
-            i.description, i.word_doc_to_html_filename])
+        if i.word_doc_to_html_filename != None:
+            posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
+                i.description, i.word_doc_to_html_filename])
+        else:
+            posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
+                i.description, "link details"])
     
-    column_names=['id', 'blog_title', 'delete','date_published',
-         'blog_description','word_doc']
+    column_names=['id', 'Title', 'Delete','Date Pub',
+         'Description','Edit Post']
 
     if request.method == 'POST':
         formDict=request.form.to_dict()
