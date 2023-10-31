@@ -89,7 +89,9 @@
     display: block;
 }
 @media screen and (min-width: 768px) {
-
+    .blog_post_index_page {
+        background-color: #4CAF50;
+    }
     .navbar_top{display:none}
     .navbar_side_hidden{display:none;}
     .navbar_side_wide{
