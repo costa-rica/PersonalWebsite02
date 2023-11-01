@@ -20,6 +20,12 @@
   color: var(--color-gray02);
 }
 
+.div_close {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
 #navbar_side {
   z-index: 2; /* Ensures sidebar is above the overlay */
 }
@@ -64,7 +70,7 @@
 
 .div_logo {
   width: 100%;
-  padding: 4rem 0 1rem 3rem;
+  padding: 1rem 0 1rem 3rem;
 }
 .div_logo img {
   width: 10rem;
@@ -103,9 +109,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .blog_post_index_page {
-    background-color: #4CAF50;
-  }
   .navbar_top {
     display: none;
   }
@@ -126,7 +129,29 @@
     font-size: 25px;
     display: block;
   }
+  .div_logo {
+    padding: 4rem 0 1rem 3rem;
+  }
 }
+/* Button Close Navigation */
+.btn_close {
+  padding: 1rem;
+  border-radius: 1rem;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-gray-text);
+}
+
+.btn_close:active {
+  background-color: var(--color-gray04);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(2px);
+}
+
+.btn_close:hover {
+  cursor: pointer;
+}
+
 /* Button with hover text */
 .btn_custom02 {
   padding: 1rem;

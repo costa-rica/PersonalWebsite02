@@ -1,4 +1,24 @@
 
+/* Button Close Navigation */
+.btn_close{
+    padding:1rem;
+    border-radius: 1rem;
+    border-color: transparent;
+    background-color: transparent;
+    // background-color: var(--color-light-blue-button);
+    // border:none;
+    // border: #333 solid;
+    color:var(--color-gray-text);
+}
+.btn_close:active {
+    background-color: var(--color-gray04);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+.btn_close:hover{
+    cursor: pointer;
+}
+
 
 
 /* Button with hover text */
@@ -68,8 +88,6 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduces the shadow size for a pressed effect */
   }
   
-
-
 
 
 /* Button PDF */

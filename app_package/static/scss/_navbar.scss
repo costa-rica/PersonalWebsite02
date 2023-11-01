@@ -16,6 +16,11 @@
         color:var(--color-gray02);
     }
 }
+.div_close{
+    display:flex;
+    justify-content: end;
+    width:100%;
+}
 #navbar_side {
     z-index: 2; /* Ensures sidebar is above the overlay */
 }
@@ -23,7 +28,6 @@
     color: #bababa;
 }
 .navbar_side a:hover {
-    // color: #f1f1f1;
     background-color: var(--color-blue);
     border-radius: 2rem;
 }
@@ -34,7 +38,6 @@
     top: 0;
     left: calc(var(--nav-width) * -1);
     height: 100vh;
-    // background: var(--color-dark);
     background: var(--color-blue-sidenav);
     transition: all .5s ease;
 }
@@ -45,7 +48,6 @@
 }
 /* Styling for the links in your side navbar */
 .navbar_side_hidden a {
-    // padding: 8px 8px 8px 32px;
     padding: .5rem;
     text-decoration: none;
     font-size: 25px;
@@ -54,7 +56,7 @@
 }
 .div_logo{
     width: 100%;
-    padding:4rem 0 1rem 3rem;
+    padding:1rem 0 1rem 3rem;
     img{
         width: 10rem;
     }
@@ -89,9 +91,6 @@
     display: block;
 }
 @media screen and (min-width: 768px) {
-    .blog_post_index_page {
-        background-color: #4CAF50;
-    }
     .navbar_top{display:none}
     .navbar_side_hidden{display:none;}
     .navbar_side_wide{
@@ -99,18 +98,16 @@
         flex-grow: 0;  /* Don’t grow beyond initial size */
         flex-shrink: 0;  /* Don’t shrink below initial size */
         width: var(--nav-width);  /* Or whatever width you desire */
-        // height: 100%;
-        // height: 100vh;
         min-height: 100vh;
-        // background: var(--color-dark);
         background: var(--color-blue-sidenav);
     }
     .navbar_side_wide a {
-        // padding: 8px 8px 8px 32px;
         padding: .5rem;
         text-decoration: none;
         font-size: 25px;
         display: block;
-        // transition: 0.3s;
+    }
+    .div_logo{
+        padding:4rem 0 1rem 3rem;
     }
 }
