@@ -115,10 +115,13 @@
     // }
     .div_name{
         display: flex;
-        color:var(--color-gray04);
+        // color:var(--color-gray04);
         h1{padding-right:3rem;}
         // a{padding-left:3rem;}
     
+    }
+    .div_job_title{
+        color:var(--color-gray04);
     }
     .div_skills{
         background-color: var(--color-gray04);
@@ -157,6 +160,8 @@
 
     .div_projects a {
         color:var(--color-gray04);
+        color:var(--color-dark);
+        // color:var(--color-gray05);
     }
     .div_project{padding:1rem 0;}
     .title{

@@ -35,7 +35,7 @@
 }
 
 .navbar_side a:hover {
-  background-color: var(--color-blue);
+  background-color: var(--color-blue-dark);
   border-radius: 2rem;
 }
 
@@ -194,7 +194,7 @@
 /* Button PDF - Chat gpt */
 .download-button {
   display: inline-block;
-  background-color: gray;
+  background-color: var(--color-gray04);
   color: white;
   font-size: 16px;
   padding: 12px 40px; /* Adjusts the size of the button */
@@ -619,7 +619,7 @@
   color: var(--website_theme_fun_color);
 }
 .blogpost_index_page .blogpost:hover {
-  background-color: var(--bs-gray-400);
+  background-color: var(--color-gray02);
 }
 .blogpost_index_page .right_side {
   max-width: 25%;
@@ -657,7 +657,7 @@
   width: 100%;
 }
 .blogpost_index_page .blogpost_divder .line {
-  background-color: var(--color-gray04);
+  background-color: var(--color-gray02);
   /* Line color */
   height: 1px;
   /* Line thickness */
@@ -822,10 +822,12 @@
 }
 .resume_page .div_name {
   display: flex;
-  color: var(--color-gray04);
 }
 .resume_page .div_name h1 {
   padding-right: 3rem;
+}
+.resume_page .div_job_title {
+  color: var(--color-gray04);
 }
 .resume_page .div_skills {
   background-color: var(--color-gray04);
@@ -858,6 +860,7 @@
 }
 .resume_page .div_projects a {
   color: var(--color-gray04);
+  color: var(--color-dark);
 }
 .resume_page .div_project {
   padding: 1rem 0;
@@ -924,13 +927,13 @@
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
-  --color-dark: #000814;
-  --color-blue-dark: #001D3D;
-  --color-blue: #3C3C5B;
-  --color-blue-sidenav: #29283E;
+  --color-dark: #003366;
+  --color-blue-dark: #00509E;
+  --color-blue: #0072BC;
+  --color-blue-sidenav: var(--color-dark);
   --color-yellow: #FFC300;
   --color-white: #FFFFFF;
-  --color-light-blue-button: #565481;
+  --color-light-blue-button: var(--color-blue);
   --color-gray01-light: #d1d1d1;
   --color-gray02: #bfbfbf;
   --color-gray03: #a0a0a0;
@@ -950,7 +953,7 @@
 }
 
 html body {
-  background-color: var(--color-blue);
+  background-color: var(--color-blue-dark);
 }
 
 .flex_center {

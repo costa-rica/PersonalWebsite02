@@ -367,7 +367,8 @@
 
     .blogpost:hover {
         // border: .5rem solid var(--bs-gray-200);
-        background-color: var(--bs-gray-400);
+        // background-color: var(--bs-gray-400);
+        background-color: var(--color-gray02);
     }
 
     .right_side{
@@ -429,7 +430,7 @@
     }
 
     .blogpost_divder .line {
-        background-color: var(--color-gray04);
+        background-color: var(--color-gray02);
         /* Line color */
         // background-color: black; /* Line color */
         height: 1px;
