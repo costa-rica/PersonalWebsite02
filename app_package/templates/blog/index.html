@@ -35,10 +35,12 @@ small screen: left
                     <div class="blogpost_title">
                       {{ post.1 }}
                     </div>
-
+                    
+                    {% if post.2 not in ["", None] %}
                     <div class="blogpost_description">
                       {{ post.2 }}
                     </div>
+                    {% endif %}
                   </div><!-- left_side-->
 
                   <div class="right_side">

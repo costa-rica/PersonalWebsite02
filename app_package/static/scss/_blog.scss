@@ -12,15 +12,11 @@
 
         h1 {
             color: var(--color-yellow)
-        }
-
-        ;
+        };
 
         h2 {
             color: var(--color-yellow)
-        }
-
-        ;
+        };
 
         a {
             color: var(--website_theme_font_color_a_dark);
@@ -316,6 +312,7 @@
     // padding: var(--nav-height) 0 0 0;
     display: flex;
     justify-content: center;
+    width:100%;
 
 
     .blogpost_index_page_sub {
@@ -335,17 +332,15 @@
     }
 
     a:hover {
-        font-size: 1.25rem;
+        // font-size: 1.25rem;
         // color: var(--bs-orange);
         color: var(--website_theme_fun_color);
         border: none;
     }
 
-    // .blogpost_super {
-    //     // padding: .5rem 0
-    // }
 
     .blogpost {
+        display:flex;
 
         width: 100%;
         border: .5rem solid transparent;
@@ -363,26 +358,15 @@
     }
 
     .blogpost:hover {
-        border: .5rem solid var(--bs-gray-200);
+        // border: .5rem solid var(--bs-gray-200);
+        background-color: var(--bs-gray-400);
     }
 
+    .right_side{
+        max-width:25%;
+        // background-color: #4CAF50;
+    }
 
-
-    // .top_row {
-    //     display: flex;
-    //     justify-content: space-between;
-    // }
-
-    // .bottom_row {
-    //     display: flex;
-    //     justify-content: space-between;
-    //     // background-color: #4CAF50;
-
-    // }
-
-    // .bottom_row_right {
-    //     width: 8rem;
-    // }
 
     .blogpost_title {
         font-size: x-large;
@@ -397,16 +381,20 @@
     }
 
     .blogpost_description {
-        color: var(--website_theme_font_color_a_light)
+        // color: var(--website_theme_font_color_a_light);
+        display:none;
     }
 
     .blogpost_image {
         // background-color: #E54E4E;
         display: flex;
         justify-content: center;
+        width:100%;
 
         img {
-            max-width: 8rem;
+            // max-width: 8rem;
+            max-height:5rem;
+            width:100%;
         }
     }
 
@@ -443,10 +431,6 @@
         width: 50%;
     }
 
-
-
-    //   }
-
 }
 
 
@@ -456,11 +440,6 @@
 
 
 @media screen and (min-width: 768px) {
-    // .post_index {
-    //     .grid5_blog {
-    //         max-width: var(--website_max_width);
-    //     }
-    // }
 
     .view_post_super {
         // background-color: red;
@@ -470,33 +449,57 @@
     }
 
     .blogpost_index_page {
-        // background-color: #4CAF50;
+
 
         // .blogpost_index_page_sub {
-        //     .col_1 {
-        //         // .blogpost_page_title {
-        //         //     // color: green
-        //         // }
-        //             // width:100%;
-        //         .blogpost_super {
-        //             // width:100%;
-        //             // a{width:100%}
-
-        //         }
-        //     }
-
-
+        //     width: calc(100% - 1rem);
+        //     padding-top: 1rem;
+    
         // }
+
+        .blogpost_index_page_sub{
+            display:flex;
+            justify-content: center;
+            // // width:100%;
+            // background-color: rebeccapurple;
+        }
+        .col_1{
+            max-width: 60rem;
+            // background-color: #4CAF50;
+        }
         .blogpost {
             width:100%;
             display:flex;
             flex-wrap: nowrap;
             justify-content: space-between;
-            // background-color: red;
+            min-height: 10rem;
+            padding:1rem;
+        }
+
+        .left_side, .right_side{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .right_side{
-            // max-height: 3rem;
-            img{max-height:3rem;}
+            max-width:6rem;
+            max-height: 6rem;
+            img{
+                height:auto;
+                width:100%;
+            }
+            justify-content: space-between;
+        }
+        .blogpost_title{
+            // background-color: aqua;
+            width:100%;
+        }
+        .blogpost_description {
+            display:inline;
+            color: var(--website_theme_font_color_a_light);
+            width:100%;
+            // height:min-content;
+            // background-color: #E54E4E;
         }
 
     }

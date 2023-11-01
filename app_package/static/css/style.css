@@ -556,6 +556,7 @@
 .blogpost_index_page {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .blogpost_index_page .blogpost_index_page_sub {
   width: calc(100% - 1rem);
@@ -570,11 +571,11 @@
   color: var(--website_theme_font_color_light);
 }
 .blogpost_index_page a:hover {
-  font-size: 1.25rem;
   color: var(--website_theme_fun_color);
   border: none;
 }
 .blogpost_index_page .blogpost {
+  display: flex;
   width: 100%;
   border: 0.5rem solid transparent;
   border-radius: 1rem;
@@ -585,7 +586,10 @@
   color: var(--website_theme_fun_color);
 }
 .blogpost_index_page .blogpost:hover {
-  border: 0.5rem solid var(--bs-gray-200);
+  background-color: var(--bs-gray-400);
+}
+.blogpost_index_page .right_side {
+  max-width: 25%;
 }
 .blogpost_index_page .blogpost_title {
   font-size: x-large;
@@ -595,14 +599,16 @@
   text-align: right;
 }
 .blogpost_index_page .blogpost_description {
-  color: var(--website_theme_font_color_a_light);
+  display: none;
 }
 .blogpost_index_page .blogpost_image {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .blogpost_index_page .blogpost_image img {
-  max-width: 8rem;
+  max-height: 5rem;
+  width: 100%;
 }
 .blogpost_index_page .blogpost_divder_super {
   display: flex;
@@ -633,14 +639,42 @@
   .view_post_super .view_post {
     width: calc(100% - 10rem);
   }
+  .blogpost_index_page .blogpost_index_page_sub {
+    display: flex;
+    justify-content: center;
+  }
+  .blogpost_index_page .col_1 {
+    max-width: 60rem;
+  }
   .blogpost_index_page .blogpost {
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    min-height: 10rem;
+    padding: 1rem;
+  }
+  .blogpost_index_page .left_side, .blogpost_index_page .right_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .blogpost_index_page .right_side {
+    max-width: 6rem;
+    max-height: 6rem;
+    justify-content: space-between;
   }
   .blogpost_index_page .right_side img {
-    max-height: 3rem;
+    height: auto;
+    width: 100%;
+  }
+  .blogpost_index_page .blogpost_title {
+    width: 100%;
+  }
+  .blogpost_index_page .blogpost_description {
+    display: inline;
+    color: var(--website_theme_font_color_a_light);
+    width: 100%;
   }
 }
 .home_page {
