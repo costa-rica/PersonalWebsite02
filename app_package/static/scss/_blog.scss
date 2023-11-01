@@ -337,6 +337,14 @@
         color: var(--website_theme_fun_color);
         border: none;
     }
+    .blogpost_page_description{
+        color: var(--color-gray-text);
+        padding: .5rem 3rem 2rem 3rem;
+    }
+    .span_small_icon > img{
+            width:1.5rem;
+            height:auto;
+    }
 
 
     .blogpost {

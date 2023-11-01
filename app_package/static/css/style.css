@@ -574,6 +574,14 @@
   color: var(--website_theme_fun_color);
   border: none;
 }
+.blogpost_index_page .blogpost_page_description {
+  color: var(--color-gray-text);
+  padding: 0.5rem 3rem 2rem 3rem;
+}
+.blogpost_index_page .span_small_icon > img {
+  width: 1.5rem;
+  height: auto;
+}
 .blogpost_index_page .blogpost {
   display: flex;
   width: 100%;

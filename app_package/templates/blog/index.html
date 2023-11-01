@@ -16,6 +16,15 @@ small screen: left
         <div class="blogpost_page_title">
           <h1>Blog</h1>
         </div>
+        <div class="blogpost_page_description">
+          This blog contains articles as well as links to my articles hosted elsewhere.
+          If the post has an icon like <span class="span_small_icon">
+            <img src="{{ url_for('bp_blog.get_blog_icons',filename='medium.png') }}">
+          </span>, <span class="span_small_icon">
+            <img src="{{ url_for('bp_blog.get_blog_icons',filename='stack_overflow.png') }}">
+          </span>, or another then it is linked outside of this page.
+
+        </div>
            
         {% for post in blog_posts_list %}
 
