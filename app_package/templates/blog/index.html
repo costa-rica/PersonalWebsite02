@@ -56,10 +56,12 @@ small screen: left
                     <div class="blogpost_date">
                       {{ post[0] }}
                     </div>
-                  
+                  <div class="blogpost_image_super">
                     <div class="blogpost_image">
                       <img class="" src="{{ url_for('bp_blog.get_post_files', post_dir_name=post.5,img_dir_name=post.6,filename=post.4) }}"/>
                     </div>
+                  </div>
+
                   </div><!-- right_side -->
 
 
@@ -102,10 +104,10 @@ small screen: left
                       {{ post[0] }}
                     </div>
 
-
+                    <div class="blogpost_image_super">
                     <div class="blogpost_image">
                       <img src="{{ url_for('bp_blog.get_blog_icons',filename=post.4) }}">
-                      
+                    </div>
                     </div>
                   </div><!-- right_side -->
 
