@@ -25,6 +25,12 @@ small screen: left
           </span>, or another then it is linked outside of this page.
 
         </div>
+        <div class="div_blogpost_index_search">
+          <input type="text" id="search-bar" class="form-input input_search_bar"
+          onkeyup="filterPosts()" 
+          placeholder="Search blog posts...">
+        </div>
+        
            
         {% for post in blog_posts_list %}
 
@@ -34,10 +40,9 @@ small screen: left
               <!---             -->
             
             <div class="blogpost_super">
+              <div class="blogpost_a">
               <a href="{{ url_for('bp_blog.view_post', post_dir_name=post[3]) }}">
                 <div class="blogpost">
-
-
 
 
                   <div class="left_side">
@@ -63,25 +68,27 @@ small screen: left
                   </div>
 
                   </div><!-- right_side -->
-
-
-                    
                   
 
                 </div><!-- blogpost -->
               </a>
+            </div><!-- blogpost_a-->
+
+              <div class="blogpost_divder">
+                <span class="line"></span>
+              </div>
+
             </div><!-- blogpost_super -->
+
             {% else %}
               <!---          -->
               <!-- Link Post -->
               <!---          -->
               <div class="blogpost_super">
+                <div class="blogpost_a">
                 <a href="{{ post[3] }}">
 
                   <div class="blogpost">
-
-
-
 
                   <div class="left_side">
                     <div class="blogpost_title">
@@ -116,12 +123,15 @@ small screen: left
 
                   </div><!-- blogpost -->
                 </a>
+              </div><!-- blogpost_a-->
+
+                <div class="blogpost_divder">
+                  <span class="line"></span>
+                </div>
               </div><!-- blogpost_super -->
 
       {% endif %}
-        <div class="blogpost_divder">
-          <span class="line"></span>
-      </div>
+
 
       {% endfor %}
 
@@ -130,5 +140,24 @@ small screen: left
   </div><!-- blogpost_index_page_sub -->
 
 </div><!-- blogpost_index_page -->
+
+
+<script>
+  function filterPosts() {
+      let input = document.getElementById('search-bar');
+      let filter = input.value.toUpperCase();
+      let postsContainers = document.getElementsByClassName('blogpost_super');
+
+      for (let i = 0; i < postsContainers.length; i++) {
+          let container = postsContainers[i];
+          let textContent = container.textContent || container.innerText;
+          if (textContent.toUpperCase().indexOf(filter) > -1) {
+              container.style.display = "";
+          } else {
+              container.style.display = "none";
+          }
+      }
+  }
+</script>
 
 {% endblock %}
