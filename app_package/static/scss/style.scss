@@ -51,34 +51,34 @@ html body{background-color: var(--color-blue-dark)}
 }
   
 .main_super{
-    flex-grow: 1;  /* Grow and take up any extra space */
-    flex-shrink: 1;  /* Can shrink if needed */
-    padding: .5rem;
-    display:flex;
-    // background-color: aquamarine;
-    width:100%;
-    justify-content: center;
+  flex-grow: 1;  /* Grow and take up any extra space */
+  flex-shrink: 1;  /* Can shrink if needed */
+  padding: .5rem;
+  display:flex;
+  // background-color: aquamarine;
+  width:100%;
+  justify-content: center;
 }
 .flash_and_main{
-    display:flex;
-    flex-wrap: wrap;
-    width:100%;
+  display:flex;
+  flex-wrap: wrap;
+  width:100%;
 }
 
 
 /* Flash */
 .flash_custom_parent {
-    width:100%;
-    .alert_custom {
-      width: 100%;
-      .close_right {
-        float: right;
-        margin-top: -2rem;
-      }
-    }
-    .keep_line_break{
-      white-space: pre-line;
+  width:100%;
+  .alert_custom {
+    width: 100%;
+    .close_right {
+      float: right;
+      margin-top: -2rem;
     }
   }
+  .keep_line_break{
+    white-space: pre-line;
+  }
+}
 
 

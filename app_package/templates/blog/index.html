@@ -44,7 +44,6 @@ small screen: left
               <a href="{{ url_for('bp_blog.view_post', post_dir_name=post[3]) }}">
                 <div class="blogpost">
 
-
                   <div class="left_side">
                     <div class="blogpost_title">
                       {{ post.1 }}
@@ -69,12 +68,11 @@ small screen: left
 
                   </div><!-- right_side -->
                   
-
                 </div><!-- blogpost -->
               </a>
             </div><!-- blogpost_a-->
 
-              <div class="blogpost_divder">
+              <div class="blogpost_divider">
                 <span class="line"></span>
               </div>
 
@@ -95,16 +93,12 @@ small screen: left
                       {{ post.1 }}
                     </div>
 
-
                     {% if post.5 not in [None,""] %}
                     <div class="blogpost_description">
-                      
                       {{ post.5 }}
-                      
                     </div>
                     {% endif %}
                   </div><!-- left_side -->
-
 
                   <div class="right_side">
                     <div class="blogpost_date">
@@ -125,7 +119,7 @@ small screen: left
                 </a>
               </div><!-- blogpost_a-->
 
-                <div class="blogpost_divder">
+                <div class="blogpost_divider">
                   <span class="line"></span>
                 </div>
               </div><!-- blogpost_super -->
