@@ -636,7 +636,6 @@
   background-color: var(--color-gray02);
 }
 .blogpost_index_page .right_side {
-  max-width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -645,9 +644,8 @@
   font-size: x-large;
 }
 .blogpost_index_page .blogpost_date {
+  display: flex;
   color: var(--color-gray05);
-  text-align: right;
-  flex: none;
 }
 .blogpost_index_page .blogpost_description {
   display: none;
