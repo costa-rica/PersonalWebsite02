@@ -398,6 +398,21 @@
   display: flex;
   justify-content: end;
 }
+.view_post_page .div_code {
+  background-color: black;
+  --bs-code-color:white;
+  margin-left: 1rem;
+  margin-right: 5rem;
+  padding: 0.5rem 1rem;
+  white-space: pre-wrap;
+}
+.view_post_page code.highlighted {
+  background-color: black;
+  color: white;
+  font-family: monospace; /* This makes the text look like typical code */
+  padding: 2px 4px; /* Adds a bit of space around the text for better visibility */
+  border-radius: 3px; /* Rounds the corners for a smoother appearance */
+}
 
 /* Create Post*/
 .create_post_page {

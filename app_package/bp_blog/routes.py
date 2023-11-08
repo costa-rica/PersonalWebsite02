@@ -87,6 +87,7 @@ def view_post(post_dir_name):
     template_parent = templateEnv.get_template("blog/view_post.html")
     template_layout = templateEnv.get_template("_layout.html")
     # template_post_index = templateEnv.get_template("index.html")
+    print("post.word_doc_to_html_filename: ", post.word_doc_to_html_filename)
     template_post_index = templateEnv.get_template(post.word_doc_to_html_filename)
 
     # If post has a sub folder
@@ -225,7 +226,9 @@ def create_post():
                     post_html_file_name_and_path =  os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), 
                                             new_post_dir_name,post_html_filename)
                     post_html_filename = sanitize_directory_name(post_html_file_name_and_path)
-                if os.path.isdir(os.path.join(dest,file_name)) and os.path.join(dest,file_name)[-4:] == '.fld':
+                if os.path.isdir(os.path.join(dest,file_name)) and (
+                        os.path.join(dest,file_name)[-4:] == '.fld' or 
+                        os.path.join(dest,file_name)[-6:] == 'images'):
                     post_images_dir_name_and_path = os.path.join(dest,file_name)
                     post_images_dir_name = sanitize_directory_name(post_images_dir_name_and_path)
                     print("-----> post_images_dir_name:", post_images_dir_name)
