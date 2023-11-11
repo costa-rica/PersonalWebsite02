@@ -763,6 +763,7 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  padding-top: 2rem;
 }
 .home_page .col_1, .home_page .col_2 {
   display: flex;
@@ -772,7 +773,6 @@
 }
 .home_page .col_1_sub {
   width: 80%;
-  height: fit-content;
 }
 .home_page .s_text_color_yellow {
   color: var(--color-yellow);
@@ -932,9 +932,14 @@
   display: flex;
   justify-content: center;
   color: var(--color-gray-text);
+  padding-top: 2rem;
 }
 .about_this_page .col_1 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   width: 80%;
+  justify-content: center;
 }
 .about_this_page .div_hi_big {
   width: 100%;
@@ -949,12 +954,19 @@
   .div_fixed_nav_and_main {
     display: flex;
   }
-  .home_page, .about_page {
+  .home_page {
+    padding-top: 0;
+  }
+  .home_page .col_1, .home_page .col_2 {
+    flex: 1;
+    align-items: center;
+  }
+  .about_page {
     justify-content: space-between;
     flex: 1;
     flex-wrap: nowrap;
   }
-  .home_page .col_1, .home_page .col_2, .about_page .col_1, .about_page .col_2 {
+  .about_page .col_1, .about_page .col_2 {
     flex: 1;
     align-items: center;
   }
@@ -971,6 +983,9 @@
   }
   .resume_page .div_education {
     padding-bottom: 5rem;
+  }
+  .about_this_page {
+    padding-top: 0;
   }
 }
 :root {
@@ -1012,24 +1027,20 @@ html body {
   justify-content: center;
 }
 
-.main_super {
-  flex-grow: 1; /* Grow and take up any extra space */
-  flex-shrink: 1; /* Can shrink if needed */
-  padding: 0.5rem;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
 .flash_and_main {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  flex-direction: column;
 }
 
 /* Flash */
 .flash_custom_parent {
   width: 100%;
+  max-height: 0rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto; /* or 0 */
 }
 .flash_custom_parent .alert_custom {
   width: 100%;
@@ -1040,6 +1051,16 @@ html body {
 }
 .flash_custom_parent .keep_line_break {
   white-space: pre-line;
+}
+
+.main_super {
+  flex-grow: 2; /* or more, to ensure it takes up more space */
+  flex-shrink: 1;
+  flex-basis: auto; /* adjust as needed */
+  padding: 0.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=style.css.map */

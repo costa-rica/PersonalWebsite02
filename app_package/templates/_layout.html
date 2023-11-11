@@ -24,6 +24,7 @@
     </div>
   </div><!-- navbar_top -->
 
+  <!-- Slides out on small screen -->
   <div id="navbar_side" class="navbar_side navbar_side_hidden">
     <div class="div_close">
       <button class="btn_close" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
@@ -49,9 +50,9 @@
   <!-- Overlay -->
   <div id="overlay" onclick="toggleMenu()"></div>
 
-
+  
   <div class="div_fixed_nav_and_main">
-
+    <!-- Big Screen Navbar-->
     <div  class="navbar_side navbar_side_wide">
       <div class="div_logo">
         <img class="img_logo" src="{{ url_for('bp_main.website_files', filename='logo03_white.png')}}"/>

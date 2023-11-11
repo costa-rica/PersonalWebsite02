@@ -49,26 +49,19 @@ html body{background-color: var(--color-blue-dark)}
   display: flex;
   justify-content: center;
 }
-  
-.main_super{
-  flex-grow: 1;  /* Grow and take up any extra space */
-  flex-shrink: 1;  /* Can shrink if needed */
-  padding: .5rem;
-  display:flex;
-  // background-color: aquamarine;
-  width:100%;
-  justify-content: center;
-}
 .flash_and_main{
   display:flex;
   flex-wrap: wrap;
   width:100%;
+  flex-direction: column;
 }
-
-
 /* Flash */
 .flash_custom_parent {
   width:100%;
+  max-height:0rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto; /* or 0 */
   .alert_custom {
     width: 100%;
     .close_right {
@@ -80,5 +73,16 @@ html body{background-color: var(--color-blue-dark)}
     white-space: pre-line;
   }
 }
+.main_super{
+  flex-grow: 2; /* or more, to ensure it takes up more space */
+  flex-shrink: 1;
+  flex-basis: auto; /* adjust as needed */
+  padding: .5rem;
+  display:flex;
+  width:100%;
+  justify-content: center;
+}
+
+
 
 
