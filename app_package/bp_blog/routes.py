@@ -155,10 +155,10 @@ def create_post():
         request_files = request.files
         print("request_files: ", request_files)
                 
-        if formDict.get('what_kind_of_post') == 'post_article':
-            logger_bp_blog.info(f"- post_article -")
+        if formDict.get('what_kind_of_post') == 'post_article_single_zip':
+            logger_bp_blog.info(f"- post_article_single_zip -")
 
-            post_zip = request_files["post_article_zip_file"]
+            post_zip = request_files["post_article_single_zip_file"]
             post_zip_filename = post_zip.filename
 
             # create new_blogpost to get post_id number

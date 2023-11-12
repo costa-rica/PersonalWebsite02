@@ -103,6 +103,12 @@
     .col_1_sub {
         width: 100%;
     }
+    .span_gray_text{
+        color:#4CAF50
+    }
+    #action option {
+        color: green; /* This sets the font color to black for all options */
+    }
 
     .create_post_card {
         display: flex;
@@ -131,11 +137,15 @@
         padding: 0 0 1rem 0;
     }
 
-    .post_article_input_file {
+    .post_article_single_zip_input_file {
         padding: 1rem 0 0 0;
     }
 
     .post_link_div {
+        display: none;
+    }
+
+    .post_article_single_zip_div {
         display: none;
     }
 
