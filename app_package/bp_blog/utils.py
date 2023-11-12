@@ -158,6 +158,7 @@ def get_title(html_file_path_and_name, index_source):
 
 
 def sanitize_directory_name(directory_path):
+    # cleans file directory_path name, renames dir if necessary, returns directory_path string
     logger_bp_blog.info(f"- in sanitize_directory_name  -")
     # Get the directory name from the path
     directory_name = os.path.basename(directory_path)
@@ -189,73 +190,4 @@ def sanitize_directory_name(directory_path):
 
 
 
-# def get_favicon(url):
-#     response = requests.get(url)
-#     soup = BeautifulSoup(response.content, 'html.parser')
-#     link = soup.find("link", rel="icon")
-#     if link:
-#         favicon_url = link['href']
-#         if favicon_url.startswith('/'):
-#             favicon_url = url + favicon_url
-#         return favicon_url
-#     # If no favicon in HTML, try the default location
-#     return f"{url.rstrip('/')}/favicon.ico"
-
-# # favicon_url = get_favicon("https://www.example.com")
-
-# def get_meta_description(url):
-#     response = requests.get(url)
-#     soup = BeautifulSoup(response.content, 'html.parser')
-#     meta_desc = soup.find("meta", attrs={"name": "description"})
-#     if meta_desc:
-#         return meta_desc['content']
-#     return None
-
-# # description = get_meta_description("https://www.example.com")
-
-
-
-# def download_favicon(url):
-#     try:
-#         # Send a GET request to the URL
-#         response = requests.get(url)
-#         response.raise_for_status()
-        
-#         # Parse the HTML content of the page
-#         soup = BeautifulSoup(response.text, 'html.parser')
-        
-#         # Find the link to the favicon
-#         favicon_link = soup.find("link", rel="icon") or soup.find("link", rel="shortcut icon")
-#         if favicon_link is None:
-#             print("Favicon not found on the webpage.")
-#             return
-
-#         # Get the href attribute of the favicon link
-#         favicon_url = favicon_link.get('href')
-#         if favicon_url is None:
-#             print("Favicon link found, but it does not have a 'href' attribute.")
-#             return
-        
-#         # Make the favicon URL absolute if it is relative
-#         favicon_url = urljoin(url, favicon_url)
-        
-#         # Download the favicon
-#         response = requests.get(favicon_url)
-#         response.raise_for_status()
-        
-#         # Write the content to a file
-#         favicon_filename = "favicon.ico"
-#         with open(favicon_filename, 'wb') as f:
-#             f.write(response.content)
-        
-#         print(f"Favicon downloaded successfully and saved as {favicon_filename}")
-        
-#     except requests.HTTPError as http_err:
-#         print(f"HTTP error occurred: {http_err}")
-#     except Exception as err:
-#         print(f"An error occurred: {err}")
-
-# # if __name__ == "__main__":
-# #     url = input("Enter the URL of the website: ")
-# #     download_favicon(url)
 

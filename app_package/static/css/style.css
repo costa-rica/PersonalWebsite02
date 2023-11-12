@@ -436,12 +436,6 @@
 .create_post_page .col_1_sub {
   width: 100%;
 }
-.create_post_page .span_gray_text {
-  color: #4CAF50;
-}
-.create_post_page #action option {
-  color: green; /* This sets the font color to black for all options */
-}
 .create_post_page .create_post_card {
   display: flex;
   justify-content: center;

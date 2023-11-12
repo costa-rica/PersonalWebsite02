@@ -25,8 +25,8 @@
           <select id="action" name="what_kind_of_post" 
             onchange='onSelectChangeHandler()' form="form_create_post">
             <option value="post_article_mult_files">Blog Article - html, image zip, code zip</option>
-            <option id="action" value="post_link">Link</option>
-            <option value="post_article_single_zip"><span class="span_gray_text">Blog Article - single zip</span></option>
+            <option value="post_link">Link</option>
+            <option value="post_article_single_zip">Blog Article - single zip</option>
           </select>
         </div>
 
@@ -59,21 +59,21 @@
 
 
             <div class="post_article_mult_files_input_html_file">
-              Upload HTML file:
+              Upload <b>HTML</b> file:
 
               <input class="form-control" type="file" form="form_create_post" name="post_article_mult_file_html_file" accept=".html">
 
             </div><!-- post_article_single_zip_input_file -->
 
             <div class="post_article_mult_files_input_image_zip_file">
-              Upload zip file containing post images:
+              Upload <b>images</b> zip file:
 
               <input class="form-control" type="file" form="form_create_post" name="post_article_mult_file_image_zip_file" accept=".zip">
 
             </div><!-- post_article_single_zip_input_file -->
 
             <div class="post_article_mult_files_code_zip_file">
-              Upload zip file containing html files of code snippets file:
+              Upload <b>code snippets html</b> zip file:
 
               <input class="form-control" type="file" form="form_create_post" name="post_article_mult_file_code_zip_file" accept=".zip">
 
