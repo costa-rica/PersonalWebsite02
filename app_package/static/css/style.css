@@ -393,6 +393,11 @@
 }
 .view_post_page .post {
   padding: 2rem 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.view_post_page .post p {
+  width: 100%;
 }
 .view_post_page .div_right {
   display: flex;

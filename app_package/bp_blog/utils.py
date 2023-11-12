@@ -79,6 +79,38 @@ def create_blog_posts_list(number_of_posts_to_return=False):
 
     return blog_posts_list
 
+# replace the code snippet
+def replace_code_snippet_jinja(blog_post_index_file_path_and_name):
+
+    try:
+        #read html into beautifulsoup
+        with open(blog_post_index_file_path_and_name) as fp:
+            soup = BeautifulSoup(fp, 'html.parser')
+    except FileNotFoundError:
+        return "Error opening index.html"
+
+
+
+    # Define the style to match
+    target_style = "line-height: 100%; margin-bottom: 0in; background: #000000"
+    # Extract the path from the variable
+    directory_path_code_snippet = os.path.dirname(blog_post_index_file_path_and_name)
+    # Get a list of filenames in the directory, sorted in ascending order
+    # filenames = sorted([f for f in os.listdir(directory_path) if f.startswith(('01', '02'))])
+    filenames = sorted([f for f in os.listdir(directory_path_code_snippet) if f[:2].isdigit()])
+
+    # Iterate over each <p> element and replace it with the corresponding Jinja include statement
+    for i, p in enumerate(soup.find_all('p', style=target_style)):
+        if i < len(filenames):
+            include_statement = f"{{% include '{filenames[i]}' %}}"
+            p.replace_with(include_statement)
+        else:
+            break  # Break the loop if there are more <p> tags than files
+
+
+
+    # print(soup)
+    return str(soup)
 
 def replace_img_src_jinja(blog_post_index_file_path_and_name, img_dir_name):
     

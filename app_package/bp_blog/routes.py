@@ -10,7 +10,7 @@ from logging.handlers import RotatingFileHandler
 import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
 from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
-    get_title, sanitize_directory_name
+    get_title, sanitize_directory_name, replace_code_snippet_jinja
 
 from pw_models import dict_sess, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
@@ -260,10 +260,10 @@ def create_post():
             uploaded_html_file.save(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
 
             # ADD Images ---
-
             # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
             # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
             new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "images")
+            
             if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
                 flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
                 # return redirect(request.url)
@@ -278,8 +278,21 @@ def create_post():
             index_html_writer.close()
 
 
+            # Re write for code snippet
+            new_index_text = replace_code_snippet_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
 
+            if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
+                flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
+                # return redirect(request.url)
+                return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
 
+            # remove existing post_html_filename
+            os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+
+            # write a new index.html with new code that references images in image folder
+            index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
+            index_html_writer.write(new_index_text)
+            index_html_writer.close()
 
 
 
