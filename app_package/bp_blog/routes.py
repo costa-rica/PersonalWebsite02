@@ -190,6 +190,10 @@ def create_post():
                 shutil.rmtree(temp_zip_db_fp)
                 os.mkdir(temp_zip_db_fp)
 
+            # make path of new post dir NAME 00##_post
+            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+            logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
+
             # Save zip files to temp
             if request_files.get("post_article_mult_file_image_zip_file"):
                 # post_zip = request_files["post_article_single_zip_file"] ### <-- replaced by post_images_zip
@@ -199,44 +203,37 @@ def create_post():
                 post_images_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_images_zip_filename)))
                 post_images_zip_folder_name_nospaces = post_images_zip_filename.replace(" ", "_")
 
+                # decompress uploaded IMAGES file in temp_zip
+                with zipfile.ZipFile(os.path.join(temp_zip_db_fp, post_images_zip_folder_name_nospaces), 'r') as zip_ref:
+                # with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
+                    print("- unzipping file --")
+                    print("-- zip_ref.namelist() --")
+                    print(zip_ref.namelist())
+                    print("-- z------ --")
+                    unzipped_files_dir_name = zip_ref.namelist()[0]
+                    
+                    unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
+                    print(f"- {unzipped_temp_dir} --")
+                    zip_ref.extractall(unzipped_temp_dir)
+
             if request_files.get("post_article_mult_file_code_zip_file"):
                 post_code_snippet_zip = request_files.get("post_article_mult_file_code_zip_file")
                 post_code_snippet_zip_filename = post_code_snippet_zip.filename
                 post_code_snippet_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_code_snippet_zip_filename)))
                 post_code_snippet_zip_folder_name_nospaces = post_code_snippet_zip_filename.replace(" ", "_")
 
-            # make path of new post dir NAME 00##_post
-            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
-            logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
-
-            # extract images file name to new_post_dir_name/images
-            # extract code snippets to new_post_dir_name/code_snippets
-
-            # decompress uploaded IMAGES file in temp_zip
-            with zipfile.ZipFile(os.path.join(temp_zip_db_fp, post_images_zip_folder_name_nospaces), 'r') as zip_ref:
-            # with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
-                print("- unzipping file --")
-                print("-- zip_ref.namelist() --")
-                print(zip_ref.namelist())
-                print("-- z------ --")
-                unzipped_files_dir_name = zip_ref.namelist()[0]
-                
-                unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
-                print(f"- {unzipped_temp_dir} --")
-                zip_ref.extractall(unzipped_temp_dir)
-
-            # decompress uploaded CODE SNIPPETS file in temp_zip
-            with zipfile.ZipFile(os.path.join(temp_zip_db_fp, post_code_snippet_zip_folder_name_nospaces), 'r') as zip_ref:
-            # with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
-                print("- unzipping file --")
-                print("-- zip_ref.namelist() --")
-                print(zip_ref.namelist())
-                print("-- z------ --")
-                unzipped_files_dir_name = zip_ref.namelist()[0]
-                
-                unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
-                print(f"- {unzipped_temp_dir} --")
-                zip_ref.extractall(unzipped_temp_dir)
+                # decompress uploaded CODE SNIPPETS file in temp_zip
+                with zipfile.ZipFile(os.path.join(temp_zip_db_fp, post_code_snippet_zip_folder_name_nospaces), 'r') as zip_ref:
+                # with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
+                    print("- unzipping file --")
+                    print("-- zip_ref.namelist() --")
+                    print(zip_ref.namelist())
+                    print("-- z------ --")
+                    unzipped_files_dir_name = zip_ref.namelist()[0]
+                    
+                    unzipped_temp_dir = os.path.join(temp_zip_db_fp, new_post_dir_name)
+                    print(f"- {unzipped_temp_dir} --")
+                    zip_ref.extractall(unzipped_temp_dir)
             
             unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
             
@@ -262,7 +259,23 @@ def create_post():
             #save html file in destination
             uploaded_html_file.save(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
 
+            # ADD Images ---
 
+            # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
+            # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
+            new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "images")
+            if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
+                flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
+                # return redirect(request.url)
+                return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
+
+            # remove existing post_html_filename
+            os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+
+            # write a new index.html with new code that references images in image folder
+            index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
+            index_html_writer.write(new_index_text)
+            index_html_writer.close()
 
 
 
