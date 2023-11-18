@@ -959,9 +959,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .div_fixed_nav_and_main {
-    display: flex;
-  }
   .home_page {
     padding-top: 0;
   }
@@ -996,6 +993,21 @@
     padding-top: 0;
   }
 }
+.main_support {
+  background-color: gray;
+  height: 100hv;
+}
+
+.openmindset_page a {
+  color: rgb(199, 199, 199);
+}
+.openmindset_page input {
+  background-color: aquamarine;
+}
+.openmindset_page textarea {
+  background-color: aqua;
+}
+
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
@@ -1069,6 +1081,12 @@ html body {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .div_fixed_nav_and_main {
+    display: flex;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

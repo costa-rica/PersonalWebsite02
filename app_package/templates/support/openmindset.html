@@ -1,0 +1,50 @@
+{% extends "_layout_support.html" %}
+{% block main %}
+
+
+
+
+<div class="main_super">
+
+    <div class="openmindset_page">
+        <a href="{{ url_for('bp_main.home') }}"><i class="fas fa-home"></i>Back to nick-rodriguez home</a>
+        <br>
+        <h1>Open Mindset Support Page</h1>
+
+
+        Message direct to creators of Open Mindset or join the 
+        <a href="https://discord.gg/T3XMu8Kf" >Discord Open Mindset chat room </a>
+        and share your question.
+
+
+        <form method="POST" action="{{ url_for('bp_support.send_me_a_message') }}" enctype="multipart/form-data"
+        id="send_message_form" class="contact_form_class">
+        <div class="contact_form_div">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" from="send_message_form"><br />
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" from="send_message_form"><br />
+            <div class="textarea_custom_div">
+                <label for="message">Message</label>
+                <textarea class="textarea_custom form-control" name="message" id="message" cols="30" rows="10"
+                    from="send_message_form"></textarea>
+            </div>
+
+            <br />
+            <div class="submit_div">
+                <!-- <input type="submit" class="send-message-cta bg-info" value="Send Message"> -->
+                <button type="submit" class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}"
+                    data-callback='onSubmit' data-action='submit' from="send_message_form">Send</button>
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+
+    </div><!-- openmindset_page -->
+</div><!-- main_super -->
+
+{% endblock %}

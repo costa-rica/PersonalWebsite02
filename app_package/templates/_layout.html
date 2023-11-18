@@ -39,9 +39,11 @@
         <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>Work and CV</a></li>
         <li><a href="{{ url_for('bp_blog.index') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
         <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>  
+        
         {% if current_user.is_authenticated %}  
           <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
         {% endif %}  
+        <li><a href="{{ url_for('bp_support.openmindset') }}"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>  
       </ul>
 
     </div>
@@ -67,6 +69,7 @@
           {% if current_user.is_authenticated %}  
             <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
           {% endif %}  
+          <li><a href="{{ url_for('bp_support.openmindset') }}"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>  
         </ul>
   
       </div>
