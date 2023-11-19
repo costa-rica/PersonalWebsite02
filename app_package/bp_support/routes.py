@@ -87,14 +87,14 @@ def send_me_a_message():
     except:
         logger_bp_support.info('*** not successsuflly send_message_to_nick ***')
     # Send confirmation email to sender
-    # try:
-    send_confirm_email(senders_name, senders_email, senders_message)
-    logger_bp_support.info('- send_confirm_email succeeded!')
-    # except:
-    #     logger_bp_support.info('*** not successsuflly send_confirm_email')
-    #     flash(f'Problem with email: {senders_email}', 'warning')
-    #     # return redirect(url_for('bp_users.login'))
-    #     return redirect(url_for('bp_support.openmindset'))
+    try:
+        send_confirm_email(senders_name, senders_email, senders_message)
+        logger_bp_support.info('- send_confirm_email succeeded!')
+    except:
+        logger_bp_support.info('*** not successsuflly send_confirm_email')
+        flash(f'Problem with email: {senders_email}', 'warning')
+        # return redirect(url_for('bp_users.login'))
+        return redirect(url_for('bp_support.openmindset'))
 
     flash(f'Message has been sent to nick@dashanddata.com. A verification has been sent to your email as well.', 'success')
     return redirect(url_for('bp_support.openmindset'))

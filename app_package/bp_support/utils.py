@@ -26,36 +26,19 @@ logger_bp_support.addHandler(file_handler)
 logger_bp_support.addHandler(stream_handler)
 
 
-# def send_confirm_email(email):
-#     if os.environ.get('CONFIG_TYPE') == 'prod':
-#         logger_main.info(f"-- sending email to {email} --")
-#         msg = Message('Thank you for your interest in Dashboards and Databases',
-#             sender=current_app.config.get('MAIL_USERNAME'),
-#             recipients=[email])
-#         msg.body = 'You have succesfully a message.'
-#         mail.send(msg)
-#         logger_main.info(f"-- email sent --")
-#     else :
-#         logger_main.info(f"-- Non prod mode, no email sent --")
 
 def send_message_to_nick(name, email, message):
-    print("---------------------------")
-    print("- in send_message_to_nick")
+
     msg = Message('Someone wants to talk to you!',
         sender=current_app.config.get('MAIL_USERNAME'),
         recipients=[current_app.config.get('MAIL_USERNAME')])
-    print("- after msg")
     msg.body = f'Message from: {name} \n {message}'
     print("- after msg.body")
     mail.send(msg)
 
 def send_confirm_email(name, email, message):
-    print("**************************")
-    print("- in send_confirm_email")
     msg = Message('Message successfully sent',
         sender=current_app.config.get('MAIL_USERNAME'),
         recipients=[email])
-    print("- after msg")
     msg.body = f'Hi {name}, \n Thanks for your message: \n {message}'
-    print("- after msg.body")
     mail.send(msg)

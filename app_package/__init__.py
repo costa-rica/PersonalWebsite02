@@ -44,6 +44,11 @@ logger_init.info(f'--- Starting Flask Starter---')
 TEMPORARILY_DOWN = "ACTIVE" if os.environ.get('TEMPORARILY_DOWN') == "1" else "inactive"
 logger_init.info(f"- TEMPORARILY_DOWN: {TEMPORARILY_DOWN}")
 logger_init.info(f"- FLASK_CONFIG_TYPE: {os.environ.get('FLASK_CONFIG_TYPE')}")
+# logger_init.info(f"- CONFIG_FILE: {os.path.join(os.environ.get('CONFIG_PATH_LOCAL'), os.environ.get('CONFIG_FILE_NAME'))}")
+# logger_init.info(f"- MAIL_USERNAME: {config.MAIL_USERNAME}")
+# logger_init.info(f"- MAIL_PASSWORD: {config.MAIL_PASSWORD}")
+# logger_init.info(f"- MAIL_SERVER: {config.MAIL_SERVER}")
+
 
 mail = Mail()
 secure_headers = secure.Secure()
