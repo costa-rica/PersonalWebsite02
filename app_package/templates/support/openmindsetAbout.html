@@ -1,0 +1,46 @@
+{% extends "_layout_support.html" %}
+{% block main %}
+
+<div class="main_super">
+
+    <div class="openmindset_page">
+        <div class="col_1">
+
+        
+        <div class="div_right">
+            <a href="{{ url_for('bp_support.openmindset') }}">Contact Open Mindset</a>
+        </div>
+
+        <br>
+
+        <div class="title_div">
+            <img class="img_openmindset" src="{{ url_for('bp_main.website_files', filename='iconOpenMindset.png')}}" />
+            <h1>Open Mindset </h1>
+        </div>
+
+
+
+        <div class="background_div">
+            <h2>About</h2>
+            <div class="paragraph_div">
+                This application is a Python framework for others to use as we learn how to use Artificial Intelligence.
+                If users find this application useful as is that is great. But it is also intended for others to either
+                contribute to the existing Github repository 
+                <a href="https://github.com/amwebexpert/poc-mobile-python">https://github.com/amwebexpert/poc-mobile-python</a>
+                 or
+                clone it and develop their own enhancements.
+            </div>
+
+        </div>
+
+        <div class="paragraph_div">
+            Message direct to creators of Open Mindset or join the
+            <a href="https://discord.gg/T3XMu8Kf">Discord Open Mindset chat room </a>
+            and share your question.
+        </div>
+
+        </div><!-- col_1 -->
+    </div><!-- openmindset_page -->
+</div><!-- main_super -->
+
+{% endblock %}

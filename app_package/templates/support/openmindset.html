@@ -1,24 +1,28 @@
 {% extends "_layout_support.html" %}
 {% block main %}
-
-
-
+<form method="POST" id="send_message_form" enctype=multipart/form-data></form>
 
 <div class="main_super">
 
     <div class="openmindset_page">
-        <a href="{{ url_for('bp_main.home') }}"><i class="fas fa-home"></i>Back to nick-rodriguez home</a>
+        <div class="col_1">
+        <div class="div_right">
+            <a href="{{ url_for('bp_support.openmindset_about') }}">About Open Mindset</a>
+        </div>
+
         <br>
-        <h1>Open Mindset Support Page</h1>
+
+        <div class="title_div">
+            <img class="img_openmindset" src="{{ url_for('bp_main.website_files', filename='iconOpenMindset.png')}}" />
+            <h1>Open Mindset Support Page</h1>
+        </div>
+        <div class="paragraph_div">
+            Message direct to creators of Open Mindset or join the
+            <a href="https://discord.gg/T3XMu8Kf">Discord Open Mindset chat room </a>
+            and share your question.
+        </div>
 
 
-        Message direct to creators of Open Mindset or join the 
-        <a href="https://discord.gg/T3XMu8Kf" >Discord Open Mindset chat room </a>
-        and share your question.
-
-
-        <form method="POST" action="{{ url_for('bp_support.send_me_a_message') }}" enctype="multipart/form-data"
-        id="send_message_form" class="contact_form_class">
         <div class="contact_form_div">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" class="form-control" from="send_message_form"><br />
@@ -39,11 +43,7 @@
         </div>
 
 
-
-    </form>
-
-
-
+        </div><!-- col_1-->
     </div><!-- openmindset_page -->
 </div><!-- main_super -->
 

@@ -1,13 +1,101 @@
+// .footer{
+//     height: 8rem;
+//     // flex-shrink: 0;;
+//     .div_right{
+//         padding:1rem 2rem 0 0;
+//         display: flex;
+//         justify-content: end;
+//         a{
+//             color: var(--color-gray-text);
+//         }
+//     }
+// }
 .main_support{
     background-color: gray;
-    height:100hv;
+    // height:100hv;
+    display:flex;
+    flex-wrap: wrap;
+}
+.main_block{
+    flex-grow: 1; 
+    height:100%;
+}
+
+.footer{
+    width:100%;
+    height:10rem;
+    flex-shrink: 0; 
+    // background-color: ;
+        .div_right{
+    padding:1rem 2rem 0 0;
+    display: flex;
+    justify-content: end;
+    a{
+        color: var(--color-gray-text);
+    }
+}
 }
 .openmindset_page{
+    padding-bottom:3rem;
+    height:100%;
+    // .col_1{width:80%}
     a{color:rgb(199, 199, 199)}
     input{
-        background-color: aquamarine;
+        background-color: var(--color-gray01-light);
     }
     textarea{
-        background-color: aqua;
+        background-color: var(--color-gray01-light);
     }
+    .paragraph_div{
+        padding: 1rem 0;
+    }
+    .div_right{
+        display: flex;
+        justify-content: end;
+    }
+    .title_div{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    // .div_image_of_me{
+    //     // background-color: var(--color_gray_test_01);
+    //     width: 100%;
+    //     justify-content: center;
+    //     display: flex;
+
+    // }
+    .title_div h1{flex-shrink: 1; }
+    .img_openmindset{
+        max-width:5rem;
+        height: fit-content;
+        // box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        // border-radius: 0.5rem;
+        flex-shrink: 2; 
+    }
+    .submit_div{
+        display: flex;
+        justify-content: end;
+    }
+    .background_div{
+        padding:2rem 0;
+    }
+
 }
+
+
+@media screen and (min-width: 768px) {
+    .openmindset_page{
+        // .title_div{
+        //     flex-direction: row-reverse;
+        //     justify-content: space-between;
+        // }
+        display:flex;
+        justify-content: center;
+        .col_1{width:80%;}
+    .img_openmindset{
+        max-width:10rem;
+    }
+  }
+}
+  

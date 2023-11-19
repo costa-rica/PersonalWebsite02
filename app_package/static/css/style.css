@@ -995,19 +995,82 @@
 }
 .main_support {
   background-color: gray;
-  height: 100hv;
+  display: flex;
+  flex-wrap: wrap;
 }
 
+.main_block {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.footer {
+  width: 100%;
+  height: 10rem;
+  flex-shrink: 0;
+}
+.footer .div_right {
+  padding: 1rem 2rem 0 0;
+  display: flex;
+  justify-content: end;
+}
+.footer .div_right a {
+  color: var(--color-gray-text);
+}
+
+.openmindset_page {
+  padding-bottom: 3rem;
+  height: 100%;
+}
 .openmindset_page a {
   color: rgb(199, 199, 199);
 }
 .openmindset_page input {
-  background-color: aquamarine;
+  background-color: var(--color-gray01-light);
 }
 .openmindset_page textarea {
-  background-color: aqua;
+  background-color: var(--color-gray01-light);
+}
+.openmindset_page .paragraph_div {
+  padding: 1rem 0;
+}
+.openmindset_page .div_right {
+  display: flex;
+  justify-content: end;
+}
+.openmindset_page .title_div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.openmindset_page .title_div h1 {
+  flex-shrink: 1;
+}
+.openmindset_page .img_openmindset {
+  max-width: 5rem;
+  height: fit-content;
+  flex-shrink: 2;
+}
+.openmindset_page .submit_div {
+  display: flex;
+  justify-content: end;
+}
+.openmindset_page .background_div {
+  padding: 2rem 0;
 }
 
+@media screen and (min-width: 768px) {
+  .openmindset_page {
+    display: flex;
+    justify-content: center;
+  }
+  .openmindset_page .col_1 {
+    width: 80%;
+  }
+  .openmindset_page .img_openmindset {
+    max-width: 10rem;
+  }
+}
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
