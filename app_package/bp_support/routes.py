@@ -50,12 +50,14 @@ def send_me_a_message():
     # print(request.form)
     secret_response = request.form['g-recaptcha-response']
 
-    verify_response = requests.post(url=f"{current_app.config.get('VERIFY_URL_CAPTCHA')}?secret={current_app.config.get('SECRET_KEY_CAPTCHA')}&response={secret_response}").json()
+    verify_response = requests.post(
+        url=f"{current_app.config.get('VERIFY_URL_CAPTCHA')}?secret={current_app.config.get('SECRET_KEY_CAPTCHA')}&response={secret_response}").json()
     print(verify_response)
     if verify_response['success'] == False or verify_response['score'] < 0.5:
         abort(401)
 
     formDict = request.form.to_dict()
+    print("- formDict -")
     print(formDict)
     
     # get email, name and message
@@ -79,7 +81,7 @@ def send_me_a_message():
         # return redirect(url_for('bp_users.login'))
         return redirect(url_for('bp_support.openmindset'))
 
-    flash(f'Message has been sent to nick@dashanddata.com. A verification has been sent to your email as well.', 'success')
+    flash(f"Message has been sent to {current_app.config.get('MAIL_USERNAME')}. A verification has been sent to your email as well.", 'success')
     return redirect(url_for('bp_support.openmindset'))
 
 
