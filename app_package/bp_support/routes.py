@@ -65,7 +65,10 @@ def send_me_a_message():
     senders_email = formDict.get('email')
     senders_message = formDict.get('message')
 
-    # send message to nick@dashanddata.com
+    logger_bp_support.info("Nick email:")
+    logger_bp_support.info(os.environ.get('MAIL_NICK_GMAIL'))
+
+    # send message to os.environ.get('MAIL_NICK_GMAIL')
     try:
         send_message_to_nick(senders_name, senders_email, senders_message)
         logger_bp_support.info('- send_message_to_nick succeeded!')

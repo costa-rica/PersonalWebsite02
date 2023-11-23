@@ -47,7 +47,7 @@ logger_init.info(f"- FLASK_CONFIG_TYPE: {os.environ.get('FLASK_CONFIG_TYPE')}")
 # logger_init.info(f"- CONFIG_FILE: {os.path.join(os.environ.get('CONFIG_PATH_LOCAL'), os.environ.get('CONFIG_FILE_NAME'))}")
 # logger_init.info(f"- MAIL_USERNAME: {config.MAIL_USERNAME}")
 # logger_init.info(f"- MAIL_PASSWORD: {config.MAIL_PASSWORD}")
-# logger_init.info(f"- MAIL_SERVER: {config.MAIL_SERVER}")
+logger_init.info(f"- MAIL_NICK_GMAIL: {config.MAIL_NICK_GMAIL}")
 
 
 mail = Mail()
