@@ -1059,6 +1059,15 @@
   padding: 2rem 0;
 }
 
+.whatsticks_page .video-container {
+  width: 100%;
+  max-width: 480px; /* Optimized for mobile devices */
+}
+.whatsticks_page video {
+  width: 100%;
+  height: auto;
+}
+
 @media screen and (min-width: 768px) {
   .openmindset_page {
     display: flex;

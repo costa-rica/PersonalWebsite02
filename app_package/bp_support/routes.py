@@ -88,3 +88,9 @@ def send_me_a_message():
     return redirect(url_for('bp_support.openmindset'))
 
 
+@bp_support.route("/what_sticks_video01", methods=["GET","POST"])
+def what_sticks_video01():
+    logger_bp_support.info(f"-- in what_sticks_video01 page route --")
+
+    return render_template('support/what_sticks_video01.html')
+
