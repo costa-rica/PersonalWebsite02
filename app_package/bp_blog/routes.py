@@ -179,7 +179,7 @@ def create_post():
             # new_blogpost.post_id_name_string = new_post_dir_name
             new_blogpost.post_dir_name = new_post_dir_name
             new_blogpost.post_html_filename = uploaded_html_file.filename
-            new_blogpost.images_dir_name = "images"
+            # new_blogpost.images_dir_name = "images"
             sess_users.commit()
 
             # make temproary directory called 'temp_zip' to hold the uploaded zip file
@@ -197,6 +197,9 @@ def create_post():
             # Save zip files to temp
             if request_files.get("post_article_mult_file_image_zip_file"):
                 # post_zip = request_files["post_article_single_zip_file"] ### <-- replaced by post_images_zip
+
+                new_blogpost.images_dir_name = "images"
+                sess_users.commit()
 
                 post_images_zip = request_files.get("post_article_mult_file_image_zip_file")
                 post_images_zip_filename = post_images_zip.filename
@@ -235,64 +238,74 @@ def create_post():
                     print(f"- {unzipped_temp_dir} --")
                     zip_ref.extractall(unzipped_temp_dir)
             
-            unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
-            
-            # delete the __MACOSX dir
-            for path_str in unzipped_dir_list:
-                if path_str[-8:] == "__MACOSX":
-                    shutil.rmtree(path_str)
-                    print(f"- removed {path_str[-8:]} -")
+
+            if request_files.get("post_article_mult_file_image_zip_file") or request_files.get("post_article_mult_file_code_zip_file"):
+
+                unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
+                
+                # delete the __MACOSX dir
+                for path_str in unzipped_dir_list:
+                    if path_str[-8:] == "__MACOSX":
+                        shutil.rmtree(path_str)
+                        print(f"- removed {path_str[-8:]} -")
 
 
-            # make new post dir in blog/posts/
-            # temp_zip path
-            source = unzipped_temp_dir
-            logger_bp_blog.info(f"- SOURCE: {source}")
+                # make new post dir in blog/posts/
+                # temp_zip path
+                source = unzipped_temp_dir
+                logger_bp_blog.info(f"- SOURCE: {source}")
 
-            # db/posts/0000_post
-            # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
-            destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
+                # db/posts/0000_post
+                # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
+                destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
 
-            dest = shutil.move(source, destination, copy_function = shutil.copytree) 
-            logger_bp_blog.info(f"Destination path: {dest}")
+                dest = shutil.move(source, destination, copy_function = shutil.copytree) 
+                logger_bp_blog.info(f"Destination path: {dest}")
 
-            #save html file in destination
-            uploaded_html_file.save(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
+                #save html file in destination
+                uploaded_html_file.save(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
 
-            # ADD Images ---
-            # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
-            # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
-            new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "images")
-            
-            if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
-                flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
-                # return redirect(request.url)
-                return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
+                # ADD Images ---
+                # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
+                # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
+                new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "images")
+                
+                if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
+                    flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
+                    # return redirect(request.url)
+                    return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
 
-            # remove existing post_html_filename
-            os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+                # remove existing post_html_filename
+                os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
 
-            # write a new index.html with new code that references images in image folder
-            index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
-            index_html_writer.write(new_index_text)
-            index_html_writer.close()
+                # write a new index.html with new code that references images in image folder
+                index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
+                index_html_writer.write(new_index_text)
+                index_html_writer.close()
 
 
-            # Re write for code snippet
-            new_index_text = replace_code_snippet_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+                # Re write for code snippet
+                new_index_text = replace_code_snippet_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
 
-            if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
-                flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
-                # return redirect(request.url)
-                return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
+                if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
+                    flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
+                    # return redirect(request.url)
+                    return redirect(url_for('bp_blog.blog_delete', post_id=new_blog_id))
 
-            # remove existing post_html_filename
-            os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+                # remove existing post_html_filename
+                os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
 
-            # write a new index.html with new code that references images in image folder
-            index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
-            index_html_writer.write(new_index_text)
-            index_html_writer.close()
+                # write a new index.html with new code that references images in image folder
+                index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
+                index_html_writer.write(new_index_text)
+                index_html_writer.close()
+
+            else:# <-- No zip files included in post, just html
+                logger_bp_blog.info(f"Create Blog directory 000#_post, path: {new_blog_dir_fp}")
+                os.mkdir(new_blog_dir_fp)
+                logger_bp_blog.info(f"save html file in new directory")
+                uploaded_html_file.save(os.path.join(new_blog_dir_fp, uploaded_html_file.filename))
+                
 
 
 
