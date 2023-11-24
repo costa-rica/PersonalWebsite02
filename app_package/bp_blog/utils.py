@@ -220,6 +220,63 @@ def sanitize_directory_name(directory_path):
     
     return directory_name
 
+def read_html_to_soup(blog_post_index_file_path_and_name):
+    # Read the HTML file
+    with open(blog_post_index_file_path_and_name, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+    # Parse with Beautiful Soup
+    soup = BeautifulSoup(html_content, 'html.parser')
+    return str(soup)
+
+def remove_head(html_content):
+    # # Read the HTML file
+    # with open(blog_post_index_file_path_and_name, 'r', encoding='utf-8') as file:
+    #     html_content = file.read()
+
+    # Parse with Beautiful Soup
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Remove the <head> element
+    if soup.head:
+        soup.head.decompose()
+
+    return str(soup)
 
 
+def remove_body_tags(html_content):
+    # # Read the HTML file
+    # with open(blog_post_index_file_path_and_name, 'r', encoding='utf-8') as file:
+    #     html_content = file.read()
 
+    # Parse with Beautiful Soup
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Extract content within <body> tags
+    body_contents = ''.join(str(tag) for tag in soup.body.contents) if soup.body else str(soup)
+
+    return str(body_contents)
+
+
+def replace_p_elements_with_img(html_content):
+    # # Read the HTML file
+    # with open(blog_post_index_file_path_and_name, 'r', encoding='utf-8') as file:
+    #     html_content = file.read()
+
+    # Parse with Beautiful Soup
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Find all 'p' tags 
+    p_tags = soup.find_all('p')
+
+    for p_tag in p_tags:
+        # Check if 'p' tag contains an 'img' element
+        img = p_tag.find('img')
+        if img:
+            # Create a new 'div' with class 'blog_img'
+            new_div = soup.new_tag('div', **{'class': 'blog_img'})
+            # Move the 'img' element to the new 'div'
+            new_div.append(img.extract())
+            # Replace the 'p' tag with the new 'div'
+            p_tag.replace_with(new_div)
+
+    return str(soup)

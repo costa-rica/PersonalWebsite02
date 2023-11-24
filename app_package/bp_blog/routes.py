@@ -10,7 +10,8 @@ from logging.handlers import RotatingFileHandler
 import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
 from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
-    get_title, sanitize_directory_name, replace_code_snippet_jinja
+    get_title, sanitize_directory_name, replace_code_snippet_jinja, remove_head, \
+    remove_body_tags, replace_p_elements_with_img, read_html_to_soup
 
 from pw_models import dict_sess, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
@@ -306,8 +307,36 @@ def create_post():
                 logger_bp_blog.info(f"save html file in new directory")
                 uploaded_html_file.save(os.path.join(new_blog_dir_fp, uploaded_html_file.filename))
                 
+            
+            # More Beautiful Soup Cleaning
 
+            new_index_text = read_html_to_soup(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
 
+            try:
+                new_index_text = remove_head(new_index_text)
+                logger_bp_blog.info(f"----> head successfully removed")
+            except:
+                logger_bp_blog.info(f"***** head not removed")
+
+            try:
+                new_index_text = remove_body_tags(new_index_text)
+                logger_bp_blog.info(f"----> body tags successfully removed")
+            except:
+                logger_bp_blog.info(f"**** body tags not removed")
+
+            try:
+                new_index_text = replace_p_elements_with_img(new_index_text)
+                logger_bp_blog.info(f"----> p elements successfully removed")
+            except:
+                logger_bp_blog.info(f"**** p elements with img not removed")
+
+            # remove existing post_html_filename
+            os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))
+
+            # write a new index.html with new code that references images in image folder
+            index_html_writer = open(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "w")
+            index_html_writer.write(new_index_text)
+            index_html_writer.close()
 
 
         elif formDict.get('what_kind_of_post') == 'post_article_single_zip':

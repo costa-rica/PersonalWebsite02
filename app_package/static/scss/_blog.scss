@@ -68,6 +68,12 @@
         padding: 2px 4px; /* Adds a bit of space around the text for better visibility */
         border-radius: 3px; /* Rounds the corners for a smoother appearance */
     }
+    .blog_img{
+        display:flex;
+        justify-content: center;
+        width:100%;
+
+    }
 }
 
 /* Create Post*/
