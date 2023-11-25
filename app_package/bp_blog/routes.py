@@ -510,7 +510,11 @@ def blog_edit(post_id):
         post.title = formDict.get("blog_title")
         post.description = formDict.get("blog_description")
         post.category = formDict.get("category_dropdown")
-        post.blogpost_index_image_filename = formDict.get("image_filename_dropdown")
+        
+        if formDict.get("image_filename_dropdown"):
+            post.blogpost_index_image_filename = formDict.get("image_filename_dropdown")
+        else:
+            post.blogpost_index_image_filename = formDict.get('icon_filename_dropdown')
         post.icon_file = formDict.get('icon_filename_dropdown')
         if formDict.get('blog_date_published') == "":
             post.date_published = None
