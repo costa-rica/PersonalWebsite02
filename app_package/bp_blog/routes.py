@@ -11,7 +11,8 @@ import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
 from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
     get_title, sanitize_directory_name, replace_code_snippet_jinja, remove_head, \
-    remove_body_tags, replace_p_elements_with_img, read_html_to_soup
+    remove_body_tags, replace_p_elements_with_img, read_html_to_soup, \
+    remove_line_height_from_p_tags
 
 from pw_models import dict_sess, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
@@ -326,9 +327,15 @@ def create_post():
 
             try:
                 new_index_text = replace_p_elements_with_img(new_index_text)
-                logger_bp_blog.info(f"----> p elements successfully removed")
+                logger_bp_blog.info(f"----> p elements for img successfully removed")
             except:
                 logger_bp_blog.info(f"**** p elements with img not removed")
+
+            try:
+                new_index_text = remove_line_height_from_p_tags(new_index_text)
+                logger_bp_blog.info(f"----> `line-height: 100%` in p elements successfully removed")
+            except:
+                logger_bp_blog.info(f"**** `line-height: 100%` in p elements not removed")
 
             # remove existing post_html_filename
             os.remove(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename))

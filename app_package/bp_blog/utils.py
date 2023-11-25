@@ -258,10 +258,6 @@ def remove_body_tags(html_content):
 
 
 def replace_p_elements_with_img(html_content):
-    # # Read the HTML file
-    # with open(blog_post_index_file_path_and_name, 'r', encoding='utf-8') as file:
-    #     html_content = file.read()
-
     # Parse with Beautiful Soup
     soup = BeautifulSoup(html_content, 'html.parser')
 
@@ -280,3 +276,22 @@ def replace_p_elements_with_img(html_content):
             p_tag.replace_with(new_div)
 
     return str(soup)
+
+def remove_line_height_from_p_tags(html_content):
+    # Parse with Beautiful Soup
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Iterate through each 'p' tag and modify its 'style' attribute
+    for p_tag in soup.find_all('p'):
+        style = p_tag.get('style', '')  # Get the current 'style' attribute
+        if 'line-height: 100%;' in style:
+            # Remove 'line-height: 100%;' from the style
+            new_style = style.replace('line-height: 100%;', '')
+            # Update the 'style' attribute of the 'p' tag
+            p_tag['style'] = new_style
+
+    # Convert the modified soup_body back to string
+    final_html_content = str(soup)
+
+    return str(soup)
+
