@@ -5,13 +5,13 @@
     border-radius: 1rem;
     border-color: transparent;
     background-color: transparent;
-    // background-color: var(--color-light-blue-button);
+    // background-color: var(--tertiary-background);
     // border:none;
     // border: #333 solid;
-    color:var(--color-gray-text);
+    color:var(--primary-text);
 }
 .btn_close:active {
-    background-color: var(--color-gray04);
+    background-color: var(--text-icons);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transform: translateY(2px);
 }
@@ -25,9 +25,9 @@
 .btn_custom02 {
     padding:1rem;
     border-radius: 1rem;
-    background-color: var(--color-light-blue-button);
+    background-color: var(--tertiary-background);
     border:none;
-    color:var(--color-gray-text);
+    color:var(--primary-text);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
     text-decoration: none;
@@ -66,7 +66,7 @@
 /* Button PDF - Chat gpt */
 .download-button {
     display: inline-block;
-    background-color: var(--color-gray04);
+    background-color: var(--text-icons);
     color: white;
     font-size: 16px;
     padding: 12px 40px; /* Adjusts the size of the button */
@@ -94,13 +94,13 @@
 .btn_pdf{
     padding:1rem;
     border-radius: 1rem;
-    background-color: var(--color-light-blue-button);
+    background-color: var(--tertiary-background);
     // border:none;
     border: #333 solid;
-    color:var(--color-gray-text);
+    color:var(--primary-text);
 }
 .btn_pdf:active {
-    background-color: var(--color-gray04);
+    background-color: var(--text-icons);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transform: translateY(2px);
 }
@@ -113,15 +113,15 @@
 .btn_custom01{
     padding:1rem;
     border-radius: 1rem;
-    background-color: var(--color-light-blue-button);
+    background-color: var(--tertiary-background);
     border:none;
-    color:var(--color-gray-text);
+    color:var(--primary-text);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
     text-decoration: none;
 }
 .btn_custom01:active {
-    background-color: var(--color-gray04);
+    background-color: var(--text-icons);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transform: translateY(2px);
 }
@@ -129,14 +129,14 @@
     cursor: pointer;
 }
 .icon-color{
-    color:var(--color-yellow)
+    color:var(--hightlights)
 }
 
 .hide_small{display:none}
 .big_hide{
-    color:var(--color-gray-text);
+    color:var(--primary-text);
     // text-decoration: none;
-    // background-color: var(--color-gray04);
+    // background-color: var(--text-icons);
     // border-radius: 3rem;
 }
 

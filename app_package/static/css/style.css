@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 .navbar_top {
-  background-color: var(--color-dark);
+  background-color: var(--base-background);
   color: white;
 }
 
@@ -17,7 +17,7 @@
   background-color: transparent;
   border: none;
   size: 1.5rem;
-  color: var(--color-gray02);
+  color: var(--primary-text);
 }
 
 .div_close {
@@ -35,7 +35,7 @@
 }
 
 .navbar_side a:hover {
-  background-color: var(--color-blue-dark);
+  background-color: var(--secondary-background);
   border-radius: 2rem;
 }
 
@@ -46,7 +46,7 @@
   top: 0;
   left: calc(var(--nav-width) * -1);
   height: 100vh;
-  background: var(--color-blue-sidenav);
+  background: var(--base-background);
   transition: all 0.5s ease;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .li_manage_blogpost a {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 
 .li_manage_blogpost_font {
@@ -121,7 +121,7 @@
     flex-shrink: 0; /* Don’t shrink below initial size */
     width: var(--nav-width); /* Or whatever width you desire */
     min-height: 100vh;
-    background: var(--color-blue-sidenav);
+    background: var(--base-background);
   }
   .navbar_side_wide a {
     padding: 0.5rem;
@@ -139,11 +139,11 @@
   border-radius: 1rem;
   border-color: transparent;
   background-color: transparent;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 
 .btn_close:active {
-  background-color: var(--color-gray04);
+  background-color: var(--text-icons);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(2px);
 }
@@ -156,9 +156,9 @@
 .btn_custom02 {
   padding: 1rem;
   border-radius: 1rem;
-  background-color: var(--color-light-blue-button);
+  background-color: var(--tertiary-background);
   border: none;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
   text-decoration: none;
@@ -194,7 +194,7 @@
 /* Button PDF - Chat gpt */
 .download-button {
   display: inline-block;
-  background-color: var(--color-gray04);
+  background-color: var(--text-icons);
   color: white;
   font-size: 16px;
   padding: 12px 40px; /* Adjusts the size of the button */
@@ -220,13 +220,13 @@
 .btn_pdf {
   padding: 1rem;
   border-radius: 1rem;
-  background-color: var(--color-light-blue-button);
+  background-color: var(--tertiary-background);
   border: #333 solid;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 
 .btn_pdf:active {
-  background-color: var(--color-gray04);
+  background-color: var(--text-icons);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(2px);
 }
@@ -239,16 +239,16 @@
 .btn_custom01 {
   padding: 1rem;
   border-radius: 1rem;
-  background-color: var(--color-light-blue-button);
+  background-color: var(--tertiary-background);
   border: none;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
   text-decoration: none;
 }
 
 .btn_custom01:active {
-  background-color: var(--color-gray04);
+  background-color: var(--text-icons);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(2px);
 }
@@ -258,7 +258,7 @@
 }
 
 .icon-color {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 
 .hide_small {
@@ -266,7 +266,7 @@
 }
 
 .big_hide {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 
 @media screen and (min-width: 768px) {
@@ -288,14 +288,14 @@
 }
 .login_page .title {
   width: 100%;
-  color: var(--color-gray-text-title);
+  color: var(--primary-text);
 }
 .login_page .login_form {
   border-radius: 1.5em;
   padding: 3rem;
   width: calc(100% - 0.5rem);
   font-size: 1.5em;
-  background-color: var(--color-gray03);
+  background-color: var(--primary-text);
   display: flex;
   justify-content: center;
 }
@@ -342,7 +342,7 @@
   padding: 3rem;
   width: calc(100% - 0.5rem);
   font-size: 1.5em;
-  background-color: var(--color-gray03);
+  background-color: var(--primary-text);
   display: flex;
   justify-content: center;
 }
@@ -369,13 +369,13 @@
 }
 .view_post_page .view_post {
   width: calc(100% - 2rem);
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 .view_post_page .view_post h1 {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 .view_post_page .view_post h2 {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 .view_post_page .view_post a {
   color: var(--website_theme_font_color_a_dark);
@@ -389,7 +389,7 @@
   height: auto;
 }
 .view_post_page .view_post .MsoCaption {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 .view_post_page .post {
   padding: 2rem 0 0 0;
@@ -439,7 +439,7 @@
 .create_post_page .col_1 {
   display: flex;
   justify-content: center;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   width: 100%;
   max-width: calc(100% - 5rem);
 }
@@ -453,7 +453,7 @@
   border: 1px solid;
   border-radius: 10px;
   background-color: var(--bs-gray-500);
-  color: var(--color-dark-gray-text);
+  color: var(--text-icons);
 }
 .create_post_page .a_div_right {
   display: flex;
@@ -617,7 +617,7 @@
 }
 .blogpost_index_page .blogpost_page_title {
   width: 100%;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 .blogpost_index_page a {
   text-decoration: none;
@@ -628,7 +628,7 @@
   border: none;
 }
 .blogpost_index_page .blogpost_page_description {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   padding: 0.5rem 1rem 2rem 1rem;
 }
 .blogpost_index_page .span_small_icon > img {
@@ -653,7 +653,7 @@
   width: 100%;
   border: 0.5rem solid transparent;
   border-radius: 1rem;
-  background-color: var(--color-gray04);
+  background-color: var(--text-icons);
   justify-content: space-between;
 }
 .blogpost_index_page .blogpost a {
@@ -661,7 +661,7 @@
   color: var(--website_theme_fun_color);
 }
 .blogpost_index_page .blogpost:hover {
-  background-color: var(--color-gray02);
+  background-color: var(--primary-text);
 }
 .blogpost_index_page .left_side {
   max-width: 55%;
@@ -676,7 +676,7 @@
 }
 .blogpost_index_page .blogpost_date {
   display: flex;
-  color: var(--color-gray05);
+  color: var(--text-icons);
   justify-content: end;
 }
 .blogpost_index_page .blogpost_description {
@@ -707,7 +707,7 @@
   height: 2rem;
 }
 .blogpost_index_page .blogpost_divider .line {
-  background-color: var(--color-gray02);
+  background-color: var(--primary-text);
   height: 1px;
   width: 50%;
 }
@@ -781,21 +781,21 @@
 .home_page .col_1, .home_page .col_2 {
   display: flex;
   justify-content: center;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   width: 100%;
 }
 .home_page .col_1_sub {
   width: 80%;
 }
 .home_page .s_text_color_yellow {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 .home_page .div_hi_big {
   width: 100%;
 }
 .home_page .div_welcome {
   width: 100%;
-  color: var(--color_gray_test_01);
+  color: var(--secondary-background);
 }
 .home_page .paragraph_home_super {
   padding-top: 5rem;
@@ -817,7 +817,7 @@
   padding: 1rem 0;
 }
 .home_page .hr_or_hr .line {
-  background-color: var(--color-gray02); /* Line color */
+  background-color: var(--primary-text); /* Line color */
   height: 1px; /* Line thickness */
   flex-grow: 1;
 }
@@ -840,7 +840,7 @@
 .about_page .col_1, .about_page .col_2 {
   display: flex;
   justify-content: center;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   width: 100%;
 }
 .about_page .col_1_sub, .about_page .col_2_sub {
@@ -869,7 +869,7 @@
   gap: 1rem;
 }
 .about_page .s_text_color_yellow {
-  color: var(--color-yellow);
+  color: var(--hightlights);
 }
 .about_page .div_hi_big {
   width: 100%;
@@ -879,7 +879,7 @@
 }
 
 .resume_page {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   width: 100%;
 }
 .resume_page .div_name {
@@ -888,16 +888,19 @@
 .resume_page .div_name h1 {
   padding-right: 3rem;
 }
+.resume_page .div_name .btn_color_theme {
+  background-color: var(--tertiary-background);
+}
 .resume_page .div_job_title {
-  color: var(--color-gray04);
+  color: var(--text-icons);
 }
 .resume_page .div_skills {
-  background-color: var(--color-gray04);
+  background-color: var(--tertiary-background);
   border-radius: 0.3rem;
   padding: 0.5rem;
 }
 .resume_page .s_text_color_yellow {
-  color: rgb(54, 54, 54);
+  color: var(--hightlights);
 }
 .resume_page .div_contact_detail_item {
   display: flex;
@@ -905,10 +908,10 @@
 }
 .resume_page .div_contact_detail_item a {
   text-decoration: none;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 .resume_page .div_contact_detail_item a:hover {
-  color: var(--color-dark);
+  color: var(--base-background);
   background-color: #d1d1d1;
   border-radius: 3rem;
   padding: 0.25rem 0.5rem;
@@ -920,19 +923,16 @@
   padding-left: 0.75rem;
   white-space: nowrap;
 }
-.resume_page .div_projects a {
-  color: var(--color-gray04);
-  color: var(--color-dark);
-}
 .resume_page .div_project {
   padding: 1rem 0;
 }
 .resume_page .title a {
   text-decoration: none;
-  color: var(--color-yellow);
+  color: var(--hyperlinks-primary);
 }
 .resume_page .div_project_other_details a {
   text-decoration: none;
+  color: var(--hyperlinks-secondary);
 }
 .resume_page .div_experience {
   padding: 1rem 0;
@@ -944,7 +944,7 @@
 .about_this_page {
   display: flex;
   justify-content: center;
-  color: var(--color-gray-text);
+  color: var(--primary-text);
   padding-top: 2rem;
 }
 .about_this_page .col_1 {
@@ -960,7 +960,7 @@
   justify-content: center;
 }
 .about_this_page .paragraph_home a {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 
 @media screen and (min-width: 768px) {
@@ -1020,7 +1020,7 @@
   justify-content: end;
 }
 .footer .div_right a {
-  color: var(--color-gray-text);
+  color: var(--primary-text);
 }
 
 .openmindset_page {
@@ -1031,10 +1031,10 @@
   color: rgb(199, 199, 199);
 }
 .openmindset_page input {
-  background-color: var(--color-gray01-light);
+  background-color: var(--primary-text);
 }
 .openmindset_page textarea {
-  background-color: var(--color-gray01-light);
+  background-color: var(--primary-text);
 }
 .openmindset_page .paragraph_div {
   padding: 1rem 0;
@@ -1088,24 +1088,17 @@
 :root {
   --nav-height: 123px;
   --nav-width: 300px;
-  /* Best Buy Colors */
-  --color-dark: #003366;
-  --color-blue-dark: #00509E;
-  --color-blue: #0072BC;
-  --color-blue-sidenav: var(--color-dark);
+  /* Color Palette 2024-04-18 */
+  --base-background: #333333;
+  --secondary-background: #4D4D4D;
+  --tertiary-background: #2B2B2B;
+  --primary-text: #E0E0E0;
+  --text-icons: #CCCCCC;
+  --hightlights: #FFC300;
+  --hyperlinks-primary:var(--hightlights);
+  --tw-text-opacity: .7;
+  --hyperlinks-secondary: rgb(29 255 158 / var(--tw-text-opacity));
   /* Stratis Colors */
-  --color-yellow: #FFC300;
-  --color-white: #FFFFFF;
-  --color-light-blue-button: var(--color-blue);
-  --color-gray01-light: #d1d1d1;
-  --color-gray02: #bfbfbf;
-  --color-gray03: #a0a0a0;
-  --color-gray04: #808080;
-  --color-gray05: #212121;
-  --color-gray-text:var(--color-gray01-light);
-  --color-dark-gray-text:var(--color-gray05);
-  --color_gray_test_01:#898989;
-  --color-gray-text-title:var(--color-gray01-light);
 }
 
 * {
@@ -1116,7 +1109,7 @@
 }
 
 html body {
-  background-color: var(--color-blue-dark);
+  background-color: var(--secondary-background);
 }
 
 .flex_center {

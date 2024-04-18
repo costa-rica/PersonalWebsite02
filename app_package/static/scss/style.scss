@@ -11,11 +11,25 @@
     --nav-height: 123px;
     --nav-width: 300px;
     
-    /* Best Buy Colors */
-    --color-dark: #003366;// bestbuy
-    --color-blue-dark: #00509E;//bestbuy
-    --color-blue: #0072BC;//bestbuy
-    --color-blue-sidenav: var(--color-dark);//bustbuy
+
+    /* Color Palette 2024-04-18 */
+
+    --base-background: #333333;// menu
+    --secondary-background: #4D4D4D;// base
+    --tertiary-background: #2B2B2B;// buttons
+    --primary-text: #E0E0E0;
+    --text-icons: #CCCCCC;
+    --hightlights: #FFC300;
+    --hyperlinks-primary:var(--hightlights);
+    --tw-text-opacity: .7;
+    --hyperlinks-secondary: rgb(29 255 158 / var(--tw-text-opacity));
+
+
+    // /* Best Buy Colors */
+    // --color-dark: #003366;// bestbuy
+    // --color-blue-dark: #00509E;//bestbuy
+    // --color-blue: #0072BC;//bestbuy
+    // --color-blue-sidenav: var(--color-dark);//bustbuy
 
     /* Stratis Colors */
     // --color-dark: #000814;// original dark
@@ -23,19 +37,19 @@
     // --color-blue: #3C3C5B;// original 3rd darkest
     // --color-blue-sidenav: #29283E;// original sidbar
 
-    --color-yellow: #FFC300;
-    --color-white: #FFFFFF;
-    // --color-light-blue-button: #565481;// original button
-    --color-light-blue-button: var(--color-blue);
-    --color-gray01-light: #d1d1d1;
-    --color-gray02: #bfbfbf;
-    --color-gray03: #a0a0a0;
-    --color-gray04: #808080;
-    --color-gray05: #212121;
-    --color-gray-text:var(--color-gray01-light);
-    --color-dark-gray-text:var(--color-gray05);
-    --color_gray_test_01:#898989;
-    --color-gray-text-title:var(--color-gray01-light);
+    // --color-yellow: #FFC300;
+    // --color-white: #FFFFFF;
+    // // --color-light-blue-button: #565481;// original button
+    // --color-light-blue-button: var(--color-blue);
+    // --color-gray01-light: #d1d1d1;//Text and Icons
+    // --color-gray02: #bfbfbf;
+    // --color-gray03: #a0a0a0;
+    // --color-gray04: #808080;
+    // --color-gray05: #212121;
+    // --color-gray-text:var(--color-gray01-light);
+    // --color-dark-gray-text:var(--color-gray05);
+    // --color_gray_test_01:#898989;
+    // --color-gray-text-title:var(--color-gray01-light);
   }
 
 * {
@@ -44,7 +58,7 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-html body{background-color: var(--color-blue-dark)}
+html body{background-color: var(--secondary-background)}
 
 .flex_center{
   display: flex;

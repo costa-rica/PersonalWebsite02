@@ -7,18 +7,18 @@
     .col_1, .col_2 {
         display:flex;
         justify-content: center;
-        color:var(--color-gray-text);
+        color:var(--primary-text);
         width:100%;
     }
     .col_1_sub{
         width: 80%;
     }
     
-    .s_text_color_yellow{color:var(--color-yellow)}
+    .s_text_color_yellow{color:var(--hightlights)}
     .div_hi_big{width:100%}
     .div_welcome{
         width:100%;
-        color: var(--color_gray_test_01)
+        color: var(--secondary-background)
     }
     .paragraph_home_super{padding-top:5rem;}
     .paragraph_home{
@@ -39,7 +39,7 @@
         padding:1rem 0;
     }
     .hr_or_hr .line {
-        background-color: var(--color-gray02); /* Line color */
+        background-color: var(--primary-text); /* Line color */
         height: 1px; /* Line thickness */
         flex-grow: 1;
         // margin: 0 10px;
@@ -64,7 +64,7 @@
     .col_1, .col_2 {
         display:flex;
         justify-content: center;
-        color:var(--color-gray-text);
+        color:var(--primary-text);
         width:100%;
     }
     .col_1_sub, .col_2_sub{
@@ -73,10 +73,10 @@
         width: 80%;
         height:fit-content;
         justify-content: center;
-        // background-color: var(--color_gray_test_01);
+        // background-color: var(--secondary-background);
     }
     .div_image_of_me{
-        // background-color: var(--color_gray_test_01);
+        // background-color: var(--secondary-background);
         width: 100%;
         justify-content: center;
         display: flex;
@@ -95,11 +95,11 @@
         justify-content: center;
         gap:1rem;
     }
-    .s_text_color_yellow{color:var(--color-yellow)}
+    .s_text_color_yellow{color:var(--hightlights)}
     .div_hi_big{width:100%}
     // .div_welcome{
     //     width:100%;
-    //     color: var(--color_gray_test_01)
+    //     color: var(--secondary-background)
     // }
     // .paragraph_home_super{padding-top:5rem;}
     .paragraph_home{
@@ -108,37 +108,36 @@
 }
 
 .resume_page{
-    color:var(--color-gray-text);
+    color:var(--primary-text);
     width:100%;
-    // .div_top_personal_info{
-    //     display: flex;
-    // }
     .div_name{
         display: flex;
-        // color:var(--color-gray04);
+        // color:var(--text-icons);
         h1{padding-right:3rem;}
         // a{padding-left:3rem;}
-    
+        .btn_color_theme{
+            background-color: var(--tertiary-background);
+        }
     }
     .div_job_title{
-        color:var(--color-gray04);
+        color:var(--text-icons);
     }
     .div_skills{
-        background-color: var(--color-gray04);
+        background-color: var(--tertiary-background);
         border-radius: .3rem;
         padding:.5rem
     }
-    .s_text_color_yellow{color:rgb(54, 54, 54)}
+    .s_text_color_yellow{color:var(--hightlights)}
 
     .div_contact_detail_item{
         display:flex;
         align-items: center;
         a {
             text-decoration: none;
-            color:var(--color-gray-text);
+            color:var(--primary-text);
         }
         a:hover{
-            color:var(--color-dark);
+            color:var(--base-background);
             background-color: #d1d1d1;
             border-radius: 3rem;
             padding:.25rem .5rem;
@@ -148,30 +147,25 @@
             }
         }
     }
-    // .div_contact_detail_item_icon{
-        
 
-    // }
     .div_contact_detail_item_text{
         padding-left:.75rem;
         
         white-space: nowrap;
     }
 
-    .div_projects a {
-        color:var(--color-gray04);
-        color:var(--color-dark);
-        // color:var(--color-gray05);
-    }
     .div_project{padding:1rem 0;}
     .title{
         a{
             text-decoration: none;
-            color:var(--color-yellow)
+            color:var(--hyperlinks-primary);
         }
     }
     .div_project_other_details{
-        a{ text-decoration: none;}
+        a{ 
+            text-decoration: none;
+            color:var(--hyperlinks-secondary);
+        }
     }
     .div_experience{padding:1rem 0}
     .company_title{font-size: larger;}
@@ -181,7 +175,7 @@
 .about_this_page{
     display:flex;
     justify-content: center;
-    color:var(--color-gray-text);
+    color:var(--primary-text);
     padding-top:2rem;
     .col_1{
         display:flex;
@@ -197,7 +191,7 @@
     }
     .paragraph_home{
         a{
-            color:var(--color-gray-text)
+            color:var(--primary-text)
         }
     }
 }

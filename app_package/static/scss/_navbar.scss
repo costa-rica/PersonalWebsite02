@@ -1,5 +1,5 @@
 .navbar_top {
-    background-color: var(--color-dark);
+    background-color: var(--base-background);
     color: white;
 }
 #hamburger {
@@ -13,7 +13,7 @@
         background-color: transparent;
         border:none;
         size:1.5rem;
-        color:var(--color-gray02);
+        color:var(--primary-text);
     }
 }
 .div_close{
@@ -28,7 +28,7 @@
     color: #bababa;
 }
 .navbar_side a:hover {
-    background-color: var(--color-blue-dark);
+    background-color: var(--secondary-background);
     border-radius: 2rem;
 }
 .navbar_side_hidden {
@@ -38,7 +38,7 @@
     top: 0;
     left: calc(var(--nav-width) * -1);
     height: 100vh;
-    background: var(--color-blue-sidenav);
+    background: var(--base-background);
     transition: all .5s ease;
 }
 .navbar_side_wide{display:none}
@@ -69,7 +69,7 @@
 }
 .li_manage_blogpost{
     a{
-        color:var(--color-yellow);
+        color:var(--hightlights);
     }
 }
 .li_manage_blogpost_font{
@@ -99,7 +99,7 @@
         flex-shrink: 0;  /* Don’t shrink below initial size */
         width: var(--nav-width);  /* Or whatever width you desire */
         min-height: 100vh;
-        background: var(--color-blue-sidenav);
+        background: var(--base-background);
     }
     .navbar_side_wide a {
         padding: .5rem;

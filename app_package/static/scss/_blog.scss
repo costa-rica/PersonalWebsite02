@@ -8,14 +8,14 @@
     .view_post {
         width: calc(100% - 2rem);
         // img{border: 1px solid black;}
-        color: var(--color-gray-text);
+        color: var(--primary-text);
 
         h1 {
-            color: var(--color-yellow)
+            color: var(--hightlights)
         };
 
         h2 {
-            color: var(--color-yellow)
+            color: var(--hightlights)
         };
 
         a {
@@ -38,7 +38,7 @@
         }
 
         .MsoCaption {
-            color: var(--color-gray-text);
+            color: var(--primary-text);
         }
     }
 
@@ -103,7 +103,7 @@
         display: flex;
         justify-content: center;
         // flex-wrap: wrap;
-        color: var(--color-gray-text);
+        color: var(--primary-text);
         width: 100%;
         max-width: calc(100% - 5rem);
         // background-color: #4CAF50;
@@ -121,7 +121,7 @@
         border: 1px solid;
         border-radius: 10px;
         background-color: var(--bs-gray-500);
-        color: var(--color-dark-gray-text);
+        color: var(--text-icons);
     }
 
     .a_div_right {
@@ -349,7 +349,7 @@
 
     .blogpost_page_title {
         width: 100%;
-        color: var(--color-gray-text);
+        color: var(--primary-text);
     }
 
     a {
@@ -362,7 +362,7 @@
         border: none;
     }
     .blogpost_page_description{
-        color: var(--color-gray-text);
+        color: var(--primary-text);
         padding: .5rem 1rem 2rem 1rem;
     }
     .span_small_icon > img{
@@ -389,7 +389,7 @@
         width: 100%;
         border: .5rem solid transparent;
         border-radius: 1rem;
-        background-color: var(--color-gray04);
+        background-color: var(--text-icons);
         justify-content: space-between;
         a {
             text-decoration: none;
@@ -398,7 +398,7 @@
     }
 
     .blogpost:hover {
-        background-color: var(--color-gray02);
+        background-color: var(--primary-text);
     }
     .left_side{
         max-width:55%;
@@ -413,7 +413,7 @@
     }
     .blogpost_date {
         display:flex;
-        color: var(--color-gray05);
+        color: var(--text-icons);
         justify-content: end;
     }
     .blogpost_description {
@@ -447,7 +447,7 @@
     }
 
     .blogpost_divider .line {
-        background-color: var(--color-gray02);
+        background-color: var(--primary-text);
         height: 1px;
         width: 50%;
     }

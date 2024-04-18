@@ -10,7 +10,7 @@
     }
     .title {
       width: 100%;
-      color:var(--color-gray-text-title);
+      color:var(--primary-text);
     }
   
     .login_form {
@@ -18,7 +18,7 @@
       padding: 3rem;
       width: calc(100% - .5rem);
       font-size: 1.5em;
-      background-color: var(--color-gray03);
+      background-color: var(--primary-text);
       display:flex;
       justify-content: center;
   
@@ -77,7 +77,7 @@
       padding: 3rem;
       width: calc(100% - .5rem);
       font-size: 1.5em;
-      background-color: var(--color-gray03);
+      background-color: var(--primary-text);
       display:flex;
       justify-content: center;
     }
