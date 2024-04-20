@@ -1,49 +1,26 @@
 from flask import Flask
-from app_package.config import config
+# from app_package.config import config
+from ._common.config import config
 import os
-import logging
-from logging.handlers import RotatingFileHandler
+# import logging
+# from logging.handlers import RotatingFileHandler
 from pytz import timezone
 from datetime import datetime
-from pw_models import login_manager, dict_sess, \
-    dict_engine, text, dict_base, \
-    Users, BlogPosts
+from pw_models import Base, engine
+from ._common.utilities import login_manager, custom_logger_init, teardown_appcontext
 from flask_mail import Mail
 import secure
 
 if not os.path.exists(os.path.join(os.environ.get('PROJECT_ROOT'),'logs')):
     os.makedirs(os.path.join(os.environ.get('PROJECT_ROOT'), 'logs'))
 
-# timezone 
-def timetz(*args):
-    return datetime.now(timezone('Europe/Paris') ).timetuple()
 
-logging.Formatter.converter = timetz
-
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
-
-logger_init = logging.getLogger('__init__')
-logger_init.setLevel(logging.DEBUG)
-
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),'logs','__init__.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-stream_handler_tz = logging.StreamHandler()
-
-logger_init.addHandler(file_handler)
-logger_init.addHandler(stream_handler)
-
-logging.getLogger('werkzeug').setLevel(logging.DEBUG)
-logging.getLogger('werkzeug').addHandler(file_handler)
+logger_init = custom_logger_init()
 
 logger_init.info(f'--- Starting Flask Starter---')
 TEMPORARILY_DOWN = "ACTIVE" if os.environ.get('TEMPORARILY_DOWN') == "1" else "inactive"
 logger_init.info(f"- TEMPORARILY_DOWN: {TEMPORARILY_DOWN}")
-logger_init.info(f"- FLASK_CONFIG_TYPE: {os.environ.get('FLASK_CONFIG_TYPE')}")
+logger_init.info(f"- FSW_CONFIG_TYPE: {os.environ.get('FSW_CONFIG_TYPE')}")
 # logger_init.info(f"- CONFIG_FILE: {os.path.join(os.environ.get('CONFIG_PATH_LOCAL'), os.environ.get('CONFIG_FILE_NAME'))}")
 # logger_init.info(f"- MAIL_USERNAME: {config.MAIL_USERNAME}")
 # logger_init.info(f"- MAIL_PASSWORD: {config.MAIL_PASSWORD}")
@@ -54,7 +31,8 @@ mail = Mail()
 secure_headers = secure.Secure()
 
 def create_app(config_for_flask = config):
-    app = Flask(__name__)   
+    app = Flask(__name__)
+    app.teardown_appcontext(teardown_appcontext)
     app.config.from_object(config_for_flask)
     login_manager.init_app(app)
     mail.init_app(app)
@@ -62,25 +40,45 @@ def create_app(config_for_flask = config):
     logger_init.info(f"- DB_ROOT: {config_for_flask.DB_ROOT}")
 
     ############################################################################
-    ## Build Auxiliary directories in DB_ROOT
-    if not os.path.exists(config_for_flask.DB_ROOT):
-        os.makedirs(config_for_flask.DB_ROOT)
+    # database
+    create_folder(config_for_flask.DATABASE_ROOT)
+    create_folder(config_for_flask.DIR_DB_UPLOAD)
+    # create folders for PROJECT_RESOURCES
+    create_folder(config_for_flask.PROJECT_RESOURCES_ROOT)
+    ## website folders
+    create_folder(config_for_flask.DIR_ASSETS)
+    create_folder(config_for_flask.DIR_ASSETS_IMAGES)
+    create_folder(config_for_flask.DIR_ASSETS_FAVICONS)
+    ## blog folders
+    create_folder(config_for_flask.DIR_BLOG)
+    create_folder(config_for_flask.DIR_BLOG_POSTS)
+    ## logs
+    create_folder(config_for_flask.DIR_LOGS)
+    ## media - all other videos and images
+    create_folder(config_for_flask.DIR_MEDIA)
+    ############################################################################
 
-    # config.DIR_DB_AUXILIARY directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUXILIARY):
-        os.makedirs(config_for_flask.DIR_DB_AUXILIARY)
-    # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE):
-        os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE)
-    # config.DIR_DB_AUX_BLOG directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG):
-        os.makedirs(config_for_flask.DIR_DB_AUX_BLOG)
-    # config.DIR_DB_AUX_BLOG_POSTS directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG_POSTS):
-        os.makedirs(config_for_flask.DIR_DB_AUX_BLOG_POSTS)
-    # config.DIR_DB_AUX_BLOG_ICONS directory:
-    if not os.path.exists(config_for_flask.DIR_DB_AUX_BLOG_ICONS):
-        os.makedirs(config_for_flask.DIR_DB_AUX_BLOG_ICONS)
+
+    ############################################################################
+    # ## Build Auxiliary directories in DB_ROOT
+    # if not os.path.exists(config_for_flask.DB_ROOT):
+    #     os.makedirs(config_for_flask.DB_ROOT)
+
+    # # config.PROJECT_RESOURCES_ROOT directory:
+    # if not os.path.exists(config_for_flask.PROJECT_RESOURCES_ROOT):
+    #     os.makedirs(config_for_flask.PROJECT_RESOURCES_ROOT)
+    # # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
+    # if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE):
+    #     os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE)
+    # config.DIR_BLOG directory:
+    # if not os.path.exists(config_for_flask.DIR_BLOG):
+    #     os.makedirs(config_for_flask.DIR_BLOG)
+    # # config.DIR_BLOG_POSTS directory:
+    # if not os.path.exists(config_for_flask.DIR_BLOG_POSTS):
+    #     os.makedirs(config_for_flask.DIR_BLOG_POSTS)
+    # # config.DIR_BLOG_ICONS directory:
+    # if not os.path.exists(config_for_flask.DIR_BLOG_ICONS):
+    #     os.makedirs(config_for_flask.DIR_BLOG_ICONS)
 
     ############################################################################
     ## Build Sqlite database files for DB_NAME_BLOGPOST
@@ -95,16 +93,19 @@ def create_app(config_for_flask = config):
 
     from app_package.bp_main.routes import bp_main
     from app_package.bp_users.routes import bp_users
-    from app_package.bp_admin.routes import bp_admin
     from app_package.bp_error.routes import bp_error
     from app_package.bp_blog.routes import bp_blog
     from app_package.bp_support.routes import bp_support
 
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_users)
-    app.register_blueprint(bp_admin)
     app.register_blueprint(bp_error)
     app.register_blueprint(bp_blog)
     app.register_blueprint(bp_support)
 
     return app
+
+def create_folder(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        logger_init.info(f"created: {folder_path}")

@@ -3,27 +3,13 @@ from flask import render_template, send_from_directory, current_app, url_for,  \
     get_flashed_messages
 from flask_login import login_required, login_user, logout_user, current_user
 import os
-import logging
-from logging.handlers import RotatingFileHandler
 import jinja2
+from app_package._common.utilities import custom_logger, wrap_up_session
 
+logger_bp_main = custom_logger('bp_main.log')
 
 bp_main = Blueprint('bp_main', __name__)
 
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
-
-logger_bp_main = logging.getLogger(__name__)
-logger_bp_main.setLevel(logging.DEBUG)
-
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),'logs','main_routes.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-logger_bp_main.addHandler(file_handler)
-logger_bp_main.addHandler(stream_handler)
 
 
 @bp_main.route("/", methods=["GET","POST"])
@@ -57,8 +43,36 @@ def pages(page):
 
     return render_template('main/pages.html', page=page)
 
-# Website Files static data
-@bp_main.route('/website_files/<filename>')
-def website_files(filename):
-    print("-- entered website_files -")
-    return send_from_directory(current_app.config.get('DIR_DB_AUX_FILES_WEBSITE'), filename)
+
+# Website Assets static data
+@bp_main.route('/website_assets_favicon/<filename>')
+def website_assets_favicon(filename):
+    logger_bp_main.info("-- in website_assets_favicon -")
+    dir = current_app.config.get('DIR_ASSETS_FAVICONS')
+    logger_bp_main.info(f"file_to_server: {os.path.join(dir, filename)}")
+    return send_from_directory(dir, filename)
+
+# Media all images, videos, resume, etc.,
+@bp_main.route('/media/<filename>')
+def media(filename):
+    logger_bp_main.info("-- in media -")
+    dir = current_app.config.get('DIR_MEDIA')
+    logger_bp_main.info(f"file_to_server: {os.path.join(dir, filename)}")
+    return send_from_directory(dir, filename)
+
+# # Media all images, videos, resume, etc.,
+# @bp_main.route('/blog_icons/<filename>')
+# def blog_icons(filename):
+#     logger_bp_main.info("-- in blog_icons -")
+#     dir = current_app.config.get('DIR_BLOG_ICONS')
+#     logger_bp_main.info(f"file_to_server: {os.path.join(dir, filename)}")
+#     return send_from_directory(dir, filename)
+
+
+
+# never used
+# # Website Files static data
+# @bp_main.route('/website_files/<filename>')
+# def website_files(filename):
+#     print("-- entered website_files -")
+#     return send_from_directory(current_app.config.get('DIR_DB_AUX_FILES_WEBSITE'), filename)

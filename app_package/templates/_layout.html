@@ -25,7 +25,7 @@
 /><meta 
   name="image"
   property="og:image"
-  content="{{ url_for('bp_main.website_files', filename='logo02_whiteBck-1200x627.png') }}"
+  content="{{ url_for('bp_main.website_assets_favicon', filename='logo02_whiteBck-1200x627.png') }}"
 /><meta 
   name="author"
   content="Nick Rodriguez"
@@ -37,9 +37,9 @@
   content="https://nick-rodriguez.info"
 />
   <!-- icon for iPhone  shortcut -->
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('bp_main.website_files', filename='logo02_whiteBck-180x112.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('bp_main.website_assets_favicon', filename='logo02_whiteBck-180x112.png') }}">
   <!-- favicon - image on tabs of browser pages-->
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('bp_main.website_files', filename='favicon-nr-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('bp_main.website_assets_favicon', filename='favicon-nr-32x32.png') }}">
 
 
 
@@ -61,14 +61,14 @@
       <button class="btn_close" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="div_logo">
-      <img class="img_logo" src="{{ url_for('bp_main.website_files', filename='logo03_white.png')}}"/>
+      <img class="img_logo" src="{{ url_for('bp_main.website_assets_favicon', filename='logo03_white.png')}}"/>
     </div>
     <div class="navbar_list">
       <ul>
         <li><a href="{{ url_for('bp_main.home') }}"><i class="fas fa-qrcode"></i>Home</a></li>
         <li><a href="{{ url_for('bp_main.about') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
         <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>Work and CV</a></li>
-        <li><a href="{{ url_for('bp_blog.index') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
+        <li><a href="{{ url_for('bp_blog.blog_home') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
         <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>  
         
         {% if current_user.is_authenticated %}  
@@ -88,14 +88,14 @@
     <!-- Big Screen Navbar-->
     <div  class="navbar_side navbar_side_wide">
       <div class="div_logo">
-        <img class="img_logo" src="{{ url_for('bp_main.website_files', filename='logo03_white.png')}}"/>
+        <img class="img_logo" src="{{ url_for('bp_main.website_assets_favicon', filename='logo03_white.png')}}"/>
       </div>
       <div class="navbar_list">
         <ul>
           <li><a href="{{ url_for('bp_main.home') }}"><i class="fas fa-home"></i>Home</a></li>
           <li><a href="{{ url_for('bp_main.about') }}"><i class="fa-regular fa-address-card"></i>About</a></li>
           <li><a href="{{ url_for('bp_main.resume') }}"><i class="fa-solid fa-briefcase"></i>Work and CV</a></li>
-          <li><a href="{{ url_for('bp_blog.index') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
+          <li><a href="{{ url_for('bp_blog.blog_home') }}"><i class="fa-brands fa-blogger"></i>Blog</a></li>
           <li><a href="{{ url_for('bp_main.about_this_page') }}"><i class="fas fa-question-circle"></i>About this page</a></li>  
           {% if current_user.is_authenticated %}  
             <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    

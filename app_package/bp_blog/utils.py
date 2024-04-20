@@ -1,41 +1,20 @@
 # import pandas as pd
 import os
 from flask import current_app
-from pw_models import dict_sess, Users, BlogPosts
+from pw_models import BlogPosts
 import logging
 from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 import re
-# import requests
-# from urllib.parse import urljoin
+from app_package._common.utilities import custom_logger, wrap_up_session
+
+logger_bp_blog = custom_logger('bp_blog.log')
 
 
-#Setting up Logger
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
-
-#initialize a logger
-logger_bp_blog = logging.getLogger(__name__)
-logger_bp_blog.setLevel(logging.DEBUG)
-
-
-#where do we store logging information
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),"logs",'bp_blog.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-#where the stream_handler will print
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-# logger_sched.handlers.clear() #<--- This was useful somewhere for duplicate logs
-logger_bp_blog.addHandler(file_handler)
-logger_bp_blog.addHandler(stream_handler)
-
-sess_users = dict_sess['sess_users']
-
-def create_blog_posts_list(number_of_posts_to_return=False):
+def create_blog_posts_list(db_session, number_of_posts_to_return=False):
     #Blog
-    blog_posts = sess_users.query(BlogPosts).all()
+    # blog_posts = sess_users.query(BlogPosts).all()
+    blog_posts = db_session.query(BlogPosts).all()
 
     blog_posts_list =[]
     for post in blog_posts:
@@ -50,7 +29,7 @@ def create_blog_posts_list(number_of_posts_to_return=False):
         if post.post_dir_name != None:## Blogpost is an Article
             post_string_id = post.post_dir_name
             if post.blogpost_index_image_filename not in ["", None, "no_image"]:
-                # blogpost_image = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post.images_dir_name, post.blogpost_index_image_filename)
+                # blogpost_image = os.path.join(current_app.config.get('DIR_BLOG_POSTS'), post.images_dir_name, post.blogpost_index_image_filename)
                 blog_posts_list.append((post_date,post_title,post_description,
                     post_string_id,post.blogpost_index_image_filename,post.post_dir_name, post.images_dir_name))
             else:

@@ -1,12 +1,11 @@
 from flask import Blueprint
 from flask import render_template, url_for, redirect, flash, request,current_app, get_flashed_messages, \
-    send_from_directory
+    send_from_directory, g
 import os
 from datetime import datetime
 import time
 import logging
 from logging.handlers import RotatingFileHandler
-
 import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
 from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
@@ -14,53 +13,63 @@ from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_ji
     remove_body_tags, replace_p_elements_with_img, read_html_to_soup, \
     remove_line_height_from_p_tags
 
-from pw_models import dict_sess, text, Users, BlogPosts
+from pw_models import DatabaseSession, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
 import shutil
 import zipfile
 import jinja2
 import re
+from app_package._common.utilities import custom_logger, wrap_up_session
 
-#Setting up Logger
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
+logger_bp_blog = custom_logger('bp_blog.log')
 
-#initialize a logger
-logger_bp_blog = logging.getLogger(__name__)
-logger_bp_blog.setLevel(logging.DEBUG)
-
-#where do we store logging information
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),"logs",'bp_blog.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-#where the stream_handler will print
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-# logger_sched.handlers.clear() #<--- This was useful somewhere for duplicate logs
-logger_bp_blog.addHandler(file_handler)
-logger_bp_blog.addHandler(stream_handler)
 
 bp_blog = Blueprint('bp_blog', __name__)
-sess_users = dict_sess['sess_users']
+# sess_users = dict_sess['sess_users']
+
+@bp_blog.before_request
+def before_request():
+    logger_bp_blog.info("-- def before_request() --")
+    # Assign a new session to a global `g` object, accessible during the whole request
+    g.db_session = DatabaseSession()
+    
+    # Use getattr to safely access g.referrer, defaulting to None if it's not set
+    if getattr(g, 'referrer', None) is None:
+        if request.referrer:
+            g.referrer = request.referrer
+        else:
+            g.referrer = "No referrer"
+    
+    logger_bp_blog.info("-- def before_request() END --")
+
 
 ## Access images for Posted articles
 @bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
 def get_post_files(post_dir_name, img_dir_name,filename):
     logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
-    return send_from_directory(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_dir_name, img_dir_name), filename)
+    dir = os.path.join(current_app.config.get('DIR_BLOG_POSTS'),post_dir_name, img_dir_name)
+    if not os.path.exists(os.path.join(dir, filename)):
+        logger_bp_blog.info(f"-----------> MISSING FILE: {os.path.join(dir, filename)} <------")
+
+    return send_from_directory(dir, filename)
 
 ## Access icons for Linked articles
 @bp_blog.route('/get_blog_icons/<filename>')
 def get_blog_icons(filename):
-    logger_bp_blog.info(f"- in get_blog_icons route for {filename}")
-    return send_from_directory(current_app.config.get('DIR_DB_AUX_BLOG_ICONS'), filename)
+    logger_bp_blog.info(f"- in get_blog_icons route -")
+    dir = current_app.config.get('DIR_BLOG_ICONS')
+    logger_bp_blog.info(f"looking for file: {os.path.join(dir, filename)}")
 
+    if not os.path.exists(os.path.join(dir, filename)):
+        logger_bp_blog.info(f"-----------> MISSING FILE: {os.path.join(dir, filename)} <------")
 
-@bp_blog.route("/blog", methods=["GET"])
-def index():
+    return send_from_directory(dir, filename)
+
+@bp_blog.route("/blog_home", methods=["GET"])
+def blog_home():
     logger_bp_blog.info(f"- in blog index page -")
-    blog_posts_list = create_blog_posts_list()
+    db_session = g.db_session
+    blog_posts_list = create_blog_posts_list(db_session)
     # print("-- blog_post_list --")
     
     # print(blog_posts_list)
@@ -70,17 +79,18 @@ def index():
     items = ['date', 'title', 'description']
 
     # print("blog_posts_list: ", blog_posts_list)
-    return render_template('blog/index.html', blog_posts_list=blog_posts_list)
+    return render_template('blog/blog_home.html', blog_posts_list=blog_posts_list)
 
 @bp_blog.route("/view_post/<post_dir_name>")
 def view_post(post_dir_name):
+    db_session = g.db_session
     post_id = re.findall(r'\d+', post_dir_name)
-    post = sess_users.get(BlogPosts,post_id)
+    post = db_session.get(BlogPosts,post_id)
 
     templates_path_lists = [
         os.path.join(current_app.config.root_path,"templates"),
         # os.path.join(current_app.config.get('DB_ROOT'),"posts", post_id_name_string)
-        os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), post_dir_name)
+        os.path.join(current_app.config.get('DIR_BLOG_POSTS'), post_dir_name)
     ]
 
     templateLoader = jinja2.FileSystemLoader(searchpath=templates_path_lists)
@@ -115,11 +125,12 @@ def view_post(post_dir_name):
 def manage_blogposts():
     print('--- In  manage_blogposts ----')
     logger_bp_blog.info(f"- In manage_blogposts -")
-
+    db_session = g.db_session
     if not current_user.is_authenticated:
         return redirect(url_for('bp_main.home'))
 
-    all_my_posts=sess_users.query(BlogPosts).filter_by(user_id=current_user.id).all()
+    # all_my_posts=sess_users.query(BlogPosts).filter_by(user_id=current_user.id).all()
+    all_my_posts=db_session.query(BlogPosts).filter_by(user_id=current_user.id).all()
     posts_details_list=[]
     for i in all_my_posts:
         if i.word_doc_to_html_filename != None:
@@ -152,6 +163,7 @@ def create_post():
         return redirect(url_for('bp_main.home'))
 
     logger_bp_blog.info(f"- user has blog post permission -")
+    db_session = g.db_session
 
     default_date = datetime.utcnow().strftime("%Y-%m-%d")
 
@@ -173,8 +185,10 @@ def create_post():
 
             # create new_blogpost to get post_id number
             new_blogpost = BlogPosts(user_id=current_user.id)
-            sess_users.add(new_blogpost)
-            sess_users.commit()
+            
+            db_session.add(new_blogpost)
+            db_session.flush()
+            # sess_users.commit()
             # create post_id string
             new_blog_id = new_blogpost.id
             new_post_dir_name = f"{new_blog_id:04d}_post"
@@ -182,10 +196,10 @@ def create_post():
             new_blogpost.post_dir_name = new_post_dir_name
             new_blogpost.post_html_filename = uploaded_html_file.filename
             # new_blogpost.images_dir_name = "images"
-            sess_users.commit()
+            # sess_users.commit()
 
             # make temproary directory called 'temp_zip' to hold the uploaded zip file
-            temp_zip_db_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG'),'temp_zip')
+            temp_zip_db_fp = os.path.join(current_app.config.get('DIR_BLOG'),'temp_zip')
             if not os.path.exists(temp_zip_db_fp):
                 os.mkdir(temp_zip_db_fp)
             else:
@@ -193,7 +207,7 @@ def create_post():
                 os.mkdir(temp_zip_db_fp)
 
             # make path of new post dir NAME 00##_post
-            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_BLOG_POSTS'), new_post_dir_name)
             logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
 
             # Save zip files to temp
@@ -201,7 +215,7 @@ def create_post():
                 # post_zip = request_files["post_article_single_zip_file"] ### <-- replaced by post_images_zip
 
                 new_blogpost.images_dir_name = "images"
-                sess_users.commit()
+                # sess_users.commit()
 
                 post_images_zip = request_files.get("post_article_mult_file_image_zip_file")
                 post_images_zip_filename = post_images_zip.filename
@@ -259,13 +273,13 @@ def create_post():
 
                 # db/posts/0000_post
                 # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
-                destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
+                destination = current_app.config.get('DIR_BLOG_POSTS')
 
                 dest = shutil.move(source, destination, copy_function = shutil.copytree) 
                 logger_bp_blog.info(f"Destination path: {dest}")
 
                 #save html file in destination
-                uploaded_html_file.save(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
+                uploaded_html_file.save(os.path.join(current_app.config.get('DIR_BLOG_POSTS'), new_post_dir_name, uploaded_html_file.filename))
 
                 # ADD Images ---
                 # beautiful soup to search and replace img src with {{ url_for('custom_static', ___, __ ,__)}}
@@ -354,17 +368,19 @@ def create_post():
 
             # create new_blogpost to get post_id number
             new_blogpost = BlogPosts(user_id=current_user.id)
-            sess_users.add(new_blogpost)
-            sess_users.commit()
+            db_session.add(new_blogpost)
+            db_session.flush()
+            # sess_users.commit()
             # create post_id string
             new_blog_id = new_blogpost.id
             new_post_dir_name = f"{new_blog_id:04d}_post"
             # new_blogpost.post_id_name_string = new_post_dir_name
             new_blogpost.post_dir_name = new_post_dir_name
-            sess_users.commit()
+            # sess_users.commit()
+            db_session.flush()
 
             # make temproary directory called 'temp_zip' to hold the uploaded zip file
-            temp_zip_db_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG'),'temp_zip')
+            temp_zip_db_fp = os.path.join(current_app.config.get('DIR_BLOG'),'temp_zip')
             if not os.path.exists(temp_zip_db_fp):
                 os.mkdir(temp_zip_db_fp)
             else:
@@ -376,7 +392,7 @@ def create_post():
             zip_folder_name_nospaces = post_zip_filename.replace(" ", "_")
 
             # make path of new post dir 00##_post
-            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+            new_blog_dir_fp = os.path.join(current_app.config.get('DIR_BLOG_POSTS'), new_post_dir_name)
             logger_bp_blog.info(f"- new_blog_dir_fp: {new_blog_dir_fp} -")
 
             # decompress uploaded file in temp_zip
@@ -404,7 +420,7 @@ def create_post():
 
             # db/posts/0000_post
             # destination = os.path.join(current_app.config.get('DB_ROOT'), "posts")
-            destination = current_app.config.get('DIR_DB_AUX_BLOG_POSTS')
+            destination = current_app.config.get('DIR_BLOG_POSTS')
 
             dest = shutil.move(source, destination, copy_function = shutil.copytree) 
             logger_bp_blog.info(f"Destination path: {dest}") 
@@ -414,7 +430,7 @@ def create_post():
                 
                 if file_name.endswith('.html'):
                     post_html_filename = file_name
-                    post_html_file_name_and_path =  os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), 
+                    post_html_file_name_and_path =  os.path.join(current_app.config.get('DIR_BLOG_POSTS'), 
                                             new_post_dir_name,post_html_filename)
                     post_html_filename = sanitize_directory_name(post_html_file_name_and_path)
                 if os.path.isdir(os.path.join(dest,file_name)) and (
@@ -447,7 +463,7 @@ def create_post():
             # new_blogpost.images_dir_name = post_images_dir_name
             new_blogpost.word_doc_to_html_filename = post_html_filename
             new_blogpost.title = get_title(os.path.join(new_blog_dir_fp,post_html_filename), "origin_from_word")
-            sess_users.commit()
+            # sess_users.commit()
 
             logger_bp_blog.info(f"- filename is {new_post_dir_name} -")
 
@@ -459,14 +475,14 @@ def create_post():
 
             # create new_blogpost to get post_id number
             new_blogpost = BlogPosts(user_id=current_user.id)
-            sess_users.add(new_blogpost)
-            sess_users.commit()
+            db_session.add(new_blogpost)
+            db_session.flush()
             # create post_id string
             new_blog_id = new_blogpost.id
             new_blogpost.title=formDict.get('blog_title')
             new_blogpost.description=formDict.get('blog_description')
             new_blogpost.url=formDict.get('blog_url')
-            sess_users.commit()
+            db_session.flush()
 
             flash(f'Post added successfully!', 'success')
             return redirect(url_for('bp_blog.blog_edit', post_id = new_blog_id))
@@ -480,12 +496,12 @@ def create_post():
 def blog_edit(post_id):
     if not current_user.is_authenticated:
         return redirect(url_for('main.home'))
-
-    post = sess_users.query(BlogPosts).filter_by(id = post_id).first()
+    db_session = g.db_session
+    post = db_session.query(BlogPosts).filter_by(id = post_id).first()
     title = post.title
     description = post.description
     post_time_stamp_utc = post.time_stamp_utc.strftime("%Y-%m-%d")
-    list_of_link_post_icons = os.listdir(current_app.config.get('DIR_DB_AUX_BLOG_ICONS'))
+    list_of_link_post_icons = os.listdir(current_app.config.get('DIR_BLOG_ICONS'))
     
     if post.category not in [None, ""]:
         selected_category = post.category
@@ -501,7 +517,7 @@ def blog_edit(post_id):
     list_image_files = None
     # Select images from post directory 
     if post.images_dir_name not in ["", None]:
-        list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),
+        list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_BLOG_POSTS'),
             post.post_dir_name, post.images_dir_name))
         # print(file_names)
     selected_image = post.blogpost_index_image_filename
@@ -527,7 +543,7 @@ def blog_edit(post_id):
             post.date_published = None
         else:
             post.date_published = datetime.strptime(formDict.get('blog_date_published'), "%Y-%m-%d")
-        sess_users.commit()
+        # sess_users.commit()
 
         flash("Post successfully updated", "success")
         return redirect(request.url)
@@ -539,14 +555,11 @@ def blog_edit(post_id):
         selected_icon=selected_icon)
 
 
-
 @bp_blog.route("/delete/<post_id>", methods=['GET','POST'])
 @login_required
 def blog_delete(post_id):
-    post_to_delete = sess_users.query(BlogPosts).get(int(post_id))
-
-    print("where did the reqeust come from: ", request.referrer)
-    print("-------------------------------------------------")
+    db_session = g.db_session
+    post_to_delete = db_session.query(BlogPosts).get(int(post_id))
 
     if current_user.id != post_to_delete.user_id:
         return redirect(url_for('blog.post_index'))
@@ -554,11 +567,7 @@ def blog_delete(post_id):
     logger_bp_blog.info(f'post_id:: {post_id}')
 
     if post_to_delete.post_dir_name:
-        # delete word document in templates/blog/posts
-        # blog_dir_for_delete = os.path.join(current_app.config.get('DB_ROOT'), "posts",post_to_delete.post_id_name_string)
-        blog_dir_for_delete = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'),post_to_delete.post_dir_name)
-
-        # new_blog_dir_fp = os.path.join(current_app.config.get('DIR_DB_AUX_BLOG_POSTS'), new_post_dir_name)
+        blog_dir_for_delete = os.path.join(current_app.config.get('DIR_BLOG_POSTS'),post_to_delete.post_dir_name)
 
         try:
             shutil.rmtree(blog_dir_for_delete)
@@ -566,8 +575,8 @@ def blog_delete(post_id):
             logger_bp_blog.info(f'No {blog_dir_for_delete} in static folder')
 
     # delete from database
-    sess_users.query(BlogPosts).filter(BlogPosts.id==post_id).delete()
-    sess_users.commit()
+    db_session.query(BlogPosts).filter(BlogPosts.id==post_id).delete()
+    # sess_users.commit()
     print(' request.referrer[len("create_post")*-1: ]:::', request.referrer[len("create_post")*-1: ])
     if request.referrer[len("create_post")*-1: ] == "create_post":
         return redirect(request.referrer)
@@ -577,5 +586,9 @@ def blog_delete(post_id):
 
 
 
+@bp_blog.route("/blog_database_admin", methods=['GET','POST'])
+@login_required
+def blog_database_admin():
 
+    return render_template('blog/blog_database_admin.html')
 

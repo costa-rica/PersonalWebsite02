@@ -6,32 +6,26 @@ import logging
 from logging.handlers import RotatingFileHandler
 import jinja2
 import werkzeug
+from app_package._common.utilities import custom_logger
 
-#Setting up Logger
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
-
-#initialize a logger
-logger_bp_error = logging.getLogger(__name__)
-logger_bp_error.setLevel(logging.DEBUG)
-
-
-#where do we store logging information
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),"logs",'error_routes.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-#where the stream_handler will print
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-# logger_sched.handlers.clear() #<--- This was useful somewhere for duplicate logs
-logger_bp_error.addHandler(file_handler)
-logger_bp_error.addHandler(stream_handler)
-
-
+logger_bp_error = custom_logger('bp_error.log')
 bp_error = Blueprint('bp_error', __name__)
 
-if os.environ.get('FLASK_CONFIG_TYPE')=='prod':
+
+@bp_error.before_request
+def before_request():
+    logger_bp_error.info(f"- in def before_request() -")
+    if request.referrer:
+        logger_bp_error.info(f"- request.referrer: {request.referrer} ")
+    
+    db_session = g.pop('db_session', None)
+    if db_session is not None:
+        logger_bp_error.info(f"- db_session ID: {id(g.db_session)} ")
+    
+    if request.endpoint:
+        logger_bp_error.info(f"- request.endpoint: {request.endpoint} ")
+
+if os.environ.get('FSW_CONFIG_TYPE')=='prod':
     @bp_error.app_errorhandler(400)
     def handle_400(err):
         logger_bp_error.info(f'@bp_error.app_errorhandler(400), err: {err}')
@@ -77,22 +71,21 @@ if os.environ.get('FLASK_CONFIG_TYPE')=='prod':
         return render_template('errors/error_template.html', error_number="502", error_message=error_message)
 
 
-    @bp_error.app_errorhandler(AttributeError)
-    @bp_error.app_errorhandler(KeyError)
-    @bp_error.app_errorhandler(TypeError)
-    @bp_error.app_errorhandler(FileNotFoundError)
-    @bp_error.app_errorhandler(ValueError)
-    # def error_key(FileNotFoundError):
-    def error_key(e):
-        error_message = f"Could be anything... ¯\_(ツ)_/¯  ... try again or send email to {current_app.config['MAIL_USERNAME']}."
-        return render_template('errors/error_template_app_error.html', error_number="", error_message=e)
 
+    @bp_error.app_errorhandler(Exception)
+    def handle_exception(e):
+        # Log the error as you do with other errors
+        logger_bp_error.error(f'Unhandled Exception: {e}', exc_info=True)
 
-    @bp_error.app_errorhandler(jinja2.exceptions.TemplateNotFound)
-    @bp_error.app_errorhandler(jinja2.exceptions.UndefinedError)
-    @bp_error.app_errorhandler(werkzeug.routing.exceptions.BuildError)
-    def error_key(e):
-        error_message = f"Could be anything... ¯\_(ツ)_/¯  ... try again or send email to {current_app.config['MAIL_USERNAME']}."
-        return render_template('errors/error_template_app_error.html', error_number="", error_message=e,
-        error_message_2 = e)
-
+        # You can check if the error is an HTTPException and use its code
+        # Otherwise, use 500 by default for unknown exceptions
+        if isinstance(e, werkzeug.exceptions.HTTPException):
+            error_code = e.code
+        else:
+            error_code = 500
+        error_type = type(e).__name__
+        error_message = "An unexpected error occurred. We're working to fix the issue."
+        error_message = e
+        # Return your custom error template and the status code
+        return render_template('errors/error_template.html', error_code=error_code,error_type=error_type, 
+            error_message=error_message), error_code

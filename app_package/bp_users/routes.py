@@ -1,68 +1,51 @@
 
 from flask import Blueprint
 from flask import render_template, url_for, redirect, flash, request, \
-    abort, session, Response, current_app, send_from_directory, make_response
+    abort, session, Response, current_app, send_from_directory, make_response, \
+    g
 import bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 import logging
 from logging.handlers import RotatingFileHandler
 import os
 import json
-from pw_models import dict_sess, dict_engine, text, Users
+# from pw_models import dict_sess, dict_engine, text, Users
+from pw_models import DatabaseSession, text, Users
 
 from app_package.bp_users.utils import send_reset_email, send_confirm_email
 import datetime
 import requests
 # from app_package import secure_headers
-
-#Setting up Logger
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
-formatter_terminal = logging.Formatter('%(asctime)s:%(filename)s:%(name)s:%(message)s')
-
-#initialize a logger
-logger_bp_users = logging.getLogger(__name__)
-logger_bp_users.setLevel(logging.DEBUG)
-
-file_handler = RotatingFileHandler(os.path.join(os.environ.get('PROJECT_ROOT'),'logs','bp_users.log'), mode='a', maxBytes=5*1024*1024,backupCount=2)
-file_handler.setFormatter(formatter)
-
-#where the stream_handler will print
-stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(formatter_terminal)
-
-# logger_sched.handlers.clear() #<--- This was useful somewhere for duplicate logs
-logger_bp_users.addHandler(file_handler)
-logger_bp_users.addHandler(stream_handler)
+from app_package._common.utilities import custom_logger, wrap_up_session
 
 
+
+logger_bp_users = custom_logger('bp_users.log')
 salt = bcrypt.gensalt()
-
-
 bp_users = Blueprint('bp_users', __name__)
-sess_users = dict_sess['sess_users']
+# sess_users = dict_sess['sess_users']
 
-# @bp_users.before_request
-# def before_request():
-#     logger_bp_users.info("- in bp_users.before_request ")
-#     ###### Keeps user logged in 31 days ########
-#     session.permanent = True
-#     current_app.permanent_session_lifetime = datetime.timedelta(days=31)
-#     session.modified = True
-#     logger_bp_users.info(f"!--> current_app.permanent_session_lifetime: {current_app.permanent_session_lifetime}")
-#     ###### END Keeps user logged in 31 days ######## 
-#     ###### TEMPORARILY_DOWN: redirects to under construction page ########
-#     if os.environ.get('TEMPORARILY_DOWN') == '1':
-#         if request.url != request.url_root + url_for('bp_main.temporarily_down')[1:]:
-#             # logger_bp_users.info("*** (logger_bp_users) Redirected ")
-#             logger_bp_users.info(f'- request.referrer: {request.referrer}')
-#             logger_bp_users.info(f'- request.url: {request.url}')
-#             return redirect(url_for('bp_main.temporarily_down'))
 
+@bp_users.before_request
+def before_request():
+    logger_bp_users.info("-- def before_request() --")
+    # Assign a new session to a global `g` object, accessible during the whole request
+    g.db_session = DatabaseSession()
+    
+    # Use getattr to safely access g.referrer, defaulting to None if it's not set
+    if getattr(g, 'referrer', None) is None:
+        if request.referrer:
+            g.referrer = request.referrer
+        else:
+            g.referrer = "No referrer"
+    
+    logger_bp_users.info("-- def before_request() END --")
 
 
 @bp_users.route('/login', methods = ['GET', 'POST'])
 def login():
-    print('- in login')
+    logger_bp_users.info('- in login')
+    db_session = g.db_session
     if current_user.is_authenticated:
         return redirect(url_for('bp_blog.manage_blogposts'))
     
@@ -75,7 +58,7 @@ def login():
         print(f"formDict: {formDict}")
         email = formDict.get('email')
 
-        user = sess_users.query(Users).filter_by(email=email).first()
+        user = db_session.query(Users).filter_by(email=email).first()
 
         # verify password using hash
         password = formDict.get('password')
@@ -90,11 +73,7 @@ def login():
                     flash('Password or email incorrectly entered', 'warning')
             else:
                 flash('Must enter password', 'warning')
-        # elif formDict.get('btn_login_as_guest'):
-        #     user = sess_users.query(Users).filter_by(id=2).first()
-        #     login_user(user)
 
-        #     return redirect(url_for('dash.dashboard', dash_dependent_var='steps'))
         else:
             flash('No user by that name', 'warning')
 
@@ -104,7 +83,8 @@ def login():
 @bp_users.route('/register', methods = ['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('bp_main.user_home'))
+        return redirect(url_for('bp_blog.blog_home'))
+    db_session = g.db_session
     page_name = 'Register'
     print("--- ACCEPTED_EMAILS ---")
     print(current_app.config.get('ACCEPTED_EMAILS'))
@@ -119,7 +99,7 @@ def register():
             flash("This email is not permitted to have an account", "warning")
             return redirect(url_for('bp_main.home'))
 
-        check_email = sess_users.query(Users).filter_by(email = new_email).all()
+        check_email = db_session.query(Users).filter_by(email = new_email).all()
 
         logger_bp_users.info(f"check_email: {check_email}")
 
@@ -129,8 +109,8 @@ def register():
 
         hash_pw = bcrypt.hashpw(formDict.get('password').encode(), salt)
         new_user = Users(email = new_email, password = hash_pw)
-        sess_users.add(new_user)
-        sess_users.commit()
+        db_session.add(new_user)
+        # db_session.commit()
 
         # # /check_invite_json
         # headers = {'Content-Type': 'application/json'}
@@ -164,12 +144,11 @@ def reset_password():
     page_name = 'Request Password Change'
     if current_user.is_authenticated:
         return redirect(url_for('bp_main.user_home'))
-    # form = RequestResetForm()
-    # if form.validate_on_submit():
+    db_session = g.db_session
     if request.method == 'POST':
         formDict = request.form.to_dict()
         email = formDict.get('email')
-        user = sess_users.query(Users).filter_by(email=email).first()
+        user = db_session.query(Users).filter_by(email=email).first()
         if user:
         # send_reset_email(user)
             logger_bp_users.info('Email reaquested to reset: ', email)
@@ -197,7 +176,7 @@ def reset_token(token):
         if formDict.get('password_text') != '':
             hash_pw = bcrypt.hashpw(formDict.get('password_text').encode(), salt)
             user.password = hash_pw
-            sess_users.commit()
+            # sess_users.commit()
             flash('Password successfully updated', 'info')
             return redirect(url_for('bp_users.login'))
         else:
