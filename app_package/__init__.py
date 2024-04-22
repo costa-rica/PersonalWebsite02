@@ -20,10 +20,7 @@ logger_init = custom_logger_init()
 logger_init.info(f'--- Starting Flask Starter---')
 TEMPORARILY_DOWN = "ACTIVE" if os.environ.get('TEMPORARILY_DOWN') == "1" else "inactive"
 logger_init.info(f"- TEMPORARILY_DOWN: {TEMPORARILY_DOWN}")
-logger_init.info(f"- FSW_CONFIG_TYPE: {os.environ.get('FSW_CONFIG_TYPE')}")
-# logger_init.info(f"- CONFIG_FILE: {os.path.join(os.environ.get('CONFIG_PATH_LOCAL'), os.environ.get('CONFIG_FILE_NAME'))}")
-# logger_init.info(f"- MAIL_USERNAME: {config.MAIL_USERNAME}")
-# logger_init.info(f"- MAIL_PASSWORD: {config.MAIL_PASSWORD}")
+logger_init.info(f"- FLASK_CONFIG_TYPE: {os.environ.get('FLASK_CONFIG_TYPE')}")
 logger_init.info(f"- MAIL_NICK_GMAIL: {config.MAIL_NICK_GMAIL}")
 
 
@@ -86,7 +83,8 @@ def create_app(config_for_flask = config):
     if os.path.exists(os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))):
         logger_init.info(f"db already exists: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))}")
     else:
-        dict_base['Base_users'].metadata.create_all(dict_engine['engine_users'])
+        # dict_base['Base_users'].metadata.create_all(dict_engine['engine_users'])
+        Base.metadata.create_all(engine)
         logger_init.info(f"NEW db created: {os.path.join(config_for_flask.DB_ROOT,os.environ.get('DB_NAME_BLOGPOST'))}")
 
     logger_init.info(f"- SQL_URI_USERS: sqlite:///{config_for_flask.DB_ROOT}{os.environ.get('DB_NAME_BLOGPOST')}")

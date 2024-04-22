@@ -25,7 +25,7 @@ def before_request():
     if request.endpoint:
         logger_bp_error.info(f"- request.endpoint: {request.endpoint} ")
 
-if os.environ.get('FSW_CONFIG_TYPE')=='prod':
+if os.environ.get('FLASK_CONFIG_TYPE')=='prod':
     @bp_error.app_errorhandler(400)
     def handle_400(err):
         logger_bp_error.info(f'@bp_error.app_errorhandler(400), err: {err}')

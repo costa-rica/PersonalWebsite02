@@ -1,7 +1,7 @@
 import os
 from pw_config import ConfigWorkstation, ConfigDev, ConfigProd
 
-match os.environ.get('FSW_CONFIG_TYPE'):
+match os.environ.get('FLASK_CONFIG_TYPE'):
     case 'dev':
         config = ConfigDev()
         print('- PersonalWebsite02/app_pacakge/config: Development')
