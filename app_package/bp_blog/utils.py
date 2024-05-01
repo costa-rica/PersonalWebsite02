@@ -253,6 +253,30 @@ def replace_p_elements_with_img(html_content):
             new_div = soup.new_tag('div', **{'class': 'blog_img'})
             # Move the 'img' element to the new 'div'
             new_div.append(img.extract())
+
+            # Check if there is a caption - remove color around number due to span tag style
+            if p_tag.find('font'):
+                font_element = p_tag.find('font')
+                # Append "width:100%" to the style attribute of the 'font' element
+                current_style = font_element['style']
+                font_element['style'] = current_style + "; width:100%"
+                # check for i element, if yes, assume the rest...
+                # Find the 'i' element (since your HTML indicates there's only one such element, we can safely use find())
+                i_element = font_element.find('i')
+                if i_element:
+                    # Find the 'span' element within the 'i' element
+                    span_element = i_element.find('span')
+                    # Extract the text from the span element
+                    span_text = span_element.text
+                    
+                    # Replace the span element with its own text
+                    span_element.replace_with(span_text)
+
+
+                # Append illustration
+                new_div.append(p_tag.find('font'))
+
+
             # Replace the 'p' tag with the new 'div'
             p_tag.replace_with(new_div)
 

@@ -74,6 +74,7 @@
     .blog_img{
         display:flex;
         justify-content: center;
+        flex-wrap: wrap;
         width:100%;
     }
 }
@@ -530,7 +531,7 @@
     }
 
     .view_post_page{
-        .blog_img > img {width:80%}
+        .blog_img > img {max-width:80%}
     }
 }
 

@@ -260,6 +260,8 @@ def create_post():
                 # new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,post_html_filename), post_images_dir_name)
                 new_index_text = replace_img_src_jinja(os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename), "images")
                 
+                ## Illustrations should still be here
+
                 if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
                     flash(f"Missing index.html? There was an problem trying to opening {os.path.join(new_blog_dir_fp,new_blogpost.post_html_filename)}.", "warning")
                     # return redirect(request.url)
