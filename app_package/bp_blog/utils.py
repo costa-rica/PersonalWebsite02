@@ -7,6 +7,8 @@ from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 import re
 from app_package._common.utilities import custom_logger, wrap_up_session
+import shutil
+import zipfile
 
 logger_bp_blog = custom_logger('bp_blog.log')
 
@@ -274,3 +276,38 @@ def remove_line_height_from_p_tags(html_content):
 
     return str(soup)
 
+
+def remove_MACOSX_files(unzipped_temp_dir):
+
+    unzipped_dir_list = [ f.path for f in os.scandir(unzipped_temp_dir) if f.is_dir() ]
+    
+    # delete the __MACOSX dir
+    for path_str in unzipped_dir_list:
+        if path_str[-8:] == "__MACOSX":
+            shutil.rmtree(path_str)
+            logger_bp_blog.info(f"- removed {path_str[-8:]} -")
+
+def check_for_dir_if_not_exist_make_dir(dir_to_make_path):
+
+    if not os.path.exists(dir_to_make_path):
+        os.mkdir(dir_to_make_path)
+    else:
+        shutil.rmtree(dir_to_make_path)
+        os.mkdir(dir_to_make_path)
+        logger_bp_blog.info(f"- created: {dir_to_make_path} -")
+
+def unzip_blog_files_and_extract_to_dir(temp_zip_db_fp, zip_folder_name_nospaces, sub_folder_name=None):
+
+    # decompress uploaded IMAGES file in temp_zip
+    dir_name_for_unzip_and_extract = os.path.join(temp_zip_db_fp, zip_folder_name_nospaces)
+    with zipfile.ZipFile(dir_name_for_unzip_and_extract, 'r') as zip_ref:
+    # with zipfile.ZipFile(os.path.join(temp_zip_db_fp, zip_folder_name_nospaces), 'r') as zip_ref:
+        logger_bp_blog.info("- unzipping file --")
+        logger_bp_blog.info(zip_ref.namelist())
+        unzipped_files_dir_name = zip_ref.namelist()[0]
+        # unzipped_temp_dir = os.path.join(temp_zip_db_fp, "images")
+        if sub_folder_name:
+            unzipped_temp_dir = os.path.join(temp_zip_db_fp, sub_folder_name)
+        else:
+            unzipped_temp_dir = os.path.join(temp_zip_db_fp)
+        zip_ref.extractall(unzipped_temp_dir)

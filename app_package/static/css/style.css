@@ -373,9 +373,11 @@
 }
 .view_post_page .view_post h1 {
   color: var(--hightlights);
+  width: 100%;
 }
 .view_post_page .view_post h2 {
   color: var(--hightlights);
+  width: 100%;
 }
 .view_post_page .view_post a {
   color: var(--website_theme_font_color_a_dark);
@@ -390,6 +392,9 @@
 }
 .view_post_page .view_post .MsoCaption {
   color: var(--primary-text);
+}
+.view_post_page .view_post ul {
+  width: 100%;
 }
 .view_post_page .post {
   padding: 2rem 0 0 0;
@@ -770,6 +775,9 @@
     display: inline;
     color: var(--website_theme_font_color_a_light);
     width: 100%;
+  }
+  .view_post_page .blog_img > img {
+    width: 80%;
   }
 }
 .home_page {
