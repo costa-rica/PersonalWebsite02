@@ -1,13 +1,9 @@
 {% extends "_layout.html" %}
 {% block main %}
 
-
-
-
 <div class="view_post_page">
 
     <div class="view_post">
-
 
         {% if current_user.is_authenticated %}
         <div class="div_right">
@@ -18,11 +14,9 @@
           {% include template_post_index %}
         </div>
         
-    </div>
+    </div><!-- view_post -->
     
 </div><!-- view_post_page -->
-
-
 
 
 {% endblock %}

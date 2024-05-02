@@ -10,7 +10,7 @@
         // img{border: 1px solid black;}
         color: var(--primary-text);
         padding-bottom: 3rem;
-
+        
         h1 {
             color: var(--hightlights);
             width:100%;
@@ -39,6 +39,12 @@
                 }
             }
         }
+        .blog_img{
+            img{
+                width:100%;
+                height:auto;
+            }
+        }
 
         .MsoCaption {
             color: var(--primary-text);
@@ -50,7 +56,9 @@
         padding: 2rem 0 0 0;
         display:flex;
         flex-wrap: wrap;
-        p{width: 100%;}
+        p{
+            width: 100%;
+        }
     }
 
     .div_right {
@@ -60,17 +68,9 @@
     .div_code{
         background-color: black;
         --bs-code-color:white;
-        margin-left:1rem;
-        margin-right:5rem;
-        padding: 0.5rem 1rem;
         white-space: pre-wrap;
-    }
-    code.highlighted {
-        background-color: black;
-        color: white;        
-        font-family: monospace; /* This makes the text look like typical code */
-        padding: 2px 4px; /* Adds a bit of space around the text for better visibility */
-        border-radius: 3px; /* Rounds the corners for a smoother appearance */
+        width:100%;
+        border-radius: .25rem;
     }
     .blog_img{
         display:flex;
@@ -466,12 +466,6 @@
 
 @media screen and (min-width: 768px) {
 
-    // .view_post_super {
-        
-    //     .view_post {
-    //         width: calc(100% - 10rem);
-    //     }
-    // }
 
     .blogpost_index_page {
 
@@ -535,6 +529,15 @@
     .view_post_page{
         padding-bottom: 5rem;
         .blog_img > img {max-width:80%}
+        .div_code{
+            background-color: black;
+            --bs-code-color:white;
+            margin-left:1rem;
+            margin-right:5rem;
+            padding: 0.5rem 1rem;
+            white-space: pre-wrap;
+            width:100%;
+        }
     }
 }
 

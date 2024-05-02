@@ -391,6 +391,10 @@
   width: 100%;
   height: auto;
 }
+.view_post_page .view_post .blog_img img {
+  width: 100%;
+  height: auto;
+}
 .view_post_page .view_post .MsoCaption {
   color: var(--primary-text);
 }
@@ -412,17 +416,9 @@
 .view_post_page .div_code {
   background-color: black;
   --bs-code-color:white;
-  margin-left: 1rem;
-  margin-right: 5rem;
-  padding: 0.5rem 1rem;
   white-space: pre-wrap;
-}
-.view_post_page code.highlighted {
-  background-color: black;
-  color: white;
-  font-family: monospace; /* This makes the text look like typical code */
-  padding: 2px 4px; /* Adds a bit of space around the text for better visibility */
-  border-radius: 3px; /* Rounds the corners for a smoother appearance */
+  width: 100%;
+  border-radius: 0.25rem;
 }
 .view_post_page .blog_img {
   display: flex;
@@ -780,6 +776,15 @@
   }
   .view_post_page .blog_img > img {
     max-width: 80%;
+  }
+  .view_post_page .div_code {
+    background-color: black;
+    --bs-code-color:white;
+    margin-left: 1rem;
+    margin-right: 5rem;
+    padding: 0.5rem 1rem;
+    white-space: pre-wrap;
+    width: 100%;
   }
 }
 .home_page {
