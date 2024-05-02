@@ -68,7 +68,9 @@
     .div_code{
         background-color: black;
         --bs-code-color:white;
-        white-space: pre-wrap;
+        white-space: pre-wrap; // Preserves formatting and allows for basic wrapping
+        word-wrap: break-word; // Ensures that even long words (or file paths) can be broken
+        overflow-wrap: break-word; // Similar to word-wrap, but with better support
         width:100%;
         border-radius: .25rem;
     }

@@ -417,6 +417,8 @@
   background-color: black;
   --bs-code-color:white;
   white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   width: 100%;
   border-radius: 0.25rem;
 }
