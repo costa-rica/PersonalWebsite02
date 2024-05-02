@@ -294,12 +294,6 @@ def create_post():
                 logger_bp_blog.info(f"{type(e).__name__}: {e}")
                 logger_bp_blog.info(f"**** `line-height: 100%` in p elements not removed")
 
-            ## Save the .html before removing highlights to see what it sees:
-            temp_folder = "/Users/nick/Library/CloudStorage/OneDrive-Personal/Documents/_projects/Writing/20240427reverseProxyServer"
-            temp_index_html_writer = open(os.path.join(temp_folder, "reverse_proxy_post_test_before_remove_illustrations.html"), "w")
-            temp_index_html_writer.write(new_index_text)
-            temp_index_html_writer.close()
-
             try:
                 # -- p elements for Illustration captions (start): find all p elements whose contents contain the word "Illustration" and remove highlights
                 # Remove highilghts from "Illustration #" cross references
