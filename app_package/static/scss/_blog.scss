@@ -39,12 +39,6 @@
                 }
             }
         }
-        .blog_img{
-            img{
-                width:100%;
-                height:auto;
-            }
-        }
 
         .MsoCaption {
             color: var(--primary-text);
@@ -79,7 +73,12 @@
         justify-content: center;
         flex-wrap: wrap;
         width:100%;
+        img {
+            max-width: 100%; // Overrides any previous max-width declarations
+            height: auto;
+        }
     }
+
 }
 
 /* Create Post*/
@@ -465,11 +464,6 @@
 }
 
 
-// .view_post_super {
-//     color: var(--website_theme_font_color_dark);
-// }
-
-
 @media screen and (min-width: 768px) {
 
 
@@ -534,7 +528,14 @@
 
     .view_post_page{
         padding-bottom: 5rem;
-        .blog_img > img {max-width:80%}
+        .blog_img{
+            img {
+                width: auto; // Ensures the width is set to the natural image width unless the container is smaller
+                max-width: 70%; // Prevents the image from being larger than 70% the width of its container
+                height: auto; // Maintains the aspect ratio
+            }
+        }
+
         .div_code{
             background-color: black;
             --bs-code-color:white;

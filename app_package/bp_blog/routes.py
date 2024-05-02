@@ -9,11 +9,11 @@ from logging.handlers import RotatingFileHandler
 import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
 from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
-    get_title, sanitize_directory_name, replace_code_snippet_jinja, remove_head, \
+    get_title, sanitize_directory_name, remove_head, \
     remove_body_tags, replace_p_elements_with_img, read_html_to_soup, \
     remove_line_height_from_p_tags, remove_MACOSX_files, check_for_dir_if_not_exist_make_dir, \
     unzip_blog_files_and_extract_to_dir, replace_code_snippet_filename_with_jinja_include_block, \
-    delete_old_write_new_index_html, remove_highlights_from_illustration_cross_ref
+    delete_old_write_new_index_html, replace_span_with_background_styling_with_contents
 
 from pw_models import DatabaseSession, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
@@ -294,10 +294,20 @@ def create_post():
                 logger_bp_blog.info(f"{type(e).__name__}: {e}")
                 logger_bp_blog.info(f"**** `line-height: 100%` in p elements not removed")
 
+            ## Print test before removeing highlights
+            # write a new index.html with new code that references images in image folder
+            test_folder_path = "/Users/nick/Documents/_testData/PersonalWeb02-blogposts"
+            test_path_and_name = os.path.join(test_folder_path,"test_version05.html")
+            index_html_writer = open(test_path_and_name, "w")
+            index_html_writer.write(new_index_text)
+            index_html_writer.close()
+
+
             try:
-                # -- p elements for Illustration captions (start): find all p elements whose contents contain the word "Illustration" and remove highlights
-                # Remove highilghts from "Illustration #" cross references
-                new_index_text = remove_highlights_from_illustration_cross_ref(new_index_text)
+                # -OLD DELETE- p elements for Illustration captions (start): find all p elements whose contents contain the word "Illustration" and remove highlights
+                ## search all span elements with background styling and replaces with its contents
+                # Remove highilghts from "Illustration #" cross references and Heading 1 cross references
+                new_index_text = replace_span_with_background_styling_with_contents(new_index_text)
                 logger_bp_blog.info(f"----> highlights on the word 'Illustration' removed in p elements -> span element successfully replaced w contents")
             except Exception as e:
                 logger_bp_blog.info(f"{type(e).__name__}: {e}")

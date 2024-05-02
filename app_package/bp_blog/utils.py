@@ -102,35 +102,6 @@ def replace_code_snippet_filename_with_jinja_include_block(blog_post_index_file_
     #             pass
     return str(soup)
 
-#TODO: I'd like to delete this, I don't think it's doing anything useful
-# Currently, commented out from routes.py > create_post
-def replace_code_snippet_jinja(blog_post_index_file_path_and_name):
-
-    try:
-        #read html into beautifulsoup
-        with open(blog_post_index_file_path_and_name) as fp:
-            soup = BeautifulSoup(fp, 'html.parser')
-    except FileNotFoundError:
-        return "Error opening index.html"
-
-    # Define the style to match
-    target_style = "line-height: 100%; margin-bottom: 0in; background: #000000"
-    # Extract the path from the variable
-    directory_path_code_snippet = os.path.dirname(blog_post_index_file_path_and_name)
-    # Get a list of filenames in the directory, sorted in ascending order
-    # filenames = sorted([f for f in os.listdir(directory_path) if f.startswith(('01', '02'))])
-    filenames = sorted([f for f in os.listdir(directory_path_code_snippet) if f[:2].isdigit()])
-
-    # Iterate over each <p> element and replace it with the corresponding Jinja include statement
-    for i, p in enumerate(soup.find_all('p', style=target_style)):
-        if i < len(filenames):
-            include_statement = f"{{% include '{filenames[i]}' %}}"
-            p.replace_with(include_statement)
-        else:
-            break  # Break the loop if there are more <p> tags than files
-
-    # print(soup)
-    return str(soup)
 
 def replace_img_src_jinja(blog_post_index_file_path_and_name, img_dir_name):
     
@@ -305,10 +276,8 @@ def replace_p_elements_with_img(html_content):
                     # Replace the span element with its own text
                     span_element.replace_with(span_text)
 
-
                 # Append illustration
                 new_div.append(p_tag.find('font'))
-
 
             # Replace the 'p' tag with the new 'div'
             p_tag.replace_with(new_div)
@@ -334,22 +303,16 @@ def remove_line_height_from_p_tags(html_content):
 
     return str(soup)
 
-def remove_highlights_from_illustration_cross_ref(html_content):
-    
-    soup = BeautifulSoup(html_content, 'html.parser')
-    # Iterate over all <p> tags in the soup
-    for p in soup.find_all('p'):
-        # Find all <span> tags within each <p> tag
-        for span in p.find_all('span'):
-            # Check if 'Illustration' is in the text of the <span>
-            if 'Illustration' in span.text:
-                # Extract the text from the span element
-                span_text = span.get_text()
-                # Replace the <span> element with its own text
-                span.replace_with(span_text)
-    
-    return str(soup)
 
+def replace_span_with_background_styling_with_contents(html_content):
+        
+    soup = BeautifulSoup(html_content, 'html.parser')
+    # Iterate over all span tags
+    for span in soup.find_all('span', style="background: #c0c0c0"):
+        # Replace the span element with its own text content
+        span.replace_with(span.get_text())
+
+    return str(soup)
 
 def remove_MACOSX_files(unzipped_temp_dir):
 

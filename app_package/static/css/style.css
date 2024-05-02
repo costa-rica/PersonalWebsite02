@@ -391,10 +391,6 @@
   width: 100%;
   height: auto;
 }
-.view_post_page .view_post .blog_img img {
-  width: 100%;
-  height: auto;
-}
 .view_post_page .view_post .MsoCaption {
   color: var(--primary-text);
 }
@@ -427,6 +423,10 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+}
+.view_post_page .blog_img img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Create Post*/
@@ -768,8 +768,10 @@
   .view_post_page {
     padding-bottom: 5rem;
   }
-  .view_post_page .blog_img > img {
-    max-width: 80%;
+  .view_post_page .blog_img img {
+    width: auto;
+    max-width: 70%;
+    height: auto;
   }
   .view_post_page .div_code {
     background-color: black;
