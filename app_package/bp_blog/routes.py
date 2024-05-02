@@ -294,14 +294,13 @@ def create_post():
                 logger_bp_blog.info(f"{type(e).__name__}: {e}")
                 logger_bp_blog.info(f"**** `line-height: 100%` in p elements not removed")
 
-            ## Print test before removeing highlights
-            # write a new index.html with new code that references images in image folder
-            test_folder_path = "/Users/nick/Documents/_testData/PersonalWeb02-blogposts"
-            test_path_and_name = os.path.join(test_folder_path,"test_version05.html")
-            index_html_writer = open(test_path_and_name, "w")
-            index_html_writer.write(new_index_text)
-            index_html_writer.close()
-
+            # ## Print test before removeing highlights
+            # # write a new index.html with new code that references images in image folder
+            # test_folder_path = "/Users/nick/Documents/_testData/PersonalWeb02-blogposts"
+            # test_path_and_name = os.path.join(test_folder_path,"test_version05.html")
+            # index_html_writer = open(test_path_and_name, "w")
+            # index_html_writer.write(new_index_text)
+            # index_html_writer.close()
 
             try:
                 # -OLD DELETE- p elements for Illustration captions (start): find all p elements whose contents contain the word "Illustration" and remove highlights
