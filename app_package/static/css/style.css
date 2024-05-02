@@ -370,6 +370,7 @@
 .view_post_page .view_post {
   width: calc(100% - 2rem);
   color: var(--primary-text);
+  padding-bottom: 3rem;
 }
 .view_post_page .view_post h1 {
   color: var(--hightlights);
@@ -723,9 +724,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .view_post_super .view_post {
-    width: calc(100% - 10rem);
-  }
   .blogpost_index_page .blogpost_index_page_sub {
     display: flex;
     justify-content: center;
@@ -776,6 +774,9 @@
     display: inline;
     color: var(--website_theme_font_color_a_light);
     width: 100%;
+  }
+  .view_post_page {
+    padding-bottom: 5rem;
   }
   .view_post_page .blog_img > img {
     max-width: 80%;

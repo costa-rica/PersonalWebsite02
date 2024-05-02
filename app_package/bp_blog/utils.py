@@ -60,7 +60,50 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
 
     return blog_posts_list
 
-# replace the code snippet
+#
+def replace_code_snippet_filename_with_jinja_include_block(blog_post_index_file_path_and_name,
+    new_post_dir_name):
+    try:
+        #read html into beautifulsoup
+        with open(blog_post_index_file_path_and_name) as fp:
+            soup = BeautifulSoup(fp, 'html.parser')
+    except FileNotFoundError:
+        return "Error opening index.html"
+
+    path_to_blog_post_code_snippets = os.path.join(current_app.config.get("DIR_BLOG_POSTS"),new_post_dir_name,"code_snippets")
+    code_snippet_filename_list = os.listdir(path_to_blog_post_code_snippets)
+
+    # p_tags = soup.find_all('p')
+
+    # Iterate over all <p> tags
+    for p in soup.find_all('p'):
+        if p.text in code_snippet_filename_list:
+            # Create a new div element
+            new_div = soup.new_tag('div')
+            new_div['class'] = 'div_code_super'
+            # Insert the f-string with the file name
+            new_div.string = f"{{% include 'code_snippets/{p.text}' %}}"
+            # Replace the <p> tag with the new <div>
+            p.replace_with(new_div)
+
+
+    # for p_tag in p_tags:
+    #     for element in p_tag.contents:
+    #         try:
+
+    #             if code_snippet_filename_list.index(str(element))==0:
+    #                 new_div_code_super = soup.new_tag('div', **{'class': 'div_code_super'})
+    #                 # {% include 'code_snippets/codeSnippet01-setupUbuntu.html' %}
+    #                 new_div_code_super.append(f"{{% include 'code_snippets/{str(element)}' %}}")
+                    
+    #                 p_tag.replace_with(new_div_code_super)
+    #         except Exception as e:
+    #             # logger_bp_blog.info(f"{type(e).__name__}:{e}")
+    #             pass
+    return str(soup)
+
+#TODO: I'd like to delete this, I don't think it's doing anything useful
+# Currently, commented out from routes.py > create_post
 def replace_code_snippet_jinja(blog_post_index_file_path_and_name):
 
     try:
@@ -69,8 +112,6 @@ def replace_code_snippet_jinja(blog_post_index_file_path_and_name):
             soup = BeautifulSoup(fp, 'html.parser')
     except FileNotFoundError:
         return "Error opening index.html"
-
-
 
     # Define the style to match
     target_style = "line-height: 100%; margin-bottom: 0in; background: #000000"
@@ -87,8 +128,6 @@ def replace_code_snippet_jinja(blog_post_index_file_path_and_name):
             p.replace_with(include_statement)
         else:
             break  # Break the loop if there are more <p> tags than files
-
-
 
     # print(soup)
     return str(soup)
@@ -118,18 +157,12 @@ def replace_img_src_jinja(blog_post_index_file_path_and_name, img_dir_name):
                 image_list.remove(img)
                 # print("removed img")
             else:
-                # print("***** REPLACING src *****")
-                # img['src'] = "{{ url_for('blog.custom_static', post_id_name_string=post_id_name_string,img_dir_name='" + \
-                #     img['src'][:img['src'].find("/")] \
-                #     +"', filename='"+ img['src'][img['src'].find("/")+1:]+"')}}"
                 img['src'] = "{{ url_for('bp_blog.get_post_files', post_dir_name=post_dir_name,img_dir_name='" + \
                     img_dir_name \
                     +"', filename='"+ img['src'][img['src'].find("/")+1:]+"')}}"
         except AttributeError:
             image_list.remove(img)
             # print('removed img with exception')
-
-
 
     # print(soup)
     return str(soup)
@@ -283,6 +316,7 @@ def replace_p_elements_with_img(html_content):
     return str(soup)
 
 def remove_line_height_from_p_tags(html_content):
+
     # Parse with Beautiful Soup
     soup = BeautifulSoup(html_content, 'html.parser')
 
@@ -298,6 +332,22 @@ def remove_line_height_from_p_tags(html_content):
     # Convert the modified soup_body back to string
     final_html_content = str(soup)
 
+    return str(soup)
+
+def remove_highlights_from_illustration_cross_ref(html_content):
+    
+    soup = BeautifulSoup(html_content, 'html.parser')
+    # Iterate over all <p> tags in the soup
+    for p in soup.find_all('p'):
+        # Find all <span> tags within each <p> tag
+        for span in p.find_all('span'):
+            # Check if 'Illustration' is in the text of the <span>
+            if 'Illustration' in span.text:
+                # Extract the text from the span element
+                span_text = span.get_text()
+                # Replace the <span> element with its own text
+                span.replace_with(span_text)
+    
     return str(soup)
 
 
@@ -335,3 +385,18 @@ def unzip_blog_files_and_extract_to_dir(temp_zip_db_fp, zip_folder_name_nospaces
         else:
             unzipped_temp_dir = os.path.join(temp_zip_db_fp)
         zip_ref.extractall(unzipped_temp_dir)
+
+# def delete_old_write_new_index_html(new_blog_dir_file_path, new_blogpost, new_index_text):
+def delete_old_write_new_index_html(new_blog_post_path_and_file_name, new_index_text):
+    
+    if os.path.exists(new_blog_post_path_and_file_name):
+        # remove existing post_html_filename
+        os.remove(new_blog_post_path_and_file_name)
+
+    # write a new index.html with new code that references images in image folder
+    index_html_writer = open(new_blog_post_path_and_file_name, "w")
+    index_html_writer.write(new_index_text)
+    index_html_writer.close()
+
+
+

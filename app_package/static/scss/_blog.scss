@@ -9,6 +9,7 @@
         width: calc(100% - 2rem);
         // img{border: 1px solid black;}
         color: var(--primary-text);
+        padding-bottom: 3rem;
 
         h1 {
             color: var(--hightlights);
@@ -465,11 +466,12 @@
 
 @media screen and (min-width: 768px) {
 
-    .view_post_super {
-        .view_post {
-            width: calc(100% - 10rem);
-        }
-    }
+    // .view_post_super {
+        
+    //     .view_post {
+    //         width: calc(100% - 10rem);
+    //     }
+    // }
 
     .blogpost_index_page {
 
@@ -531,6 +533,7 @@
     }
 
     .view_post_page{
+        padding-bottom: 5rem;
         .blog_img > img {max-width:80%}
     }
 }
