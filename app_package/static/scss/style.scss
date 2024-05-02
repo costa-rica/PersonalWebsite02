@@ -1,11 +1,12 @@
 @use "navbar";
 @use "buttons";
 @use "users";
-// @use "other_elements";
 @use "blog";
 @use "main";
 @use "support";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet');
 
 :root {
     --nav-height: 123px;
@@ -13,7 +14,6 @@
     
 
     /* Color Palette 2024-04-18 */
-
     --base-background: #333333;// menu
     --secondary-background: #4D4D4D;// base
     --tertiary-background: #2B2B2B;// buttons
@@ -24,39 +24,15 @@
     --tw-text-opacity: .7;
     --hyperlinks-secondary: rgb(29 255 158 / var(--tw-text-opacity));
 
-
-    // /* Best Buy Colors */
-    // --color-dark: #003366;// bestbuy
-    // --color-blue-dark: #00509E;//bestbuy
-    // --color-blue: #0072BC;//bestbuy
-    // --color-blue-sidenav: var(--color-dark);//bustbuy
-
-    /* Stratis Colors */
-    // --color-dark: #000814;// original dark
-    // --color-blue-dark: #001D3D;// original 2nd darkest
-    // --color-blue: #3C3C5B;// original 3rd darkest
-    // --color-blue-sidenav: #29283E;// original sidbar
-
-    // --color-yellow: #FFC300;
-    // --color-white: #FFFFFF;
-    // // --color-light-blue-button: #565481;// original button
-    // --color-light-blue-button: var(--color-blue);
-    // --color-gray01-light: #d1d1d1;//Text and Icons
-    // --color-gray02: #bfbfbf;
-    // --color-gray03: #a0a0a0;
-    // --color-gray04: #808080;
-    // --color-gray05: #212121;
-    // --color-gray-text:var(--color-gray01-light);
-    // --color-dark-gray-text:var(--color-gray05);
-    // --color_gray_test_01:#898989;
-    // --color-gray-text-title:var(--color-gray01-light);
   }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    // font-family: 'Poppins', sans-serif;
+    // font-family: 'Lato', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 html body{background-color: var(--secondary-background)}
 
