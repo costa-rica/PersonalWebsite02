@@ -1,9 +1,9 @@
 {% extends "_layout.html" %}
 {% block main %}
 
-<div class="view_post_page">
+<div class="view_blogpost_page">
 
-    <div class="view_post">
+    <div class="view_blogpost">
 
         {% if current_user.is_authenticated %}
         <div class="div_right">
@@ -14,9 +14,9 @@
           {% include template_post_index %}
         </div>
         
-    </div><!-- view_post -->
+    </div><!-- view_blogpost -->
     
-</div><!-- view_post_page -->
+</div><!-- view_blogpost_page -->
 
 
 {% endblock %}

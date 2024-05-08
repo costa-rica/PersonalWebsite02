@@ -4,6 +4,7 @@
 @use "blog";
 @use "main";
 @use "support";
+@use "admin";
 // @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet');
@@ -17,13 +18,14 @@
     --base-background: #333333;// menu
     --secondary-background: #4D4D4D;// base
     --tertiary-background: #2B2B2B;// buttons
-    --primary-text: #E0E0E0;
+    --primary-text: #E0E0E0;// light text
+    --secondary-text:var(--tertiary-background);// dark text
     --text-icons: #CCCCCC;
     --hightlights: #FFC300;
     --hyperlinks-primary:var(--hightlights);
     --tw-text-opacity: .7;
     --hyperlinks-secondary: rgb(29 255 158 / var(--tw-text-opacity));
-
+    --admin-green: var(--hyperlinks-secondary)
   }
 
 * {

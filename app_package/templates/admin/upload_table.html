@@ -1,0 +1,111 @@
+{% extends "_layout.html" %}
+{% block main %}
+
+<form method="POST" id="form_upload_db" enctype=multipart/form-data></form>
+
+<div class="admin_db_upload_table_page">
+  <div class="col_1">
+    <div class="title_custom">
+      <h1>Admin Upload Db Page</h1>
+
+    </div>
+    <div class="admin_db_sub">
+      <div class="section_div">
+        <div class="std_frame_light_gray ">
+
+          <div class="download_db_tables_form">
+            <h3>Appending Data to <i class="white_bkground">{{ table_name }}</i> Table</h3>
+            <br>
+            <div class="home_buttons">
+              <table id="searchableTable01" class="responsive-table">
+                <thead>
+                  <tr>
+                    <th class="left_column">Existing Table</th>
+                    <th>Update with:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for existing_col_name, new_data_col_name in match_cols_dict.items() %}
+                  <tr>
+                    <td class="left_column">
+                      <label class="upload_input_label">{{ existing_col_name }}:</label>
+                    </td>
+                    <td class="right_column">
+                      {% if new_data_col_name== None %}
+
+                      <div class="input_div_for_new_data">
+                        <input list="new_column_names" name="{{ existing_col_name }}" form="form_upload_db"
+                          class="upload_input missing" placeholder="No matching name in csv" />
+                        {% if existing_col_name == 'time_stamp_utc' %}
+                        <input type="checkbox" name="default_checkbox_{{ existing_col_name }}"
+                          value="{{ existing_col_name }}" form="form_upload_db" checked>
+                        {% else %}
+                        <input type="checkbox" name="default_checkbox_{{ existing_col_name }}"
+                          value="{{ existing_col_name }}" form="form_upload_db">
+                        {% endif %}
+                      </div>
+
+
+
+                      {% else %}
+                      <input list="new_column_names" name="{{ existing_col_name }}" form="form_upload_db"
+                        class="upload_input" value="{{ new_data_col_name }}" />
+                      {% endif %}
+                      <datalist id="new_column_names">
+                        {% for new_col_name in replacement_data_col_names %}
+                        <option value="{{ new_col_name }}">
+
+                          {% endfor %}
+                      </datalist>
+                    </td>
+                  </tr>
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div><!-- home_buttons -->
+
+            <div class="btn_div">
+              <button type="submit" name="btn_upload_csv" value="true" class="btn btn-primary"
+                form="form_upload_db">Upload
+                these matches</button>
+            </div>
+
+
+
+
+          </div><!-- download_db_tables_form -->
+        </div><!-- std_frame_light_gray -->
+      </div><!-- section_div -->
+      <div class="section_div">
+        <div class="std_frame_light_gray ">
+          <div class="details">
+            <h3><u>Notes for uploading</u></h3>
+            <br>
+            In the section above, the column on the left is the name of all the columns in the <i>{{ table_name }}</i>
+            table.
+            <br><br>
+            The inputs on the right allow to enter the name of the corresponding column that has been uploaded
+            to append data to the existing database. Once you 'Upload these matches'
+            the table will be appened with the data from the CSV file.
+            <br><br>
+            Make sure you have copied the rincon_files contents that corresponds with the data updated now to the
+            rincon_files directory in this application.
+            <br><br>
+            Columns that are new will have checkbox to right of them. If you enter a value to update for all columns
+            you must check the box... yes that's it... maybe suplurflous, but that's what the checkbox means lol.
+            <br><br>
+            For booleans use:
+            True = 1,
+            False = 0
+
+          </div>
+
+
+
+        </div><!-- std_frame_light_gray -->
+      </div><!-- section_div -->
+    </div><!-- admin_db_sub -->
+  </div><!-- admin_db_page -->
+</div><!-- main -->
+{% endblock %}

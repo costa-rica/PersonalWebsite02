@@ -40,6 +40,7 @@ def create_app(config_for_flask = config):
     # database
     create_folder(config_for_flask.DATABASE_ROOT)
     create_folder(config_for_flask.DIR_DB_UPLOAD)
+    create_folder(config_for_flask.DIR_DB_DOWNLOAD)
     # create folders for PROJECT_RESOURCES
     create_folder(config_for_flask.PROJECT_RESOURCES_ROOT)
     ## website folders
@@ -55,27 +56,6 @@ def create_app(config_for_flask = config):
     create_folder(config_for_flask.DIR_MEDIA)
     ############################################################################
 
-
-    ############################################################################
-    # ## Build Auxiliary directories in DB_ROOT
-    # if not os.path.exists(config_for_flask.DB_ROOT):
-    #     os.makedirs(config_for_flask.DB_ROOT)
-
-    # # config.PROJECT_RESOURCES_ROOT directory:
-    # if not os.path.exists(config_for_flask.PROJECT_RESOURCES_ROOT):
-    #     os.makedirs(config_for_flask.PROJECT_RESOURCES_ROOT)
-    # # config.DIR_DB_AUX_IMAGES_PEOPLE directory:
-    # if not os.path.exists(config_for_flask.DIR_DB_AUX_FILES_WEBSITE):
-    #     os.makedirs(config_for_flask.DIR_DB_AUX_FILES_WEBSITE)
-    # config.DIR_BLOG directory:
-    # if not os.path.exists(config_for_flask.DIR_BLOG):
-    #     os.makedirs(config_for_flask.DIR_BLOG)
-    # # config.DIR_BLOG_POSTS directory:
-    # if not os.path.exists(config_for_flask.DIR_BLOG_POSTS):
-    #     os.makedirs(config_for_flask.DIR_BLOG_POSTS)
-    # # config.DIR_BLOG_ICONS directory:
-    # if not os.path.exists(config_for_flask.DIR_BLOG_ICONS):
-    #     os.makedirs(config_for_flask.DIR_BLOG_ICONS)
 
     ############################################################################
     ## Build Sqlite database files for DB_NAME_BLOGPOST
@@ -94,12 +74,14 @@ def create_app(config_for_flask = config):
     from app_package.bp_error.routes import bp_error
     from app_package.bp_blog.routes import bp_blog
     from app_package.bp_support.routes import bp_support
+    from app_package.bp_admin.routes import bp_admin
 
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_users)
     app.register_blueprint(bp_error)
     app.register_blueprint(bp_blog)
     app.register_blueprint(bp_support)
+    app.register_blueprint(bp_admin)
 
     return app
 

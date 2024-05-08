@@ -2,8 +2,8 @@
 import os
 from flask import current_app
 from pw_models import BlogPosts
-import logging
-from logging.handlers import RotatingFileHandler
+# import logging
+# from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 import re
 from app_package._common.utilities import custom_logger, wrap_up_session
@@ -28,35 +28,44 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
         post_description = post.description if post.description != None else "No description"
         
         
-        if post.post_dir_name != None:## Blogpost is an Article
-            post_string_id = post.post_dir_name
+        if post.post_dir_name != None:                  ## Blogpost is an Article
+            # post_string_id = post.post_dir_name
+            # route_path = post.id
             if post.blogpost_index_image_filename not in ["", None, "no_image"]:
-                # blogpost_image = os.path.join(current_app.config.get('DIR_BLOG_POSTS'), post.images_dir_name, post.blogpost_index_image_filename)
-                blog_posts_list.append((post_date,post_title,post_description,
-                    post_string_id,post.blogpost_index_image_filename,post.post_dir_name, post.images_dir_name))
+                blog_posts_list.append((post_date,
+                                        post_title,
+                                        post_description,
+                                        str(post.id),# < --- used to create link to blog article
+                                        post.blogpost_index_image_filename,
+                                        post.post_dir_name, 
+                                        post.images_dir_name))
             else:
-                blog_posts_list.append((post_date,post_title,post_description,post_string_id))
-        else:## BlogPost is a link
+                blog_posts_list.append((post_date,post_title,
+                                        post_description,
+                                        str(post.id)# < --- used to create link to blog article
+                                        ))
+        
+        else:                                           ## BlogPost is a Link to other site
             post_string_id = post.url
-            # favicon_obj = get_favicon(post.url)
-            # print("----> favicon_obj: ", favicon_obj)
-            # meta_content_obj = get_meta_description(post.url)
+
             if post.icon_file != None:
                 icon_filename = post.icon_file
             else:
-                
                 icon_filename = "medium.png"
-            print("---> post.icon_file: ", post.icon_file)
-            blog_posts_list.append((post_date,post_title,post_description,post_string_id,icon_filename))
-        # blog_posts_list.append((post_date,post_title,post_description,post_string_id))
+
+            logger_bp_blog.info(f"---> post.icon_file: {post.icon_file}")
+            blog_posts_list.append((post_date,
+                                    post_title,
+                                    post_description,
+                                    # post_string_id,
+                                    post.url,# < --- used to create link to outside website with my article
+                                    icon_filename))
     
 
     blog_posts_list.sort(key=lambda tuple_element: tuple_element[0], reverse=True)
     if number_of_posts_to_return:
         blog_posts_list = blog_posts_list[:number_of_posts_to_return]
 
-    # print("- blog_posts_list -")
-    # print(blog_post_list_most_recent)
 
     return blog_posts_list
 

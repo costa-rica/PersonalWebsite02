@@ -1,11 +1,11 @@
 /* View Post */
-.view_post_page {
+.view_blogpost_page {
     display: flex;
     justify-content: center;
     padding: 3rem 0 0 0;
     width: 100%;
 
-    .view_post {
+    .view_blogpost {
         width: calc(100% - 2rem);
         // img{border: 1px solid black;}
         color: var(--primary-text);
@@ -401,7 +401,7 @@
         a {
             text-decoration: none;
             // color: var(--website_theme_fun_color);
-            color: var(--tertiary-background);
+            color: var(--secondary-text);
         }
     }
 
@@ -526,7 +526,7 @@
 
     }
 
-    .view_post_page{
+    .view_blogpost_page{
         padding-bottom: 5rem;
         .blog_img{
             img {

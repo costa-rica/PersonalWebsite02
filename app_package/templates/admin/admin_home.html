@@ -1,0 +1,44 @@
+{% extends "_layout.html" %}
+
+
+{% block main %}
+
+<div class="admin_page" >
+    <div class="col_1">
+        <div class="title_custom">
+            <h1>Database Options</h1>
+
+        </div>
+        <div class="std_frame_light_gray ">
+            <div class="download_db_tables_form">
+                
+                <!-- <div class="home_sub"> -->
+                <div class="div_admin_buttons">
+                    <a class="div_button btn_admin" href= "{{ url_for('bp_admin.admin_db_download') }}">
+                    <!-- <a class="div_button btn_admin" href=""> -->
+                        Download
+                    </a>
+
+                    <div class="div_upload_buttons">
+                        <a class="div_button btn_admin" href="{{ url_for('bp_admin.admin_db_upload_single_file') }}">
+                        <!-- <a class="div_button btn_admin" href=""> -->
+                            Upload Single File
+                        </a>
+    
+                        <!-- <a class="div_button home_login" href= url_for('bp_admin.admin_db_upload_zip') }}"> -->
+                        <a class="div_button btn_admin" href="">
+                            Upload .zip and re-id
+                        </a>
+                    </div>
+
+
+                </div><!-- admin_buttons -->
+
+                <!-- </div> -->
+
+            </div><!-- download_db_tables_form -->
+        </div><!-- std_frame_light_gray -->
+
+    </div>
+  </div>
+{% endblock %}

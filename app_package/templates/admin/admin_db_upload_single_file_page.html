@@ -1,0 +1,128 @@
+{% extends "_layout.html" %}
+{% block main %}
+
+<form method="POST" id="form_upload_db_step1" enctype=multipart/form-data></form>
+
+
+<div class="admin_db_upload_page">
+    <div class="col_1">
+        <div class="title_custom">
+            <h1>Admin Upload Db Page: Single File (.csv, .pkl)</h1>
+
+        </div>
+
+
+      <div class="std_frame_light_gray ">
+
+        <!-- <div class="what_kind_of_post_div"> -->
+        <div class="div_upload_from_where">
+          <label for="action">Step 1: Upload from where?
+          </label>
+          <!-- <select id="action" name="what_kind_of_post" onchange='onSelectChangeHandler()' form="form_create_post"> -->
+          <select id="action" name="what_kind_of_post" onchange='onSelectChangeHandler()' form="form_upload_db_step1">
+            <!-- <option value="" disabled selected>Select one</option> -->
+            <option value="upload_from_here">Upload from here</option>
+            <!-- <option value="uploaded_already">View already uploaded files</option> -->
+            <option value="uploaded_already" {% if list_files_in_db_upload_csv_pkl_zip|length > 0 %}selected{% endif %}>View already uploaded files</option>
+          </select>
+        </div>
+
+        <!-- <div id="post_article_mult_files_id" class="post_article_mult_files_div"> -->
+        <div id="upload_from_here_id" class="upload_from_here_div">
+            
+            <div class="div_indent">
+              <input type="file"  form="form_upload_db_step1"
+              accept=".csv, .pkl" name="file_for_table_upload" >
+            </div>
+          </div><!-- upload_from_here_div-->
+          
+
+          <div id="uploaded_already_id" class="uploaded_already_div">
+            
+            <div class="div_indent">
+              <form id="filesForm">
+              {% for filename in list_files_in_db_upload_csv_pkl_zip %}
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="selectedFile" id="{{ filename }}" value="{{ filename }}"
+                  form="form_upload_db_step1">
+                  <label class="form-check-label" for="{{ filename }}">
+                      {{ filename }}<a class="remove-image" href="{{ url_for('bp_admin.delete_db_upload_file', filename=filename) }}"
+                      >delete</a>
+                  </label>
+              </div>
+              {% endfor %}
+              
+            </div>
+          </form>
+            </div><!-- uploaded_already_div -->
+
+
+            <br><br>
+            Step 2: Select the table to upload that csv data to
+            <br>
+            <input class="input_display_filename form-control" list="db_tables" name="existing_db_table_to_update" 
+              placeholder="double click to see list" form="form_upload_db_step1" required/>
+              <datalist id="db_tables">
+                {% for table in db_table_list %}
+                <option value="{{ table }}">
+                  {% endfor %}
+              </datalist>
+
+            <div class="btn_div">
+              <button type="submit" name="upload_csv" value="true" class="btn btn-primary"
+                form="form_upload_db_step1">Next Step</button>
+            </div><!-- btn_div -->
+      </div><!-- std_framing -->
+    <!--</div> admin_db_sub -->
+
+
+
+
+  </div><!-- admin_db_page -->
+</div><!-- main -->
+
+
+<script>
+  function onSelectChangeHandler() {
+    console.log("-- action activaited?");
+    var val = document.getElementById("action").value;
+    console.log("user selected: " + val);
+
+    switch (val) {
+      case "upload_from_here":
+        document.getElementById("upload_from_here_id").style.display = "block";
+        document.getElementById("uploaded_already_id").style.display = "none";
+        console.log("Add word converted to html");
+        break;
+
+      case "uploaded_already":
+        document.getElementById("upload_from_here_id").style.display = "none";
+        document.getElementById("uploaded_already_id").style.display = "block";
+        console.log("Add html file");
+        break;
+    }
+  }
+</script>
+
+
+<script>
+  // This JavaScript code block will be executed when the page is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+      {% if list_files_in_db_upload_csv_pkl_zip|length > 0 %}
+      // If the length of list_files_in_db_upload_csv_pkl_zip is greater than 0,
+      // execute these JavaScript commands
+      document.getElementById("upload_from_here_id").style.display = "none";
+      document.getElementById("uploaded_already_id").style.display = "block";
+      {% else %}
+      document.getElementById("upload_from_here_id").style.display = "block";
+      document.getElementById("uploaded_already_id").style.display = "none";
+      {% endif %}
+  });
+  </script>
+
+
+
+
+{% endblock %}
+
+

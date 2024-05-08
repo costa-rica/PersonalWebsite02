@@ -78,22 +78,24 @@ def blog_home():
     # print("blog_posts_list: ", blog_posts_list)
     return render_template('blog/blog_home.html', blog_posts_list=blog_posts_list)
 
-@bp_blog.route("/view_post/<post_dir_name>")
-def view_post(post_dir_name):
+# @bp_blog.route("/view_post/<post_dir_name>")
+@bp_blog.route("/blog/<post_id>")
+# def view_post(post_dir_name):
+def view_blogpost(post_id):
     db_session = g.db_session
-    post_id = re.findall(r'\d+', post_dir_name)
+    # post_id = re.findall(r'\d+', post_dir_name)
+    post_dir_name = f"{int(post_id):04d}_post"
     post = db_session.get(BlogPosts,post_id)
 
     templates_path_lists = [
         os.path.join(current_app.config.root_path,"templates"),
-        # os.path.join(current_app.config.get('DB_ROOT'),"posts", post_id_name_string)
         os.path.join(current_app.config.get('DIR_BLOG_POSTS'), post_dir_name)
     ]
 
     templateLoader = jinja2.FileSystemLoader(searchpath=templates_path_lists)
 
     templateEnv = jinja2.Environment(loader=templateLoader)
-    template_parent = templateEnv.get_template("blog/view_post.html")
+    template_parent = templateEnv.get_template("blog/view_blogpost.html")
     template_layout = templateEnv.get_template("_layout.html")
     # template_post_index = templateEnv.get_template("index.html")
 
@@ -203,7 +205,8 @@ def create_post():
             # Save zip files to temp
             if request_files.get("post_article_mult_file_image_zip_file"):
 
-                new_blogpost.images_dir_name = "images"
+                # new_blogpost.images_dir_name = "images"
+                new_blogpost.has_images= True
 
                 post_images_zip = request_files.get("post_article_mult_file_image_zip_file")
                 post_images_zip_filename = post_images_zip.filename
@@ -236,6 +239,9 @@ def create_post():
                 # -- img elements (end)
 
             if request_files.get("post_article_mult_file_code_zip_file"):
+
+                new_blogpost.has_code_snippets= True
+
                 post_code_snippet_zip = request_files.get("post_article_mult_file_code_zip_file")
                 post_code_snippet_zip_filename = post_code_snippet_zip.filename
                 post_code_snippet_zip.save(os.path.join(temp_zip_db_fp, secure_filename(post_code_snippet_zip_filename)))
@@ -362,10 +368,13 @@ def blog_edit(post_id):
 
     list_image_files = None
     # Select images from post directory 
+    # if post.images_dir_name not in ["", None]:
+    #     list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_BLOG_POSTS'),
+    #         post.post_dir_name, post.images_dir_name))
     if post.images_dir_name not in ["", None]:
         list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_BLOG_POSTS'),
-            post.post_dir_name, post.images_dir_name))
-        # print(file_names)
+            post.post_dir_name, "images"))
+
     selected_image = post.blogpost_index_image_filename
     selected_icon = post.icon_file
     if request.method == 'POST':

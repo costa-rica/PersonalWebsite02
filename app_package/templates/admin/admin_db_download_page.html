@@ -1,0 +1,50 @@
+{% extends "_layout.html" %}
+{% block main %}
+
+<form method="POST" id="form_download_db" enctype=multipart/form-data></form>
+
+
+<div class="admin_db_download_page">
+
+    <div class="col_1">
+        <div class="title_custom">
+            <h1>Download Database Tables</h1>
+        </div>
+
+    <div class="std_frame_light_gray">
+
+        Database table names
+
+
+          <ul class="ul_no_bullets">
+            {% for table in db_table_list %}
+            <li>
+              <input type="checkbox" id="{{ table }}" name="{{ table }}" value="db_table" form="form_download_db" checked>
+              <label for="{{ table }}"> {{ table }}</label><br>
+            </li>
+
+            {% endfor %}
+          </ul>
+
+          <div class="download_options">
+            <div class="btn_div">
+              <!-- <button type="submit" name="download_csv" value="true" class="btn btn-primary"
+                form="form_download_db">Download CSVs</button> -->
+              <button type="submit" name="download_files" value="csv" class="btn btn-primary"
+                form="form_download_db">Download CSVs</button>
+            </div>
+            <div class="btn_div">
+              <button type="submit" name="download_files" value="pickle" class="btn btn-primary"
+                form="form_download_db">Download Pickle</button>
+            </div>
+
+          </div><!-- download_options -->
+
+    </div><!-- std_frame_light_gray -->
+
+
+  </div><!-- col_1 -->
+</div><!-- admin_db_download_page -->
+
+
+{% endblock %}

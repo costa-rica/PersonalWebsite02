@@ -1,0 +1,264 @@
+/* Admin Page */
+.admin_page {
+  display: flex;
+  // gap:1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  .col_1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80%;
+  }
+  .std_frame_light_gray {
+    background-color: var(--text-icons);
+    border-radius: .5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .col_1 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+  }
+
+  .title_custom {
+    display: flex;
+    color: var(--primary-text);
+  }
+
+  .std_frame_sub {
+    padding: .5rem 0;
+    color: var(--color_text_dark);
+  }
+
+  .div_test_flight_link {
+
+    // background-color: red;
+    input {
+      width: 100%;
+    }
+  }
+
+  .div_admin_buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    width: 100%;
+    gap:1rem;
+  }
+
+  .div_button {
+    // margin: 0 0 0 0;
+    padding: 1rem 0 1rem 0;
+    width: 100%;
+    border-radius: 3rem;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+  }
+  .div_upload_buttons{
+    width: 100%;
+    display: flex;
+    gap:1rem;
+  }
+
+  .btn_admin {
+    color: var(--bs-primary);
+    border: solid var(--bs-primary);
+    border-width: .5rem;
+    text-decoration: none;
+  }
+
+  .add_bottom_margin{
+    margin-bottom: 3rem;
+  }
+}
+
+
+/* Admin Db Download Page */
+.admin_db_download_page {
+  display: flex;
+  // gap:1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  .std_frame_light_gray {
+    background-color: var(--text-icons);
+    border-radius: .5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .col_1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80%;
+  }
+
+  .title_custom {
+    display: flex;
+    color: var(--primary-text);
+    width: 100%;
+    flex-wrap: wrap;
+    h1{width:100%}
+  }
+
+  // .std_frame_sub {
+  //   padding: .5rem 0;
+  //   color: var(--secondary-text);
+  // }
+
+  .download_options{
+    display: flex;
+    // justify-content: ;
+    gap:2rem;
+  }
+
+}
+
+
+
+/* Admin Db UPload Page */
+.admin_db_upload_page {
+  display: flex;
+  // gap:1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  .std_frame_light_gray {
+    background-color: var(--text-icons);
+    border-radius: .5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .col_1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80%;
+  }
+
+  .title_custom {
+    display: flex;
+    // color: var(--color_text_white);
+    color: var(--primary-text);
+    width: 100%;
+  }
+  .input_display_filename{
+    width:100%;
+  }
+  .btn_div{
+    display: flex;
+    justify-content: end;
+    padding:1rem;
+  }
+  .div_indent{
+    padding:1rem 0 1rem 2rem;
+  }
+  .remove-image{
+    padding: 0 1rem;
+    color:red;
+    text-decoration: none;
+  }
+  .remove-image:hover {
+    font-size: large;
+    color:red;
+    background-color: var(--color-gray01-light);
+    border-radius: 4rem;
+}
+.warning{color:red}
+  #upload_from_here_id{display:none}
+  #uploaded_already_id{display:none}
+
+}
+
+
+.admin_db_upload_table_page {
+  display: flex;
+  // gap:1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  justify-content: center;
+  align-items: center;
+
+
+  .section_div {
+    padding: 1rem 0rem;
+  }
+
+  .std_frame_light_gray {
+    background-color: var(--text-icons);
+    border-radius: .5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .col_1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80%;
+  }
+
+  .title_custom {
+    display: flex;
+    color: var(--primary-text);
+    width: 100%;
+  }
+
+}
+
+// .weather_history_admin_page{
+//   display: flex;
+//   // gap:1rem;
+//   flex-wrap: wrap;
+//   padding-top: 2rem;
+//   justify-content: center;
+//   align-items: center;
+
+//   .std_frame_light_gray {
+//     background-color: var(--color-gray02);
+//     border-radius: .5rem;
+//     padding: 1rem;
+//     width: 100%;
+//   }
+
+//   .col_1 {
+//     display: flex;
+//     flex-wrap: wrap;
+//     gap: 1rem;
+//     width: 80%;
+//   }
+
+//   .title_custom {
+//     display: flex;
+//     color: var(--color_text_white);
+//   }
+//   .add_bottom_margin{
+//     margin-bottom: 3rem;
+//   }
+//   .element_right{
+//     display: flex;
+//     justify-content: flex-end;
+//   }
+//   .request_weather_date_options{
+//     padding-top:1rem;
+//     padding-left:3rem;
+//   }
+
+
+// }
+
+
