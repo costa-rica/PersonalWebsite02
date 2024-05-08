@@ -28,11 +28,16 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
         post_description = post.description if post.description != None else "No description"
         
         
-        if post.post_dir_name != None:                  ## Blogpost is an Article
+        # if post.post_dir_name != None:                  ## Blogpost is an Article
+        if post.type_for_blogpost_home == "article":                  ## Blogpost is an Article
             # post_string_id = post.post_dir_name
             # route_path = post.id
             # if post.blogpost_index_image_filename not in ["", None, "no_image"]:
             if post.has_images:
+                image_for_blogpost_home = None
+                if post.image_filename_for_blogpost_home in os.listdir(current_app.config.get('DIR_BLOG_ICONS')):
+                    image_for_blogpost_home = "DIR_BLOG_ICONS"
+
                 blog_posts_list.append((post_date,
                                         post_title,
                                         post_description,
@@ -41,12 +46,14 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
                                         post.image_filename_for_blogpost_home,
                                         post.post_dir_name, 
                                         # post.images_dir_name
-                                        "images"
+                                        image_for_blogpost_home
                                         ))
             else:
-                blog_posts_list.append((post_date,post_title,
+                blog_posts_list.append((post_date,
+                                        post_title,
                                         post_description,
-                                        str(post.id)# < --- used to create link to blog article
+                                        str(post.id),# < --- used to create link to blog article
+                                        post.image_filename_for_blogpost_home
                                         ))
         
         else:                                           ## BlogPost is a Link to other site

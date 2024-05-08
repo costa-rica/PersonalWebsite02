@@ -46,10 +46,11 @@ def before_request():
 
 
 ## Access images for Posted articles
-@bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
-def get_post_files(post_dir_name, img_dir_name,filename):
-    logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/{img_dir_name}/{filename}")
-    dir = os.path.join(current_app.config.get('DIR_BLOG_POSTS'),post_dir_name, img_dir_name)
+# @bp_blog.route('/get_post_images/<post_dir_name>/<img_dir_name>/<filename>')
+@bp_blog.route('/get_post_images/<post_dir_name>/<filename>')
+def get_post_files(post_dir_name,filename):
+    logger_bp_blog.info(f"- in get_post_files route for {post_dir_name}/images/{filename}")
+    dir = os.path.join(current_app.config.get('DIR_BLOG_POSTS'),post_dir_name, "images")
     if not os.path.exists(os.path.join(dir, filename)):
         logger_bp_blog.info(f"-----------> MISSING FILE: {os.path.join(dir, filename)} <------")
 
@@ -75,7 +76,7 @@ def blog_home():
         
     items = ['date', 'title', 'description']
 
-    # print("blog_posts_list: ", blog_posts_list)
+    print("blog_posts_list: ", blog_posts_list)
     return render_template('blog/blog_home.html', blog_posts_list=blog_posts_list)
 
 # @bp_blog.route("/view_post/<post_dir_name>")
@@ -449,9 +450,5 @@ def blog_delete(post_id):
 
 
 
-@bp_blog.route("/blog_database_admin", methods=['GET','POST'])
-@login_required
-def blog_database_admin():
 
-    return render_template('blog/blog_database_admin.html')
 
