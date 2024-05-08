@@ -31,14 +31,18 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
         if post.post_dir_name != None:                  ## Blogpost is an Article
             # post_string_id = post.post_dir_name
             # route_path = post.id
-            if post.blogpost_index_image_filename not in ["", None, "no_image"]:
+            # if post.blogpost_index_image_filename not in ["", None, "no_image"]:
+            if post.has_images:
                 blog_posts_list.append((post_date,
                                         post_title,
                                         post_description,
                                         str(post.id),# < --- used to create link to blog article
-                                        post.blogpost_index_image_filename,
+                                        # post.blogpost_index_image_filename,
+                                        post.image_filename_for_blogpost_home,
                                         post.post_dir_name, 
-                                        post.images_dir_name))
+                                        # post.images_dir_name
+                                        "images"
+                                        ))
             else:
                 blog_posts_list.append((post_date,post_title,
                                         post_description,

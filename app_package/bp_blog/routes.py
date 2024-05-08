@@ -100,11 +100,11 @@ def view_blogpost(post_id):
     # template_post_index = templateEnv.get_template("index.html")
 
     # Delete if, keep else after editing BlogPost model and moving data
-    if post.word_doc_to_html_filename != None:
-        print("post.word_doc_to_html_filename: ", post.word_doc_to_html_filename)
-        template_post_index = templateEnv.get_template(post.word_doc_to_html_filename)
-    else:
-        template_post_index = templateEnv.get_template(post.post_html_filename)
+    # if post.word_doc_to_html_filename != None:
+    #     print("post.word_doc_to_html_filename: ", post.word_doc_to_html_filename)
+    #     template_post_index = templateEnv.get_template(post.word_doc_to_html_filename)
+    # else:
+    template_post_index = templateEnv.get_template(post.post_html_filename)
 
     # If post has a sub folder
 
@@ -132,12 +132,18 @@ def manage_blogposts():
     all_my_posts=db_session.query(BlogPosts).filter_by(user_id=current_user.id).all()
     posts_details_list=[]
     for i in all_my_posts:
-        if i.word_doc_to_html_filename != None:
+        # if i.word_doc_to_html_filename != None:
+        #     posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
+        #         i.description, i.word_doc_to_html_filename])
+        # else:
+        #     posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
+        #         i.description, "link details"])
+        if i.type_for_blogpost_home == "article":
             posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
-                i.description, i.word_doc_to_html_filename])
+                i.description, "Edit article details"])
         else:
             posts_details_list.append([i.id, i.title, i.date_published.strftime("%m/%d/%Y"),
-                i.description, "link details"])
+                i.description, "Edit link details"])
     
     column_names=['id', 'Title', 'Delete','Date Pub',
          'Description','Edit Post']
@@ -371,11 +377,13 @@ def blog_edit(post_id):
     # if post.images_dir_name not in ["", None]:
     #     list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_BLOG_POSTS'),
     #         post.post_dir_name, post.images_dir_name))
-    if post.images_dir_name not in ["", None]:
+    # if post.images_dir_name not in ["", None]:
+    if post.has_images:
         list_image_files = os.listdir(os.path.join(current_app.config.get('DIR_BLOG_POSTS'),
             post.post_dir_name, "images"))
 
-    selected_image = post.blogpost_index_image_filename
+    # selected_image = post.blogpost_index_image_filename
+    selected_image = post.image_filename_for_blogpost_home
     selected_icon = post.icon_file
     if request.method == 'POST':
         formDict = request.form.to_dict()

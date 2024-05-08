@@ -209,10 +209,12 @@ def admin_db_upload_single_file():
 
         if formDict.get('what_kind_of_post') == "upload_from_here":
             requestFiles = request.files
-
+            logger_bp_admin.info(f"-- requestFiles: {requestFiles} --")
             
             # csv_file_for_table = request.files.get('csv_table_upload')
-            file_for_table_upload = request.files.get('file_for_table_upload')
+            # file_for_table_upload = request.files.get('file_for_table_upload')
+            file_for_table_upload = requestFiles.get('file_for_table_upload')
+            logger_bp_admin.info(f"-- file_for_table_upload: {file_for_table_upload} --")
             file_for_table_upload_filename = file_for_table_upload.filename
 
             logger_bp_admin.info(f"-- Get CSV file name --")
@@ -227,12 +229,13 @@ def admin_db_upload_single_file():
             return redirect(url_for('bp_admin.upload_table', table_name = formDict.get('existing_db_table_to_update'),
                 path_to_uploaded_table_file=path_to_uploaded_table_file))
                 # path_to_uploaded_csv=path_to_uploaded_csv))
-    #     elif formDict.get('what_kind_of_post') == "uploaded_already":
-    #         already_uploaded_filename = formDict.get('selectedFile')
-    #         path_to_uploaded_table_file = os.path.join(current_app.config.get('DIR_DB_UPLOAD'),already_uploaded_filename)
-            
-    #         return redirect(url_for('bp_admin.upload_table', table_name = formDict.get('existing_db_table_to_update'),
-    #             path_to_uploaded_table_file=path_to_uploaded_table_file))
+        elif formDict.get('what_kind_of_post') == "uploaded_already":
+            already_uploaded_filename = formDict.get('selected_file')
+            path_to_uploaded_table_file = os.path.join(current_app.config.get('DIR_DB_UPLOAD'),already_uploaded_filename)
+            table_name = formDict.get('existing_db_table_to_update')
+            logger_bp_admin.info(f'- table_name: {table_name} -')
+            return redirect(url_for('bp_admin.upload_table', table_name = formDict.get('existing_db_table_to_update'),
+                path_to_uploaded_table_file=path_to_uploaded_table_file))
 
     return render_template('admin/admin_db_upload_single_file_page.html', db_table_list=db_table_list,
         len=len, list_files_in_db_upload_csv_pkl_zip=list_files_in_db_upload_csv_pkl_zip)
@@ -276,70 +279,71 @@ def upload_table(table_name):
         except ValueError:
             match_cols_dict[existing_db_column] = None
 
-    # if request.method == "POST":
-    #     formDict = request.form.to_dict()
+    if request.method == "POST":
+        formDict = request.form.to_dict()
 
 
-    #     # NOTE: upload data to existing database
-    #     ### formDict (key) is existing databaes column name
-    #     # existing_names_list = [existing for existing, update in formDict.items() if update != 'true' ]
-        
-    #     # check for default values and remove from formDict
-    #     set_default_value_dict = {}
-    #     for key, value in formDict.items():
-    #         if key[:len("default_checkbox_")] == "default_checkbox_":
-    #             set_default_value_dict[value] = formDict.get(value)
+        # NOTE: upload data to existing database
+        ### formDict (key) is existing database's column name
+        # existing_names_list = [existing for existing, update in formDict.items() if update != 'true' ]
         
 
-    #     # Delete elements from dictionary
-    #     for key, value in set_default_value_dict.items():
-    #         del formDict[key]
-    #         checkbox_key = "default_checkbox_" + key
-    #         del formDict[checkbox_key]
+        ### Goes together (START) ###
+        # check for default values and remove from formDict
+        set_default_value_dict = {}
+        for key, value in formDict.items():
+            if key[:len("default_checkbox_")] == "default_checkbox_":
+                set_default_value_dict[value] = formDict.get(value)
+        # Delete elements from dictionary
+        for key, value in set_default_value_dict.items():
+            del formDict[key]
+            checkbox_key = "default_checkbox_" + key
+            del formDict[checkbox_key]
+        ### Goes together (END) ###
 
-    #     existing_names_list = []
-    #     for key, value in formDict.items():
-    #         if value != 'true':
-    #             existing_names_list.append(key)
+        existing_names_list = []
+        for key, value in formDict.items():
+            if value != 'true':
+                existing_names_list.append(key)
             
-    #     df_update = pd.DataFrame(columns=existing_names_list)
+        df_update = pd.DataFrame(columns=existing_names_list)
 
-    #     # value is the new data (aka the uploaded csv file column)
-    #     for exisiting, replacement in formDict.items():
-    #         if not replacement in ['true','']:
-    #             # print(replacement)
-    #             df_update[exisiting]=df[replacement].values
+        # value is the new data (aka the uploaded csv file column)
+        for exisiting, replacement in formDict.items():
+            if not replacement in ['true','']:
+                # print(replacement)
+                df_update[exisiting]=df[replacement].values
 
-    #     # Add in columns with default values
-    #     for column_name, default_value in set_default_value_dict.items():
-    #         if column_name == 'time_stamp_utc': 
-    #             df_update[column_name] = datetime.utcnow()
-    #         else:
-    #             df_update[column_name] = default_value
+        # Add in columns with default values
+        for column_name, default_value in set_default_value_dict.items():
+            if column_name == 'time_stamp_utc': 
+                df_update[column_name] = datetime.utcnow()
+            else:
+                df_update[column_name] = default_value
 
         
-    #     # remove existing users from upload
-    #     # NOTE: There needs to be a user to upload data
-    #     if table_name == 'users':
-    #         print("--- Found users table ---")
-    #         existing_users = db_session.query(Users).all()
-    #         list_of_emails_in_db = [i.email for i in existing_users]
-    #         for email in list_of_emails_in_db:
-    #             # df_update.drop(df_update[df_update.email== email].index, inplace = True)
-    #             print(f"-- removing {email} from upload dataset --")
-    #             df_update.drop(df_update[df_update.email == email].index, inplace=True)
-    #             df_update.reset_index(drop=True, inplace=True)
+        # remove existing users from upload
+        # NOTE: There needs to be a user to upload data
+        if table_name == 'users':
+            print("--- Found users table ---")
+            existing_users = db_session.query(Users).all()
+            list_of_emails_in_db = [i.email for i in existing_users]
+            for email in list_of_emails_in_db:
+                # df_update.drop(df_update[df_update.email== email].index, inplace = True)
+                print(f"-- removing {email} from upload dataset --")
+                df_update.drop(df_update[df_update.email == email].index, inplace=True)
+                df_update.reset_index(drop=True, inplace=True)
 
-    #         # Assuming 'password' column exists and you want to encode all non-null passwords
-    #         if 'password' in df_update.columns:
-    #             df_update['password'] = df_update['password'].apply(lambda x: x.encode() if pd.notnull(x) else x)
+            # Assuming 'password' column exists and you want to encode all non-null passwords
+            if 'password' in df_update.columns:
+                df_update['password'] = df_update['password'].apply(lambda x: x.encode() if pd.notnull(x) else x)
 
-    #     df_update.to_sql(table_name, con=engine, if_exists='append', index=False)
-    #     # wrap_up_session(logger_bp_admin)
-    #     flash(f"{table_name} update: successful!", "success")
+        df_update.to_sql(table_name, con=engine, if_exists='append', index=False)
+        # wrap_up_session(logger_bp_admin)
+        flash(f"{table_name} update: successful!", "success")
 
-    #     # return redirect(request.url)
-    #     return redirect(url_for('bp_admin.admin_db_upload_single_file'))
+        # return redirect(request.url)
+        return redirect(url_for('bp_admin.admin_db_upload_single_file'))
     
     return render_template('admin/upload_table.html', table_name=table_name, 
         match_cols_dict = match_cols_dict,
