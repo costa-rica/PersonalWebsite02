@@ -73,10 +73,7 @@ def blog_home():
     logger_bp_blog.info(f"- in blog index page -")
     db_session = g.db_session
     blog_posts_list = create_blog_posts_list(db_session)
-        
-    items = ['date', 'title', 'description']
 
-    print("blog_posts_list: ", blog_posts_list)
     return render_template('blog/blog_home.html', blog_posts_list=blog_posts_list)
 
 # @bp_blog.route("/view_post/<post_dir_name>")
@@ -193,6 +190,7 @@ def create_post():
 
             new_blogpost.post_dir_name = new_post_dir_name
             new_blogpost.post_html_filename = uploaded_html_file.filename
+            new_blogpost.type_for_blogpost_home="article"
 
             # make temproary directory called 'temp_zip' to hold the uploaded zip file
             temp_zip_db_fp = os.path.join(current_app.config.get('DIR_BLOG'),'temp_zip')
@@ -341,6 +339,7 @@ def create_post():
             new_blogpost.title=formDict.get('blog_title')
             new_blogpost.description=formDict.get('blog_description')
             new_blogpost.url=formDict.get('blog_url')
+            new_blogpost.type_for_blogpost_home="link"
             db_session.flush()
 
             flash(f'Post added successfully!', 'success')
@@ -399,9 +398,9 @@ def blog_edit(post_id):
         post.category = formDict.get("category_dropdown")
         
         if formDict.get("image_filename_dropdown"):
-            post.blogpost_index_image_filename = formDict.get("image_filename_dropdown")
+            post.image_filename_for_blogpost_home = formDict.get("image_filename_dropdown")
         else:
-            post.blogpost_index_image_filename = formDict.get('icon_filename_dropdown')
+            post.image_filename_for_blogpost_home = formDict.get('icon_filename_dropdown')
         post.icon_file = formDict.get('icon_filename_dropdown')
         if formDict.get('blog_date_published') == "":
             post.date_published = None

@@ -1,9 +1,6 @@
-# import pandas as pd
 import os
 from flask import current_app
 from pw_models import BlogPosts
-# import logging
-# from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 import re
 from app_package._common.utilities import custom_logger, wrap_up_session
@@ -14,8 +11,7 @@ logger_bp_blog = custom_logger('bp_blog.log')
 
 
 def create_blog_posts_list(db_session, number_of_posts_to_return=False):
-    #Blog
-    # blog_posts = sess_users.query(BlogPosts).all()
+
     blog_posts = db_session.query(BlogPosts).all()
 
     blog_posts_list =[]
@@ -27,29 +23,28 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
         post_title = post.title
         post_description = post.description if post.description != None else "No description"
         
-        
-        # if post.post_dir_name != None:                  ## Blogpost is an Article
         if post.type_for_blogpost_home == "article":                  ## Blogpost is an Article
-            # post_string_id = post.post_dir_name
-            # route_path = post.id
-            # if post.blogpost_index_image_filename not in ["", None, "no_image"]:
-            if post.has_images:
-                image_for_blogpost_home = None
-                if post.image_filename_for_blogpost_home in os.listdir(current_app.config.get('DIR_BLOG_ICONS')):
-                    image_for_blogpost_home = "DIR_BLOG_ICONS"
 
-                blog_posts_list.append((post_date,
+            if post.has_images:
+                flag_use_image_from_blogpost_in_blog_home = False
+                if post.image_filename_for_blogpost_home in os.listdir(os.path.join(
+                    current_app.config.get('DIR_BLOG_POSTS'), f"{post.id:04d}_post","images")):
+                    flag_use_image_from_blogpost_in_blog_home = True
+
+                blog_posts_list.append((
+                                        post.type_for_blogpost_home,# new 20240509
+                                        post_date,
                                         post_title,
                                         post_description,
                                         str(post.id),# < --- used to create link to blog article
-                                        # post.blogpost_index_image_filename,
                                         post.image_filename_for_blogpost_home,
                                         post.post_dir_name, 
-                                        # post.images_dir_name
-                                        image_for_blogpost_home
+                                        flag_use_image_from_blogpost_in_blog_home
                                         ))
             else:
-                blog_posts_list.append((post_date,
+                blog_posts_list.append((
+                                        post.type_for_blogpost_home,# new 20240509
+                                        post_date,
                                         post_title,
                                         post_description,
                                         str(post.id),# < --- used to create link to blog article
@@ -65,7 +60,9 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
                 icon_filename = "medium.png"
 
             logger_bp_blog.info(f"---> post.icon_file: {post.icon_file}")
-            blog_posts_list.append((post_date,
+            blog_posts_list.append((
+                                    post.type_for_blogpost_home,# new 20240509
+                                    post_date,
                                     post_title,
                                     post_description,
                                     # post_string_id,
@@ -73,7 +70,7 @@ def create_blog_posts_list(db_session, number_of_posts_to_return=False):
                                     icon_filename))
     
 
-    blog_posts_list.sort(key=lambda tuple_element: tuple_element[0], reverse=True)
+    blog_posts_list.sort(key=lambda tuple_element: tuple_element[1], reverse=True)
     if number_of_posts_to_return:
         blog_posts_list = blog_posts_list[:number_of_posts_to_return]
 

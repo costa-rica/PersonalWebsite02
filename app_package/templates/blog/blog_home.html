@@ -7,6 +7,18 @@ it will move around the the items:
 wide screen: (left side: ) Title, (bottom)date; (right side) image/icon
 small screen: left
 -->
+<!--
+    This takes the blog_posts_list from the bp_blog.blog_home:
+    post.0 (element 0): type_for_blogpost_home
+    post.1: date
+    post.2: title
+    post.3: description
+    post.4: blog post id (as a string)
+    post.5: image_filename_for_blogpost_home
+    post.6: post_dir_name
+    post.7: images_dir_name
+-->
+
 
   <div class="blogpost_index_page">
 
@@ -34,14 +46,14 @@ small screen: left
            
         {% for post in blog_posts_list %}
 
-        {% if post[3][:5] != "https" %}
+        {% if post[0] == "article" %}
               <!---             -->
               <!-- Article Post -->
               <!---             -->
             
             <div class="blogpost_super">
               <div class="blogpost_a">
-              <a href="{{ url_for('bp_blog.view_blogpost', post_id=post[3]) }}">
+              <a href="{{ url_for('bp_blog.view_blogpost', post_id=post[4]) }}">
                 {% include "blog/blog_home/blogpost_article.html" %}
               </a>
             </div><!-- blogpost_a-->
@@ -58,7 +70,7 @@ small screen: left
               <!---          -->
               <div class="blogpost_super">
                 <div class="blogpost_a">
-                <a href="{{ post[3] }}">
+                <a href="{{ post[4] }}">
 
                   {% include "blog/blog_home/blogpost_link.html" %}
 

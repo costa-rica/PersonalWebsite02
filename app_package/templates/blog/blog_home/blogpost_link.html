@@ -1,35 +1,34 @@
 <!--
     This takes the blog_posts_list from the bp_blog.blog_home:
-    post.0 (element 0): date
-    post.1: title
-    post.2: description
-    post.3: blog post id (as a string)
-    post.4: blogpost_index_image_filename
-    post.5: post_dir_name
-    post.6: images_dir_name
+    post.0 (element 0): type_for_blogpost_home
+    post.1: date
+    post.2: title
+    post.3: description
+    post.4: blog post id (as a string)
+    post.5: image_filename_for_blogpost_home
 -->
 <div class="blogpost">
 
     <div class="left_side">
       <div class="blogpost_title">
-        {{ post.1 }}
+        {{ post.2 }}
       </div>
 
-      {% if post.2 not in [None,""] %}
+      {% if post.3 not in [None,""] %}
       <div class="blogpost_description">
-        {{ post.2 }}
+        {{ post.3 }}
       </div>
       {% endif %}
     </div><!-- left_side -->
 
     <div class="right_side">
       <div class="blogpost_date">
-        {{ post[0] }}
+        {{ post[1] }}
       </div>
 
       <div class="blogpost_image_super">
       <div class="blogpost_image">
-        <img src="{{ url_for('bp_blog.get_blog_icons',filename=post.4) }}">
+        <img src="{{ url_for('bp_blog.get_blog_icons',filename=post.5) }}">
       </div>
       </div>
     </div><!-- right_side -->
