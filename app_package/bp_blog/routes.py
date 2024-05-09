@@ -8,12 +8,15 @@ import logging
 from logging.handlers import RotatingFileHandler
 import jinja2
 from flask_login import login_user, current_user, logout_user, login_required
-from app_package.bp_blog.utils import create_blog_posts_list, replace_img_src_jinja, \
-    get_title, sanitize_directory_name, remove_head, \
-    remove_body_tags, replace_p_elements_with_img, read_html_to_soup, \
-    remove_line_height_from_p_tags, remove_MACOSX_files, check_for_dir_if_not_exist_make_dir, \
-    unzip_blog_files_and_extract_to_dir, replace_code_snippet_filename_with_jinja_include_block, \
-    delete_old_write_new_index_html, replace_span_with_background_styling_with_contents
+from app_package.bp_blog.utils import create_blog_posts_list, \
+    remove_MACOSX_files, check_for_dir_if_not_exist_make_dir, \
+    unzip_blog_files_and_extract_to_dir,  \
+    delete_old_write_new_index_html
+
+from pw_tools import replace_code_snippet_filename_with_jinja_include_block, \
+    replace_img_src_jinja, get_title, sanitize_directory_name, \
+    read_html_to_soup, remove_head, remove_body_tags, replace_p_elements_with_img, \
+    remove_line_height_from_p_tags, replace_span_with_background_styling_with_contents
 
 from pw_models import DatabaseSession, text, Users, BlogPosts
 from werkzeug.utils import secure_filename
@@ -24,10 +27,7 @@ import re
 from app_package._common.utilities import custom_logger, wrap_up_session
 
 logger_bp_blog = custom_logger('bp_blog.log')
-
-
 bp_blog = Blueprint('bp_blog', __name__)
-# sess_users = dict_sess['sess_users']
 
 @bp_blog.before_request
 def before_request():
@@ -232,7 +232,7 @@ def create_post():
 
                 # Beautiful Soup HTML editing here
                 # -- img elements (start): find all img elements and replace with jinja2 include block {} <---
-                new_index_text = replace_img_src_jinja(new_blog_post_path_and_file_name, "images")
+                new_index_text = replace_img_src_jinja(new_blog_post_path_and_file_name)
                 
                 # in case there was a problem w/ Beautiful Soup writing a new blog post .html file stop the process and let user know this blog has error
                 if new_index_text == "Error opening index.html":# cannot imagine how this is possible, but we'll leave it.
