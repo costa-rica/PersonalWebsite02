@@ -1064,8 +1064,6 @@
 }
 .openmindset_page .img_openmindset {
   max-width: 5rem;
-  height: fit-content;
-  flex-shrink: 2;
 }
 .openmindset_page .submit_div {
   display: flex;
