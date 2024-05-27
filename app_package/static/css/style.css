@@ -117,6 +117,9 @@
   }
   .navbar_side_wide {
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
     flex-grow: 0; /* Don’t grow beyond initial size */
     flex-shrink: 0; /* Don’t shrink below initial size */
     width: var(--nav-width); /* Or whatever width you desire */
@@ -815,6 +818,7 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding-top: 2rem;
+  height: 100vh;
 }
 .home_page .col_1, .home_page .col_2 {
   display: flex;
@@ -874,6 +878,8 @@
   gap: 1rem;
   flex-wrap: wrap;
   flex-direction: row-reverse;
+  align-items: center;
+  height: 100vh;
 }
 .about_page .col_1, .about_page .col_2 {
   display: flex;
@@ -984,6 +990,7 @@
   justify-content: center;
   color: var(--primary-text);
   padding-top: 2rem;
+  height: 100vh;
 }
 .about_this_page .col_1 {
   display: flex;
@@ -1379,6 +1386,12 @@ html body {
 @media screen and (min-width: 768px) {
   .div_fixed_nav_and_main {
     display: flex;
+    width: 100%;
+  }
+  .flash_and_main {
+    margin-left: var(--nav-width);
+    width: calc(100% - var(--nav-width));
+    flex-grow: 1;
   }
 }
 

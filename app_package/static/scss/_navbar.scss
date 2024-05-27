@@ -95,6 +95,9 @@
     .navbar_side_hidden{display:none;}
     .navbar_side_wide{
         display:block;
+        position: fixed; // This will keep the navbar in place during scroll
+        top: 0; // Aligns the navbar to the top of the viewport
+        left: 0; // Aligns the navbar to the left of the viewport
         flex-grow: 0;  /* Don’t grow beyond initial size */
         flex-shrink: 0;  /* Don’t shrink below initial size */
         width: var(--nav-width);  /* Or whatever width you desire */

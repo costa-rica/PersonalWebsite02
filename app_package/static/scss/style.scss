@@ -80,7 +80,21 @@ html body{background-color: var(--secondary-background)}
   .div_fixed_nav_and_main {
       display: flex;
       // height: 100vh;  /* Optional: Takes the full height of the viewport */
+      width: 100%; // Take full width of the viewport
   }
+//   .navbar_side_wide {
+//     position: fixed; 
+//     top: 0; 
+//     left: 0; 
+//     width: var(--nav-width); 
+//     min-height: 100vh;
+//     z-index: 2; // Ensure it is layered correctly
+// }
+.flash_and_main {
+    margin-left: var(--nav-width); // Shift right to make space for the navbar
+    width: calc(100% - var(--nav-width)); // Adjust width to use remaining space
+    flex-grow: 1; // Allows the container to fill the remaining space
+}
 }
 
 
