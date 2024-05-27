@@ -87,6 +87,12 @@ small screen: left
 
       {% endfor %}
 
+      <div class="pagination_controls">
+        <button onclick="changePage(-1)">Prev</button>
+        <span id="page_info"></span>
+        <button onclick="changePage(1)">Next</button>
+      </div>   
+
     </div><!-- col_1 -->
 
   </div><!-- blogpost_index_page_sub -->
@@ -110,6 +116,42 @@ small screen: left
           }
       }
   }
+
+  let currentPage = 1;
+  let postsPerPage = 10;
+  
+  window.onload = function() {
+    displayPosts();
+  };
+  
+  function displayPosts() {
+    const posts = Array.from(document.getElementsByClassName('blogpost_super'));
+    const totalPages = Math.ceil(posts.length / postsPerPage);
+  
+    // Hide all posts initially
+    posts.forEach(post => post.style.display = 'none');
+    
+    // Calculate index range for current page
+    let start = (currentPage - 1) * postsPerPage;
+    let end = start + postsPerPage;
+    
+    // Show posts for the current page
+    posts.slice(start, end).forEach(post => post.style.display = '');
+  
+    // Update page info
+    document.getElementById('page_info').innerText = `Page ${currentPage} of ${totalPages}`;
+    
+    // Optionally disable navigation buttons
+    document.querySelector('.pagination_controls button:nth-child(1)').disabled = currentPage === 1;
+    document.querySelector('.pagination_controls button:nth-child(3)').disabled = currentPage === totalPages;
+  }
+  
+  function changePage(direction) {
+    currentPage += direction;
+    displayPosts();
+  }
+  
+
 </script>
 
 {% endblock %}

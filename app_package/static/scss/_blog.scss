@@ -464,6 +464,37 @@
         width: 50%;
     }
 
+    /* Pagination */
+    .pagination_controls {
+        display: flex;
+        justify-content: center;
+        // margin-top: 20px;
+        padding:2rem;
+        color: var(--primary-text);
+        button {
+          padding: 5px 10px;
+          margin: 0 5px;
+          background-color: var(--bs-dark);
+          color: var(--primary-text);
+          border: none;
+          border-radius: 5px;
+      
+          &:disabled {
+            background-color: var(--bs-gray);
+            // display:none;
+          }
+        }
+      
+        span {
+          margin: 0 10px;
+        }
+        #page_info{
+            // background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+        }
+      }
+
 }
 
 
@@ -525,7 +556,9 @@
         .blogpost_description {
             display:inline;
             color: var(--website_theme_font_color_a_light);
+            opacity:0.6;
             width:100%;
+            padding-left:0.5rem;
         }
 
     }
