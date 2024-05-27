@@ -74,7 +74,7 @@
         {% if current_user.is_authenticated %}  
           <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
         {% endif %}  
-        <li><a href="{{ url_for('bp_support.openmindset') }}"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>  
+        <!-- <li><a href="{ url_for('bp_support.openmindset') }"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>   -->
       </ul>
 
     </div>
@@ -100,7 +100,7 @@
           {% if current_user.is_authenticated %}  
             <li class="li_manage_blogpost"><a href="{{ url_for('bp_blog.manage_blogposts') }}"><i class="fa-solid fa-ghost"></i><span class="li_manage_blogpost_font">Mange blogposts</span></a></li>    
           {% endif %}  
-          <li><a href="{{ url_for('bp_support.openmindset') }}"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>  
+          <!-- <li><a href="{ url_for('bp_support.openmindset') }"><i class="fas fa-question-circle"></i>Open Mindset Support</a></li>   -->
         </ul>
   
       </div>
