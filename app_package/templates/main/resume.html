@@ -1,238 +1,310 @@
-{% extends "_layout.html" %}
-{% block main %}
+{% extends "_layout.html" %} {% block main %}
 <div class="main_super">
+  <div class="resume_page">
+    <div class="div_top_personal_info">
+      <div class="div_left">
+        <div class="div_name">
+          <h1>Nick Rodriguez</h1>
+          <a
+            href="{{ url_for('bp_main.media', filename='resumeNRodriguez.pdf') }}"
+            class="download-button hide_small btn_color_theme"
+            >Download PDF</a
+          >
+          <a
+            href="{{ url_for('bp_main.media', filename='resumeNRodriguez.pdf') }}"
+            class="big_hide"
+            >Download PDF</a
+          >
 
-    <div class="resume_page">
-        <div class="div_top_personal_info">
-            <div class="div_left">
-                <div class="div_name">
-                    <h1>Nick Rodriguez</h1>
-                    <a href="{{ url_for('bp_main.media', filename='resumeNRodriguez.pdf') }}" class="download-button hide_small btn_color_theme">Download PDF</a>
-                    <a href="{{ url_for('bp_main.media', filename='resumeNRodriguez.pdf') }}" class="big_hide">Download PDF</a>
+          <!-- <a href="" class="btn_pdf" ><i class="fa-solid fa-file-pdf"></i></a> -->
+        </div>
+        <div class="div_job_title">
+          <h3>Software Engineer</h3>
+        </div>
+        <div class="div_objective">
+          Entry-level programmer with a passion for software development and
+          problem-solving. Seeking a challenging position in a fast-paced
+          environment where I can use my skills to make a positive impact.
+        </div>
+        <div class="div_skills">
+          <span class="s_text_color_yellow">Skills:</span> JavaScript, React
+          Native, Python, Kivy, Swift, HTML/CSS, SQL, MySQL, MongoDb, AWS, Linux
+          Server, Restful API, Host Web Applications, GitHub
+        </div>
+      </div>
+      <div class="div_contact_details">
+        <div class="div_contact_detail_item">
+          <i class="fa-solid fa-envelope"></i>
+          <span class="div_contact_detail_item_text">nrodrig1@gmail.com</span>
+        </div>
+        <div class="div_contact_detail_item">
+          <i class="fa-solid fa-phone"></i>
+          <span class="div_contact_detail_item_text">+33.07.66.68.03.09</span>
+        </div>
+        <div class="div_contact_detail_item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="div_contact_detail_item_text"
+            >Paris, France (U.S. Citizen)</span
+          >
+        </div>
+        <div class="div_contact_detail_item">
+          <a href="https://iamnick.info" class="div_contact_detail_item_icon"
+            ><i class="fa-solid fa-globe"></i
+          ></a>
+          <span class="div_contact_detail_item_text">nick-rodriguez.info</span>
+        </div>
 
-                    <!-- <a href="" class="btn_pdf" ><i class="fa-solid fa-file-pdf"></i></a> -->
-                </div>
-                <div class="div_job_title">
-                    <h3>Software Engineer</h3>
-                </div>
-                <div class="div_objective">
-                    Entry-level programmer with a passion for software development and problem-solving. Seeking a challenging position in a fast-paced environment where I can use my skills to make a positive impact.
-                </div>
-                <div class="div_skills">
-                    <span class="s_text_color_yellow">Skills:</span> Python, Swift, HTML/CSS, SQL, AWS, Linux Server, Restful API, Hosting Web Applications, Manage DNS, GitHub
-                </div>
-            </div>
-            <div class="div_contact_details">
-                <div class="div_contact_detail_item">
-                    <i class="fa-solid fa-envelope"></i> <span class="div_contact_detail_item_text">nrodrig1@gmail.com</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <i class="fa-solid fa-phone"></i> <span class="div_contact_detail_item_text">+33.07.66.68.03.09</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <i class="fa-solid fa-location-dot"></i> <span class="div_contact_detail_item_text">Paris, France (U.S. Citizen)</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <a href="https://iamnick.info"class="div_contact_detail_item_icon"><i class="fa-solid fa-globe"></i></a> 
-                    <span class="div_contact_detail_item_text">nick-rodriguez.info</span>
-                </div>
+        <div class="div_contact_detail_item">
+          <a
+            href="https://github.com/costa-rica"
+            class="div_contact_detail_item_icon"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          <span class="div_contact_detail_item_text"
+            >github.com/costa-rica</span
+          >
+        </div>
+        <div class="div_contact_detail_item">
+          <a
+            href="https://stackoverflow.com/users/11925053/costa-rica"
+            class="div_contact_detail_item_icon"
+            ><i class="fa-brands fa-stack-overflow"></i
+          ></a>
+          <span class="div_contact_detail_item_text">costa-rica</span>
+        </div>
+        <div class="div_contact_detail_item">
+          <a
+            href="https://www.linkedin.com/in/nick-rodriguez-0a31a133"
+            class="div_contact_detail_item_icon"
+          >
+            <i class="fa-brands fa-linkedin"></i
+          ></a>
+          <span class="div_contact_detail_item_text">Nick Rodriguez</span>
+        </div>
+        <div class="div_contact_detail_item">
+          <a
+            href="https://medium.com/@nrodrig1"
+            class="div_contact_detail_item_icon"
+          >
+            <i class="fa-brands fa-medium"></i
+          ></a>
+          <span class="div_contact_detail_item_text">@nrodrig1</span>
+        </div>
 
-
-                <div class="div_contact_detail_item">
-                    <a href="https://github.com/costa-rica" 
-                    class="div_contact_detail_item_icon"><i class="fa-brands fa-github"></i></a> 
-                    <span class="div_contact_detail_item_text">github.com/costa-rica</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <a href="https://stackoverflow.com/users/11925053/costa-rica" 
-                    class="div_contact_detail_item_icon"><i class="fa-brands fa-stack-overflow"></i></a> 
-                    <span class="div_contact_detail_item_text">costa-rica</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <a href="https://www.linkedin.com/in/nick-rodriguez-0a31a133" 
-                    class="div_contact_detail_item_icon">
-                    <i class="fa-brands fa-linkedin"></i></a> 
-                    <span class="div_contact_detail_item_text">Nick Rodriguez</span>
-                </div>
-                <div class="div_contact_detail_item">
-                    <a href="https://medium.com/@nrodrig1" 
-                    class="div_contact_detail_item_icon">
-                    <i class="fa-brands fa-medium"></i></a> 
-                    <span class="div_contact_detail_item_text">@nrodrig1</span>
-                </div>
-
-
-
-
-                <!-- <div class="div_contact_detail_item">
+        <!-- <div class="div_contact_detail_item">
                     <i class="fa-brands fa-stack-overflow"></i> 
                     <a href="https://stackoverflow.com/users/11925053/costa-rica" class="div_contact_detail_item_text">costa-rica</a>
                 </div> -->
-                <!-- <div class="div_contact_detail_item">
+        <!-- <div class="div_contact_detail_item">
                     <i class="fa-brands fa-linkedin"></i> 
                     <a href="https://www.linkedin.com/in/nick-rodriguez-0a31a133" class="div_contact_detail_item_text">Nick Rodriguez</a>
                 </div> -->
-                <!-- <div class="div_contact_detail_item">
+        <!-- <div class="div_contact_detail_item">
                     <i class="fa-brands fa-medium"></i>
                     <a href="https://medium.com/@nrodrig1" class="div_contact_detail_item_text">@nrodrig1</a>
                 </div> -->
-            </div>
-
-        </div>
-        <hr>
-        <div class="div_projects">
-            <div class="div_projects_title"><h2>Projects</h2></div>
-
-
-            <div class="div_project">
-                <div class="div_title_and_url">
-                    <div class="title">
-                        <a href="https://what-sticks.com/"><h3>What-Sticks</h3></a>
-                    </div>
-                </div>
-                <div class="div_project_description">
-                    Personal data storage platform with statistical feedback to measure user tendencies. 
-                </div>
-                <div class="div_project_technolgies">
-                    Technologies used: Swift, Python, HTML/CSS, restful API, and MySQL database.
-                </div>
-                <div class="div_project_other_details">
-                    <u>Apple App Store search</u>: <a href="https://apps.apple.com/us/app/what-sticks-12/id6498888495"><b>What Sticks 12</b></a>.
-                </div>
-            </div><!-- div_project -->
-
-
-            <div class="div_project">
-                <div class="div_title_and_url">
-                    <div class="title">
-                        <a href="https://github.com/amwebexpert/poc-mobile-python"><h3>Open Mindset</h3></a>
-                    </div>
-                </div>
-                <div class="div_project_description">
-                    Lead the conversion of 'Open Mindset', a Python-based multi-platform application, into Xcode. 
-                    Actively contributed to codebase enhancements and bug fixes, leading to successful pull requests; 
-                    played a pivotal role in the deployment process for the Apple App Store.
-                </div>
-                <div class="div_project_technolgies">
-                    Technologies used: Python, Xcode, Github, kivy-ios toolchain. 
-                </div>
-                <div class="div_project_other_details">
-                    <u>Apple App Store search</u>: <a href="https://apps.apple.com/us/app/open-mindset/id6467103164"><b>open mindset</b></a>.
-                </div>
-            </div><!-- div_project -->
-
-            <div class="div_project">
-                <div class="div_title_and_url">
-                    <div class="title">
-                        <a href="https://nhtsa-dash.kineticmetrics.com/"><h3>NHTSA Dashboard</h3></a>
-                    </div>
-                </div>
-                <div class="div_project_description">
-                    Interface built for Kinetic Metrics to merge National Highway Traffic and Safety Administration (NHTSA) Recalls and Investigation data with their internal research. 
-                </div>
-                <div class="div_project_technolgies">
-                    Technologies used: Flask Python, HTML/CSS and SQLite database.
-                </div>
-            </div><!-- div_project -->
-
-
-        </div><!-- div_projects -->
-        <hr>
-        <div class="div_experiences">
-            <div class="div_experiences_title"><h2>Work Experience</h2></div>
-
-            <div class="div_experience">
-                <div class="div_company_title_dates">
-                    <div class="company_title">
-                        Freelance <i>Software Engineer</i>
-                    </div>
-                    <div class="dates">
-                        2020 - Present
-                    </div>
-                </div><!-- div_company_title_dates -->
-                <div class="description">
-                    Built various products in attempt to get users and other freelance work. 
-                </div>
-            </div><!-- div_experience -->
-
-            <div class="div_experience">
-                <div class="div_company_title_dates">
-                    <div class="company_title">
-                        US Department of Navy <i>Economist</i>
-                    </div>
-                    <div class="dates">
-                        2012 - 2020
-                    </div>
-
-                </div><!-- div_company_title_dates -->
-                <div class="description">
-                    In my latest role I was an integral part of a small team modernizing the Navy’s negotiating tactics - using large data model of millions of parts to contest and negotiate contractor proposal estimates. Built and modified large data models. Industry analysis forecasting price growth. Developed indices used Navy wide to estimate cost growth and ultimately used in US Federal budget. 
-                </div>
-            </div><!-- div_experience -->
-
-            <div class="div_experience">
-                <div class="div_company_title_dates">
-                    <div class="company_title">
-                        ICF International <i>Economist</i>
-                    </div>
-                    <div class="dates">
-                        2009 - 2012
-                    </div>
-
-                </div><!-- div_company_title_dates -->
-                <div class="description">
-                    Forecasted electricity markets using ICF International's proprietary linear program model of US electricity markets. I led in various modeling preparation efforts, contributed to the analysis of results, and wrote reports. Client projects included power plant valuations, energy price forecasts, market share forecasts, and various other indicators. Contributed to testing of model upgrade to .net framework.
-                </div>
-            </div><!-- div_experience -->
-
-            <div class="div_experience">
-                <div class="div_company_title_dates">
-                    <div class="company_title">
-                        HDR <i>Economist</i>
-                    </div>
-                    <div class="dates">
-                        2007 - 2008
-                    </div>
-
-                </div><!-- div_company_title_dates -->
-                <div class="description">
-                    Modeled cost and risk of public infrastructure projects.
-                </div>
-            </div><!-- div_experience -->
-
-            <div class="div_experience">
-                <div class="div_company_title_dates">
-                    <div class="company_title">
-                        Department of Energy (Energy Information Administration) <i>Economist</i>
-                    </div>
-                    <div class="dates">
-                        2005 - 2007
-                    </div>
-
-                </div><!-- div_company_title_dates -->
-                <div class="description">
-                    Assisted data collection of electricity retail sales. Worked on special projects analyzing the impact of "deregulation" of US wholesale and retail electricity markets.
-                </div>
-            </div><!-- div_experience -->
-
-
-        </div><!-- div_experiences-->
-
-        <hr>
-        <div class="div_education">
-            <div class="div_education_title"><h2>Education</h2></div>
-            <div class="div_education_sub">
-                <div class="div_degree_and_school">
-                    BA and MA Economics George Mason University (Fairfax, VA)  
-                </div>
-                <div class="dates">1999-2006</div>
-            </div>
-
-        </div>
-
-
-
+      </div>
     </div>
-</div><!-- main_super -->
+    <hr />
+    <div class="div_projects">
+      <div class="div_projects_title"><h2>Projects</h2></div>
+
+      <div class="div_project">
+        <div class="div_title_and_url">
+          <div class="title">
+            <a href="https://what-sticks.com/"><h3>What-Sticks</h3></a>
+          </div>
+        </div>
+        <div class="div_project_description">
+          Personal data storage platform with statistical feedback to measure
+          user tendencies.
+        </div>
+        <div class="div_project_technolgies">
+          Technologies used: Swift, Python, HTML/CSS, restful API, and MySQL
+          database.
+        </div>
+        <div class="div_project_other_details">
+          <u>Apple App Store search</u>:
+          <a href="https://apps.apple.com/us/app/what-sticks/id6670183165"
+            ><b>What Sticks</b></a
+          >.
+        </div>
+      </div>
+      <!-- div_project -->
+
+      <div class="div_project">
+        <div class="div_title_and_url">
+          <div class="title">
+            <a href="https://github.com/amwebexpert/poc-mobile-python"
+              ><h3>Open Mindset</h3></a
+            >
+          </div>
+        </div>
+        <div class="div_project_description">
+          Lead the conversion of 'Open Mindset', a Python-based multi-platform
+          application, into Xcode. Actively contributed to codebase enhancements
+          and bug fixes, leading to successful pull requests; played a pivotal
+          role in the deployment process for the Apple App Store.
+        </div>
+        <div class="div_project_technolgies">
+          Technologies used: Python, Xcode, Github, kivy-ios toolchain.
+        </div>
+        <div class="div_project_other_details">
+          <u>Apple App Store search</u>:
+          <a href="https://apps.apple.com/us/app/open-mindset/id6467103164"
+            ><b>open mindset</b></a
+          >.
+        </div>
+      </div>
+      <!-- div_project -->
+
+      <div class="div_project">
+        <div class="div_title_and_url">
+          <div class="title">
+            <a href="https://nhtsa-dash.kineticmetrics.com/"
+              ><h3>NHTSA Dashboard</h3></a
+            >
+          </div>
+        </div>
+        <div class="div_project_description">
+          Interface built for Kinetic Metrics to merge National Highway Traffic
+          and Safety Administration (NHTSA) Recalls and Investigation data with
+          their internal research.
+        </div>
+        <div class="div_project_technolgies">
+          Technologies used: Flask Python, HTML/CSS and SQLite database.
+        </div>
+      </div>
+      <!-- div_project -->
+      <div class="div_project">
+        <div class="div_title_and_url">
+          <div class="title">
+            <a
+              href="https://expo.dev/preview/update?message=replaced%20app.json%3B%20added%20eas.json%3Badded%20eas%20secret%20for%20api%20url%20with%20an%20extra%20backslash%3B%20removed%20first%20backslash%20after%20each%20proce&updateRuntimeVersion=1.0.0&createdAt=2024-11-20T18%3A34%3A04.146Z&slug=exp&projectId=1944ef92-24d6-4fe6-bb3e-35b3c2f150cd&group=136b32a3-759d-44c9-b033-00600aa69ef9"
+              ><h3>ProjectBaby</h3></a
+            >
+          </div>
+        </div>
+        <div class="div_project_description">
+          Application to help manage pregnancey. Android and iOS mobile
+          application deployed on Expo Go.
+        </div>
+        <div class="div_project_technolgies">
+          Technologies used: JavaScript, React Native, MongoDb, Expo Go, Github.
+        </div>
+        <div class="div_project_other_details">
+          <u>Expo Go</u> (Android and iOS):
+          <a
+            href="https://expo.dev/preview/update?message=replaced%20app.json%3B%20added%20eas.json%3Badded%20eas%20secret%20for%20api%20url%20with%20an%20extra%20backslash%3B%20removed%20first%20backslash%20after%20each%20proce&updateRuntimeVersion=1.0.0&createdAt=2024-11-20T18%3A34%3A04.146Z&slug=exp&projectId=1944ef92-24d6-4fe6-bb3e-35b3c2f150cd&group=136b32a3-759d-44c9-b033-00600aa69ef9"
+            ><b>PojectBaby</b></a
+          >.
+        </div>
+      </div>
+    </div>
+    <!-- div_projects -->
+    <hr />
+    <div class="div_experiences">
+      <div class="div_experiences_title"><h2>Work Experience</h2></div>
+
+      <div class="div_experience">
+        <div class="div_company_title_dates">
+          <div class="company_title">Freelance <i>Software Engineer</i></div>
+          <div class="dates">2020 - Present</div>
+        </div>
+        <!-- div_company_title_dates -->
+        <div class="description">
+          Built various products in attempt to get users and other freelance
+          work.
+        </div>
+      </div>
+      <!-- div_experience -->
+
+      <div class="div_experience">
+        <div class="div_company_title_dates">
+          <div class="company_title">
+            US Department of Navy <i>Economist</i>
+          </div>
+          <div class="dates">2012 - 2020</div>
+        </div>
+        <!-- div_company_title_dates -->
+        <div class="description">
+          In my latest role I was an integral part of a small team modernizing
+          the Navy’s negotiating tactics - using large data model of millions of
+          parts to contest and negotiate contractor proposal estimates. Built
+          and modified large data models. Industry analysis forecasting price
+          growth. Developed indices used Navy wide to estimate cost growth and
+          ultimately used in US Federal budget.
+        </div>
+      </div>
+      <!-- div_experience -->
+
+      <div class="div_experience">
+        <div class="div_company_title_dates">
+          <div class="company_title">ICF International <i>Economist</i></div>
+          <div class="dates">2009 - 2012</div>
+        </div>
+        <!-- div_company_title_dates -->
+        <div class="description">
+          Forecasted electricity markets using ICF International's proprietary
+          linear program model of US electricity markets. I led in various
+          modeling preparation efforts, contributed to the analysis of results,
+          and wrote reports. Client projects included power plant valuations,
+          energy price forecasts, market share forecasts, and various other
+          indicators. Contributed to testing of model upgrade to .net framework.
+        </div>
+      </div>
+      <!-- div_experience -->
+
+      <div class="div_experience">
+        <div class="div_company_title_dates">
+          <div class="company_title">HDR <i>Economist</i></div>
+          <div class="dates">2007 - 2008</div>
+        </div>
+        <!-- div_company_title_dates -->
+        <div class="description">
+          Modeled cost and risk of public infrastructure projects.
+        </div>
+      </div>
+      <!-- div_experience -->
+
+      <div class="div_experience">
+        <div class="div_company_title_dates">
+          <div class="company_title">
+            Department of Energy (Energy Information Administration)
+            <i>Economist</i>
+          </div>
+          <div class="dates">2005 - 2007</div>
+        </div>
+        <!-- div_company_title_dates -->
+        <div class="description">
+          Assisted data collection of electricity retail sales. Worked on
+          special projects analyzing the impact of "deregulation" of US
+          wholesale and retail electricity markets.
+        </div>
+      </div>
+      <!-- div_experience -->
+    </div>
+    <!-- div_experiences-->
+
+    <hr />
+    <div class="div_education">
+      <div class="div_education_title"><h2>Education</h2></div>
+      <div class="div_education_sub">
+        <div class="div_degree_and_school">
+          La Capsule JavaScript Full-Stack Web Developer Bootcamp (Paris,
+          France)
+        </div>
+        <div class="dates">2024</div>
+      </div>
+      <div class="div_education_sub">
+        <div class="div_degree_and_school">
+          BA and MA Economics George Mason University (Fairfax, VA)
+        </div>
+        <div class="dates">1999-2006</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- main_super -->
 
 {% endblock %}
