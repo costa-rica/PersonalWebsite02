@@ -49,7 +49,7 @@ TEMPORARILY_DOWN=0
 ```env
 DATABASE_ROOT = /Users/nick/Documents/_databases/PersonalWebsite02/
 PROJECT_ROOT = /Users/nick/Documents/PersonalWebsite02/
-PROJECT_RESOURCES_ROOT = "/Users/nick/Documents/_project_resources/PersonalWebsite02/PersonalWebsite02/"
+PROJECT_RESOURCES_ROOT = /Users/nick/Documents/_project_resources/PersonalWebsite02/
 CONFIG_ROOT=/Users/nick/Documents/_config_files/
 CONFIG_FILE_NAME="config_personalWebsite02.json"
 FLASK_CONFIG_TYPE='dev'
