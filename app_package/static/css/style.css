@@ -820,7 +820,8 @@
   padding-top: 2rem;
   height: 100vh;
 }
-.home_page .col_1, .home_page .col_2 {
+.home_page .col_1,
+.home_page .col_2 {
   display: flex;
   justify-content: center;
   color: var(--primary-text);
@@ -881,13 +882,15 @@
   align-items: center;
   height: 100vh;
 }
-.about_page .col_1, .about_page .col_2 {
+.about_page .col_1,
+.about_page .col_2 {
   display: flex;
   justify-content: center;
   color: var(--primary-text);
   width: 100%;
 }
-.about_page .col_1_sub, .about_page .col_2_sub {
+.about_page .col_1_sub,
+.about_page .col_2_sub {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
@@ -942,6 +945,7 @@
   background-color: var(--tertiary-background);
   border-radius: 0.3rem;
   padding: 0.5rem;
+  margin-top: 0.3rem;
 }
 .resume_page .s_text_color_yellow {
   color: var(--hightlights);
@@ -1012,7 +1016,8 @@
   .home_page {
     padding-top: 0;
   }
-  .home_page .col_1, .home_page .col_2 {
+  .home_page .col_1,
+  .home_page .col_2 {
     flex: 1;
     align-items: center;
   }
@@ -1021,7 +1026,8 @@
     flex: 1;
     flex-wrap: nowrap;
   }
-  .about_page .col_1, .about_page .col_2 {
+  .about_page .col_1,
+  .about_page .col_2 {
     flex: 1;
     align-items: center;
   }
@@ -1032,7 +1038,8 @@
     display: flex;
     gap: 1rem;
   }
-  .resume_page .div_company_title_dates, .resume_page .div_education_sub {
+  .resume_page .div_company_title_dates,
+  .resume_page .div_education_sub {
     display: flex;
     justify-content: space-between;
   }
