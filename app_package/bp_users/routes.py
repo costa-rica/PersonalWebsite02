@@ -21,7 +21,6 @@ from app_package._common.utilities import custom_logger, wrap_up_session
 
 
 logger_bp_users = custom_logger('bp_users.log')
-salt = bcrypt.gensalt()
 bp_users = Blueprint('bp_users', __name__)
 # sess_users = dict_sess['sess_users']
 
@@ -107,10 +106,10 @@ def register():
             flash(f'The email you entered already exists you can sign in or try another email.', 'warning')
             return redirect(url_for('bp_users.register'))
 
-        hash_pw = bcrypt.hashpw(formDict.get('password').encode(), salt)
+        hash_pw = bcrypt.hashpw(formDict.get('password').encode(), bcrypt.gensalt())
         new_user = Users(email = new_email, password = hash_pw)
         db_session.add(new_user)
-        # db_session.commit()
+        # db_session.commit() - teardown_appcontext will auto-commit
 
         # # /check_invite_json
         # headers = {'Content-Type': 'application/json'}
@@ -171,12 +170,14 @@ def reset_token(token):
         flash('That is an invalid or expired token', 'warning')
         return redirect(url_for('bp_users.reset_password'))
     if request.method == 'POST':
-
+        db_session = g.db_session
         formDict = request.form.to_dict()
         if formDict.get('password_text') != '':
-            hash_pw = bcrypt.hashpw(formDict.get('password_text').encode(), salt)
-            user.password = hash_pw
-            # sess_users.commit()
+            # Re-query user with active session to avoid detached object issue
+            active_user = db_session.query(Users).filter_by(id=user.id).first()
+            hash_pw = bcrypt.hashpw(formDict.get('password_text').encode(), bcrypt.gensalt())
+            active_user.password = hash_pw
+            # teardown_appcontext will auto-commit
             flash('Password successfully updated', 'info')
             return redirect(url_for('bp_users.login'))
         else:
