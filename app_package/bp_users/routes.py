@@ -151,7 +151,7 @@ def reset_password():
         user = db_session.query(Users).filter_by(email=email).first()
         if user:
         # send_reset_email(user)
-            logger_bp_users.info('Email reaquested to reset: ', email)
+            logger_bp_users.info(f'Email reaquested to reset: {email}')
             send_reset_email(user)
             flash('Email has been sent with instructions to reset your password','info')
             # return redirect(url_for('bp_users.login'))
@@ -166,7 +166,7 @@ def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for('bp_main.user_home'))
     user = Users.verify_reset_token(token)
-    logger_bp_users.info('user::', user)
+    logger_bp_users.info(f'user:: {user}')
     if user is None:
         flash('That is an invalid or expired token', 'warning')
         return redirect(url_for('bp_users.reset_password'))
