@@ -26,6 +26,17 @@
 
         </div><!-- col_1 -->
 
+        {% if recent_activities %}
+        <div class="col_recent_activities">
+            <div class="recent_activities_container">
+                <h2 class="recent_activities_title">What I've Been Up To Lately</h2>
+                <div class="recent_activities_content">
+                    {{ recent_activities }}
+                </div>
+            </div>
+        </div><!-- col_recent_activities -->
+        {% endif %}
+
         <div class="col_2">
             <div class="col_2_sub">
                 <span class="s_hi_big">

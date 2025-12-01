@@ -61,6 +61,36 @@
     justify-content: center;
     gap: 1rem;
   }
+
+  .col_recent_activities {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    order: 2;
+    align-items: flex-start;
+  }
+
+  .recent_activities_container {
+    width: 80%;
+    background-color: var(--tertiary-background);
+    border-left: 4px solid var(--hightlights);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    max-width: 80%;
+  }
+
+  .recent_activities_title {
+    color: var(--hightlights);
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .recent_activities_content {
+    color: var(--primary-text);
+    line-height: 1.6;
+  }
 }
 
 .about_page {
@@ -225,10 +255,19 @@
 @media screen and (min-width: 768px) {
   .home_page {
     padding-top: 0;
-    .col_1,
+    .col_1 {
+      flex: 1;
+      align-items: center;
+      order: 1;
+    }
     .col_2 {
       flex: 1;
       align-items: center;
+      order: 2;
+    }
+    .col_recent_activities {
+      order: 3;
+      flex-basis: 100%;
     }
   }
 
