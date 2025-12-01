@@ -2,6 +2,14 @@
 
 ![nick-rodriguez.info Logo](https://nick-rodriguez.info/website_assets_favicon/logo02_whiteBck-180x112.png)
 
+## Update styling
+
+The app uses SASS to compile the styles. After updating the styles in app_package/static/scss/, run the following command (from inside the static/ directory) to compile the styles:
+
+```bash
+sass --watch scss:css
+```
+
 ## Documentation
 
 ### To post blogs

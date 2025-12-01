@@ -78,6 +78,35 @@ Custom logging implementation (app_package/_common/utilities.py:36-92):
 - Logs stored in PROJECT_ROOT/logs/
 - Timezone-aware logging (Europe/Paris)
 
+## Styling and Frontend Assets
+
+**IMPORTANT:** This application uses SASS/SCSS for styling. All style modifications should be made to the source SCSS files in `app_package/static/scss/`, NOT directly to the compiled CSS files.
+
+### SCSS Structure
+
+- **Source files**: `app_package/static/scss/`
+  - `style.scss`: Main SCSS file that imports all partials
+  - `_main.scss`: Styles for main pages (home, about, resume, etc.)
+  - `_navbar.scss`: Navigation styles
+  - `_buttons.scss`: Button styles
+  - `_users.scss`: User authentication pages
+  - `_blog.scss`: Blog-related styles
+  - `_support.scss`: Support pages
+  - `_admin.scss`: Admin pages
+
+- **Compiled output**: `app_package/static/css/`
+  - `style.css`: Compiled CSS (auto-generated, do not edit directly)
+  - `style.css.map`: Source map for debugging
+
+### Workflow for Style Changes
+
+1. Modify the appropriate SCSS file in `app_package/static/scss/`
+2. Compile SCSS to CSS using the Sass compiler:
+   ```bash
+   sass app_package/static/scss/style.scss app_package/static/css/style.css
+   ```
+3. The compiled CSS will be automatically used by the application
+
 ## Blog Posting Workflow
 
 The blog system has a specific workflow for creating posts (from README.md):
