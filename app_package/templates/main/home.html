@@ -33,6 +33,16 @@
                 <div class="recent_activities_content">
                     {{ recent_activities }}
                 </div>
+
+                {% if project_time_data %}
+                <div class="terminal_table_container">
+                    <pre class="terminal_table">+----------------------------------+---------------------+
+| Project                          | Last 7 Days (hours) |
++----------------------------------+---------------------+
+{% for project in project_time_data %}| {{ (project.name[:32]).ljust(32) }} | {{ ("%0.1f" % project.hours).rjust(19) }} |
+{% endfor %}+----------------------------------+---------------------+</pre>
+                </div>
+                {% endif %}
             </div>
         </div><!-- col_recent_activities -->
         {% endif %}

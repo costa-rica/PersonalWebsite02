@@ -4,6 +4,7 @@ from flask import render_template, send_from_directory, current_app, url_for,  \
 from flask_login import login_required, login_user, logout_user, current_user
 import os
 import jinja2
+import csv
 from app_package._common.utilities import custom_logger, wrap_up_session
 
 logger_bp_main = custom_logger('bp_main.log')
@@ -31,7 +32,32 @@ def home():
     except Exception as e:
         logger_bp_main.error(f"Error reading recent activities summary: {str(e)}")
 
-    return render_template('main/home.html', recent_activities=recent_activities)
+    # Read project time entries
+    project_time_data = None
+    try:
+        project_resources_root = current_app.config.get('PROJECT_RESOURCES_ROOT')
+        csv_file_path = os.path.join(project_resources_root, 'toggl-service', 'project_time_entries.csv')
+        logger_bp_main.info(f"---- WE ARE HERE ----")
+
+        if os.path.exists(csv_file_path):
+            with open(csv_file_path, 'r', encoding='utf-8') as f:
+                csv_reader = csv.DictReader(f)
+                projects = []
+                for row in csv_reader:
+                    projects.append({
+                        'name': row['project_name'],
+                        'hours': float(row['total_hours'])
+                    })
+                # Sort alphabetically by project name
+                projects.sort(key=lambda x: x['name'])
+                project_time_data = projects
+            logger_bp_main.info(f"Successfully loaded project time entries from {csv_file_path}")
+        else:
+            logger_bp_main.warning(f"Project time entries file not found: {csv_file_path}")
+    except Exception as e:
+        logger_bp_main.error(f"Error reading project time entries: {str(e)}")
+
+    return render_template('main/home.html', recent_activities=recent_activities, project_time_data=project_time_data)
 
 @bp_main.route("/about", methods=["GET","POST"])
 def about():

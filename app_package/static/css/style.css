@@ -901,6 +901,24 @@
   color: var(--primary-text);
   line-height: 1.6;
 }
+.home_page .terminal_table_container {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.home_page .terminal_table {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+  color: #ffffff;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  overflow-x: auto;
+  color: #b0b0b0;
+  white-space: pre;
+}
 
 .about_page {
   display: flex;
